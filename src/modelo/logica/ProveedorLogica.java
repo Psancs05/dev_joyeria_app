@@ -1,5 +1,7 @@
 package modelo.logica;
 
+import modelo.DAO.ProveedorDAO;
+
 public class ProveedorLogica {
     private ProveedorDAO proveedorDAO;
 
@@ -7,4 +9,5 @@ public class ProveedorLogica {
         this.proveedorDAO = proveedorDAO;
     }
 
-// TODO: generar metodos
+    // TODO: generar metodos
+}

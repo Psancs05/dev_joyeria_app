@@ -2,6 +2,9 @@ package helpers;
 
 import com.itextpdf.text.Document;
 
+import modelo.VO.ProductoVO;
+import modelo.VO.VentaVO;
+
 public class PDFHelper {
     public Document generarPDFEtiqueta(ProductoVO producto) {
         throw new UnsupportedOperationException();

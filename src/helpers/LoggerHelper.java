@@ -1,6 +1,8 @@
 package helpers;
 
-public class LoggerHelper {
+import globals.MiSingleton;
+
+public class LoggerHelper extends MiSingleton {
     public void registrarLog(String msg) {
         // TODO: implement
     }

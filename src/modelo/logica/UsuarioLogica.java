@@ -1,9 +1,13 @@
 package modelo.logica;
 
+import globals.enums.TipoUsuario;
+import modelo.DAO.UsuarioDAO;
+import modelo.VO.UsuarioVO;
+
 public class UsuarioLogica {
     private UsuarioDAO usuarioDAO;
 
-    public UsuarioLogica(UsuarioDao usuarioDAO) {
+    public UsuarioLogica(UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
 
