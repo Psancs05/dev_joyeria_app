@@ -58,4 +58,44 @@ public class UsuarioVO {
         this.tipoUsuario = tipoUsuario;
     }
 
+    @Override
+    public String toString() {
+        return "UsuarioVO [DNI=" + DNI + ", email=" + email + ", nombre=" + nombre + ", password=" + password
+                + ", tipoUsuario=" + tipoUsuario + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UsuarioVO other = (UsuarioVO) obj;
+        if (DNI == null) {
+            if (other.DNI != null)
+                return false;
+        } else if (!DNI.equals(other.DNI))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
+            return false;
+        if (tipoUsuario != other.tipoUsuario)
+            return false;
+        return true;
+    }
+
 }
