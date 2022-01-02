@@ -22,4 +22,10 @@ public class VentaDAO extends MiSingleton implements DAO {
         throw new UnsupportedOperationException();
         // TODO: Implement
     }
+
+    @Override
+    public boolean exist(Object objeto) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
