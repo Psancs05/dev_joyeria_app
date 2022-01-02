@@ -7,6 +7,7 @@ import modelo.VO.UsuarioVO;
 public class UsuarioLogica {
     private static UsuarioLogica miUsuarioLogica;
     private UsuarioDAO usuarioDAO;
+    private UsuarioVO usuarioActivo;
 
     public static UsuarioLogica getInstance() {
         if (miUsuarioLogica == null) {
@@ -21,6 +22,10 @@ public class UsuarioLogica {
 
     public boolean comprobarUsuario(String dni, String password) {
         boolean response = this.usuarioDAO.autenticarUsuario(dni, password);
+        UsuarioVO usuario = (UsuarioVO) usuarioDAO.search(new UsuarioVO(dni, ".", ".", password, TipoUsuario.CAJERO));
+        if(response) {
+        	this.usuarioActivo = usuario;
+        }
         return response;
     }
 
@@ -31,15 +36,11 @@ public class UsuarioLogica {
     public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
-        boolean response = this.usuarioDAO.create(nuevoUsuario);
+        boolean response = this.usuarioDAO.create(nuevoUsuario); //no vale para nada
 
         System.out.println("Usuario registrado: " + nuevoUsuario.toString());
 
-        if (response) {
-            return nuevoUsuario;
-        } else {
-            return nuevoUsuario;
-        }
+        return nuevoUsuario;
     }
 
     public void actualizarUsuario(UsuarioVO usarioAntiguo, String nombre, String email, String password,
@@ -62,5 +63,13 @@ public class UsuarioLogica {
         boolean response = this.usuarioDAO.delete(usuario);
         return response;
     }
+
+	public UsuarioVO getUsuarioActivo() {
+		return usuarioActivo;
+	}
+
+	public void setUsuarioActivo(UsuarioVO usuarioActivo) {
+		this.usuarioActivo = usuarioActivo;
+	}
 
 }

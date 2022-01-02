@@ -22,6 +22,7 @@ public class UsuarioLogicaTest {
     public void testRegistrarUsuario() {
         UsuarioVO usuario = userLogic.registrarUsuario(dni, nombre, email, password, tipoUsuario);
         assertNotNull(usuario);
+        assertNotNull(this.userLogic.getUsuarioActivo());
         userLogic.retirarUsuario(usuario);
     }
 
