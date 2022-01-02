@@ -85,7 +85,7 @@ public class TestsUsuarioDAO {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         String randomPass = getAlphaNumericString(10);
         String passAntigua = usuario1.getPassword();
         usuario1.setPassword(randomPass);
@@ -99,17 +99,29 @@ public class TestsUsuarioDAO {
     }
 
     @Test
-    public void testUpdateNoExist(){
+    public void testUpdateNoExist() {
         UsuarioVO usuarioNoExiste = new UsuarioVO("sdadasda", "nombre", "email", "password", TipoUsuario.CAJERO);
         assertFalse(userDAO.update(usuarioNoExiste));
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         userDAO.create(usuario2);
         assertTrue(userDAO.exist(usuario2));
         userDAO.delete(usuario2);
         assertFalse(userDAO.exist(usuario2));
         assertFalse(userDAO.update(usuario2));
+    }
+
+    @Test
+    public void testAutenticarUsuarioCorrecto() {
+        userDAO.create(usuario1);
+        assertTrue(userDAO.autenticarUsuario("12345678N", "rootroot"));
+    }
+
+    @Test
+    public void testAutenticarUsuarioIncorrecto() {
+        userDAO.create(usuario1);
+        assertFalse(userDAO.autenticarUsuario("12345678N", "asd"));
     }
 }

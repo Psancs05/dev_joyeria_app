@@ -239,4 +239,22 @@ public class UsuarioDAO implements DAO {
         }
     }
 
+    public boolean autenticarUsuario(String dni, String password) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Statement st = con.createStatement();
+            ResultSet rs = st
+                    .executeQuery("SELECT * FROM usuario WHERE DNI='" + dni + "' AND Password='" + password + "'");
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
