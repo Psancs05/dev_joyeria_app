@@ -8,4 +8,6 @@ public interface DAO {
     public boolean update(Object objeto);
 
     public boolean delete(Object objeto);
+
+    public boolean exist(Object objeto);
 }
