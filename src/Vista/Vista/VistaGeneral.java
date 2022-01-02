@@ -5,6 +5,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import LogicaNegocio.UsuarioControlador;
+import Vista.Backup.CrearBackupVista;
+import Vista.Backup.RestaurarBackupVista;
+import Vista.Catalogo.CatalogoVista;
+import Vista.Catalogo.FiltrarVista;
+import Vista.Facturas.ListadoFacturasVista;
+import Vista.Producto.CRUDProductoVista;
+import Vista.Producto.DetallesProductoVista;
+import Vista.Producto.ListaEtiquetasVista;
+import Vista.Proveedor.CRUDProveedorVista;
+import Vista.Usuario.CRUDUsuarioVista;
+import Vista.Usuario.LoginVista;
+import Vista.Venta.VentaVista;
+import modelo.logica.VentaLogica;
+
 import javax.swing.JMenu;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -15,11 +31,11 @@ import java.awt.Color;
 public class VistaGeneral {
 
 	private JFrame frame;
-
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	 public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -60,11 +76,21 @@ public class VistaGeneral {
 		menuBar.add(UsuarioMenuItem);
 
 		JMenuItem aniadirUsuario = new JMenuItem("Aniadir");
+		aniadirUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioControlador.getInstance().mostrarAniadir();
+			}
+		});
 		aniadirUsuario.setBackground(new Color(128, 128, 128));
 		aniadirUsuario.setForeground(new Color(255, 255, 255));
 		UsuarioMenuItem.add(aniadirUsuario);
 
 		JMenuItem modificarUsuario = new JMenuItem("Modificar");
+		modificarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioControlador.getInstance().mostrarModificar();
+			}
+		});
 		modificarUsuario.setForeground(new Color(255, 255, 255));
 		modificarUsuario.setBackground(new Color(128, 128, 128));
 		UsuarioMenuItem.add(modificarUsuario);
