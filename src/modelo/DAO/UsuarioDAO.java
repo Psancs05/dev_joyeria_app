@@ -4,11 +4,19 @@ import java.sql.*;
 
 import com.itextpdf.text.log.SysoLogger;
 
-import globals.MiSingleton;
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
 
-public class UsuarioDAO extends MiSingleton implements DAO {
+public class UsuarioDAO implements DAO {
+
+    private static UsuarioDAO miUsuarioDAO;
+
+    public static UsuarioDAO getInstance() {
+        if (miUsuarioDAO == null) {
+            miUsuarioDAO = new UsuarioDAO();
+        }
+        return miUsuarioDAO;
+    }
 
     /**
      * @param object el objeto de tipo UsuarioVO que queremos introducir en la BBDD.
@@ -39,7 +47,12 @@ public class UsuarioDAO extends MiSingleton implements DAO {
             con.close();
             return true;
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // se ha intentado introducir dos veces lo mismo (misma PK)
+            System.out.println(e);
+            return false;
         } catch (Exception e) {
+
             System.out.println(e);
             return false;
         }
@@ -84,14 +97,146 @@ public class UsuarioDAO extends MiSingleton implements DAO {
         }
     }
 
+    /**
+     * @param objeto objeto con los parametros modificados pero con la misma PK
+     * @return boolean si la operacion se ha realizado con exito o no. Si no existe
+     *         ese objeto en la bbdd devolvera false (no se ha encontrado la PK)
+     */
     public boolean update(Object objeto) {
-        throw new UnsupportedOperationException();
-        // TODO: Implement
+
+        // sacamos info del usuario pasado como parametro
+        UsuarioVO usuarioMod = (UsuarioVO) objeto;
+        // comprobamos si esta en la BBDD
+        if (!exist(usuarioMod)) {
+            return false;
+        }
+        String DNIMod = usuarioMod.getDNI();
+        String nombreMod = usuarioMod.getNombre();
+        String emailMod = usuarioMod.getEmail();
+        String passwordMod = usuarioMod.getPassword();
+        TipoUsuario tipoUsuarioMod = usuarioMod.getTipoUsuario();
+
+        // sacamos infor del usuario de la BBDD
+        UsuarioVO usuarioBD = (UsuarioVO) search(usuarioMod);
+        String nombreBD = usuarioBD.getNombre();
+        String emailBD = usuarioBD.getEmail();
+        String passwordBD = usuarioBD.getPassword();
+        TipoUsuario tipoUsuarioBD = usuarioBD.getTipoUsuario();
+
+        // comenzamos el rollazo SQL lets FUCKING GO
+        if (!nombreMod.equals(nombreBD)) {
+            // modificamos nombre
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                        "rootroot");
+                String query = "UPDATE usuario SET Nombre=? WHERE DNI=?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setString(1, nombreMod);
+                pst.setString(2, DNIMod);
+                pst.executeUpdate();
+                con.close();
+            } catch (Exception e) {
+                return false;
+            }
+
+        }
+        if (!emailMod.equals(emailBD)) {
+            // modificamos email
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                        "rootroot");
+                String query = "UPDATE usuario SET Email=? WHERE DNI=?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setString(1, emailMod);
+                pst.setString(2, DNIMod);
+                pst.executeUpdate();
+                con.close();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        if (!passwordMod.equals(passwordBD)) {
+            // modificamos password
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                        "rootroot");
+                String query = "UPDATE usuario SET Password=? WHERE DNI=?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setString(1, passwordMod);
+                pst.setString(2, DNIMod);
+                pst.executeUpdate();
+                con.close();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        if (!tipoUsuarioMod.toString().equals(tipoUsuarioBD.toString())) {
+            // modificamos tipoUsuario
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                        "rootroot");
+                String query = "UPDATE usuario SET TipoUsuario=? WHERE DNI=?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setString(1, tipoUsuarioMod.toString());
+                pst.setString(2, DNIMod);
+                pst.executeUpdate();
+                con.close();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return true;
     }
 
+    /**
+     * @param objeto
+     * @return boolean
+     */
     public boolean delete(Object objeto) {
-        throw new UnsupportedOperationException();
-        // TODO: Implement
+        UsuarioVO usuarioDel = (UsuarioVO) objeto;
+        // comprobamos si esta en la BBDD
+        if (!exist(usuarioDel)) {
+            return false;
+        }
+        String DNIDel = usuarioDel.getDNI();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                    "rootroot");
+            String query = "DELETE FROM usuario WHERE DNI=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, DNIDel);
+            pst.executeUpdate();
+            con.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean exist(Object objeto) {
+        UsuarioVO usuario = (UsuarioVO) objeto;
+        String DNI = usuario.getDNI();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE DNI='" + DNI + "'");
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }
