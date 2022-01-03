@@ -24,4 +24,32 @@ public class ProveedorVO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "ProveedorVO [CIF=" + CIF + ", nombre=" + nombre + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProveedorVO other = (ProveedorVO) obj;
+        if (CIF == null) {
+            if (other.CIF != null)
+                return false;
+        } else if (!CIF.equals(other.CIF))
+            return false;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        return true;
+    }
+    
 }
