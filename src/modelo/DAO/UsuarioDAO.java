@@ -1,9 +1,6 @@
 package modelo.DAO;
 
 import java.sql.*;
-
-import com.itextpdf.text.log.SysoLogger;
-
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
 
@@ -193,8 +190,10 @@ public class UsuarioDAO implements DAO {
     }
 
     /**
-     * @param objeto
-     * @return boolean
+     * @param objeto objeto de tipo VO a eliminar de la base de datos.
+     * @return boolean devuelve true si se ha eliminado con exito. False en caso de
+     *         que no se haya eliminado o que directamente no exista ese objeto en
+     *         la BBDD.
      */
     public boolean delete(Object objeto) {
         UsuarioVO usuarioDel = (UsuarioVO) objeto;
@@ -255,6 +254,11 @@ public class UsuarioDAO implements DAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Object getUsuarioPorDNI(String dni) {
+        UsuarioVO placeholder = new UsuarioVO(dni, "nombre", "email", "password", TipoUsuario.CAJERO);
+        return search(placeholder);
     }
 
 }
