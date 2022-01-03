@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `bdJoyeria`.`usuario` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdJoyeria`.`venta` (
   `IDventa` INT NOT NULL AUTO_INCREMENT,
-  `fecha` DATE NULL,
-  `cantidadArticulos` INT NULL,
+  `Fecha` DATE NULL,
+  `CantidadArticulos` INT NULL,
   `PrecioVenta` DOUBLE NULL,
   `DireccionFacturacion` VARCHAR(50) NULL,
   `DNIUsuario` VARCHAR(45) NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `bdJoyeria`.`venta` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdJoyeria`.`proveedor` (
   `CIF` VARCHAR(10) NOT NULL,
-  `nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(45) NULL,
   PRIMARY KEY (`CIF`)
 ) ENGINE = InnoDB;
 
@@ -134,7 +134,13 @@ INSERT INTO
     Descripcion
   )
 VALUES
-  ('Anillo', '100', 'Oro', '6523D', 'Anillo de oro 24K');
+  (
+    'Anillo',
+    '100',
+    'Oro',
+    '6523D',
+    'Anillo de oro 24K'
+  );
 
 INSERT INTO
   producto (
@@ -162,7 +168,13 @@ INSERT INTO
     Descripcion
   )
 VALUES
-  ('Broche', '20.5', 'Metal', '1234J', 'Broche de pelo');
+  (
+    'Broche',
+    '20.5',
+    'Metal',
+    '1234J',
+    'Broche de pelo'
+  );
 
 INSERT INTO
   producto (
