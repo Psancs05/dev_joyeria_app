@@ -73,12 +73,11 @@ public class TestsUsuarioDAO {
     public void testSearch() {
         UsuarioVO copia1 = (UsuarioVO) userDAO.search(usuario1);
         assertTrue(copia1.equals(usuario1));
-        System.out.println(copia1.toString());
-        System.out.println(usuario1.toString());
     }
 
     @Test
     public void testExist() {
+        userDAO.create(usuario1);
         assertTrue(userDAO.exist(usuario1));
         UsuarioVO usuarioNoExiste = new UsuarioVO("sdadasda", "nombre", "email", "password", TipoUsuario.CAJERO);
         assertFalse(userDAO.exist(usuarioNoExiste));
@@ -123,5 +122,12 @@ public class TestsUsuarioDAO {
     public void testAutenticarUsuarioIncorrecto() {
         userDAO.create(usuario1);
         assertFalse(userDAO.autenticarUsuario("12345678N", "asd"));
+    }
+
+    @Test
+    public void testGetUsuarioPorDNI(){
+        userDAO.create(usuario1);
+        UsuarioVO dniNap = (UsuarioVO) userDAO.getUsuarioPorDNI("12345678N");
+        assertTrue(dniNap.equals(usuario1));
     }
 }
