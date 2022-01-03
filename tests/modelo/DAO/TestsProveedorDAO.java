@@ -73,6 +73,7 @@ public class TestsProveedorDAO {
 
     @Test
     public void testSearch() {
+        provDAO.create(proveedor1);
         ProveedorVO copia1 = (ProveedorVO) provDAO.search(proveedor1);
         assertTrue(copia1.equals(proveedor1));
 
