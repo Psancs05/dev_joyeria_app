@@ -183,6 +183,7 @@ public class ProveedorDAO implements DAO {
         return search(placeholder);
     }
 
+    // ? Deberia ser un arraylist de proveedores o de objetos??
     public ArrayList<ProveedorVO> getListaProveedores() {
         ArrayList<ProveedorVO> listaProveedores = new ArrayList<ProveedorVO>();
         try {
