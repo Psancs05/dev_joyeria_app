@@ -2,41 +2,53 @@ package modelo.VO;
 
 import java.sql.Blob;
 
+import globals.enums.TipoMaterial;
+import globals.enums.TipoProducto;
+
 public class ProductoVO {
-    String tipoPieza;
+    int IDProducto;
+    TipoProducto tipoProducto;
     double precio;
     Blob imagen;
-    String material;
+    TipoMaterial material;
     ProveedorVO proveedor;
     int IDVenta;
+    String descripcion;
 
-    public ProductoVO(String tipoPieza, double precio, Blob imagen, String material, ProveedorVO proveedor,
-            int IDVenta) {
-        this.tipoPieza = tipoPieza;
+    // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
+    public ProductoVO(TipoProducto tipoProducto, double precio, Blob imagen, TipoMaterial material,
+            ProveedorVO proveedor, int IDVenta, String descripcion) {
+        this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
         this.material = material;
         this.proveedor = proveedor;
         this.IDVenta = IDVenta;
+        this.IDProducto = -1;
+        this.descripcion = descripcion;
     }
 
     // constructor para crear un producto sin venta. Si el ID de la venta es 0, el
     // producto NO esta vendido
-    public ProductoVO(String tipoPieza, double precio, Blob imagen, String material, ProveedorVO proveedor) {
-        this.tipoPieza = tipoPieza;
+    // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
+    public ProductoVO(TipoProducto tipoProducto, double precio, Blob imagen,
+            TipoMaterial material, ProveedorVO proveedor, String descripcion) {
+        this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
         this.material = material;
         this.proveedor = proveedor;
         this.IDVenta = 0;
+        this.IDProducto = -1;
+        this.descripcion = descripcion;
     }
 
-    public String getTipoPieza() {
-        return tipoPieza;
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
     }
 
-    public void setTipoPieza(String tipoPieza) {
-        this.tipoPieza = tipoPieza;
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     public double getPrecio() {
@@ -55,11 +67,11 @@ public class ProductoVO {
         this.imagen = imagen;
     }
 
-    public String getMaterial() {
+    public TipoMaterial getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
+    public void setMaterial(TipoMaterial material) {
         this.material = material;
     }
 
@@ -69,6 +81,69 @@ public class ProductoVO {
 
     public void setProveedor(ProveedorVO proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public int getIDVenta() {
+        return IDVenta;
+    }
+
+    public void setIDVenta(int iDVenta) {
+        IDVenta = iDVenta;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getIDProducto() {
+        return IDProducto;
+    }
+
+    public void setIDProducto(int iDProducto) {
+        IDProducto = iDProducto;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoVO [IDVenta=" + IDVenta + ", imagen=" + imagen + ", material=" + material + ", precio=" + precio
+                + ", proveedor=" + proveedor + ", tipoProducto=" + tipoProducto + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProductoVO other = (ProductoVO) obj;
+        if (IDVenta != other.IDVenta)
+            return false;
+        if (imagen == null) {
+            if (other.imagen != null)
+                return false;
+        } else if (!imagen.equals(other.imagen))
+            return false;
+        if (material == null) {
+            if (other.material != null)
+                return false;
+        } else if (!material.equals(other.material))
+            return false;
+        if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
+            return false;
+        if (proveedor == null) {
+            if (other.proveedor != null)
+                return false;
+        } else if (!proveedor.equals(other.proveedor))
+            return false;
+        if (tipoProducto != other.tipoProducto)
+            return false;
+        return true;
     }
 
 }

@@ -1,9 +1,6 @@
 package modelo.DAO;
 
 import java.sql.*;
-
-import com.mysql.cj.x.protobuf.MysqlxCrud.ProjectionOrBuilder;
-
 import modelo.VO.ProveedorVO;
 
 public class ProveedorDAO implements DAO {
@@ -135,7 +132,7 @@ public class ProveedorDAO implements DAO {
      */
     public boolean delete(Object objeto) {
         ProveedorVO provDel = (ProveedorVO) objeto;
-        if(!exist(provDel)){
+        if (!exist(provDel)) {
             return false;
         }
         String CIFDel = provDel.getCIF();
@@ -156,8 +153,8 @@ public class ProveedorDAO implements DAO {
     }
 
     /**
-     * @param objeto
-     * @return boolean
+     * @param objeto objeto de tipo VO para comprobar si existe en la BBDD
+     * @return boolean true o false dependiendo de si existe o no en la BBDD
      */
     @Override
     public boolean exist(Object objeto) {
@@ -179,7 +176,7 @@ public class ProveedorDAO implements DAO {
         }
     }
 
-    public Object getProveedorPorCIF(String cif){
+    public Object getProveedorPorCIF(String cif) {
         ProveedorVO placeholder = new ProveedorVO(cif, "nombre");
         return search(placeholder);
     }

@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS `bdJoyeria`.`proveedor` (
 -- Table `bdJoyeria`.`producto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdJoyeria`.`producto` (
-  `IDproducto` INT NOT NULL AUTO_INCREMENT,
-  `TipoPieza` VARCHAR(45) NULL,
+  `IDProducto` INT NOT NULL AUTO_INCREMENT,
+  `TipoProducto` VARCHAR(45) NULL,
   `Precio` DOUBLE NULL,
   `Imagen` LONGBLOB NULL,
   `Material` VARCHAR(45) NULL,
@@ -127,7 +127,7 @@ VALUES
 -- -----------------------------------------------------
 INSERT INTO
   producto (
-    TipoPieza,
+    TipoProducto,
     Precio,
     Material,
     Proveedor,
@@ -144,7 +144,7 @@ VALUES
 
 INSERT INTO
   producto (
-    TipoPieza,
+    TipoProducto,
     Precio,
     Material,
     Proveedor,
@@ -161,7 +161,7 @@ VALUES
 
 INSERT INTO
   producto (
-    TipoPieza,
+    TipoProducto,
     Precio,
     Material,
     Proveedor,
@@ -178,7 +178,7 @@ VALUES
 
 INSERT INTO
   producto (
-    TipoPieza,
+    TipoProducto,
     Precio,
     Material,
     Proveedor,
@@ -231,7 +231,7 @@ SET
       DireccionFacturacion = 'Calle perico 5'
   )
 WHERE
-  TipoPieza = 'Anillo';
+  TipoProducto = 'Anillo';
 
 ALTER TABLE
   producto
