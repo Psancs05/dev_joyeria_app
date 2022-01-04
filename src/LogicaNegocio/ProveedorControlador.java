@@ -1,5 +1,7 @@
 package LogicaNegocio;
 
+import java.util.ArrayList;
+
 import Vista.Proveedor.CRUDProveedorVista;
 import modelo.VO.ProveedorVO;
 import modelo.logica.ProveedorLogica;
@@ -9,26 +11,33 @@ public class ProveedorControlador {
 	private CRUDProveedorVista vistaCRUDProveedor;
 	private ProveedorLogica logicaProveedor;
 
-	public ProveedorControlador(CRUDProveedorVista vistaCRUDProveedor, ProveedorLogica logicaProveedor) {
-		super();
-		this.vistaCRUDProveedor = vistaCRUDProveedor;
-		this.logicaProveedor = logicaProveedor;
+	private ProveedorControlador() {
+		this.vistaCRUDProveedor = new CRUDProveedorVista(this);
+		this.logicaProveedor = ProveedorLogica.getInstance();
 	}
-	
+
+	public static ProveedorControlador getInstance() {
+		return new ProveedorControlador();
+	}
+
 	public void aniadirProducto(String tipo) {
-		//TODO
+		// TODO
 	}
-	
+
 	public void modificarProducto(ProveedorVO proveedorAntiguo, String tipo) {
-		//TODO
+		// TODO
 	}
-	
+
 	public void eliminarProducto(ProveedorVO proveedor) {
-		//TODO
+		// TODO
 	}
-	
+
 	public void gestionarAccionProveedor() {
-		
+
+	}
+
+	public ArrayList<ProveedorVO> getProveedores() {
+		return logicaProveedor.getProveedores();
 	}
 
 	public CRUDProveedorVista getVistaCRUDProveedor() {
