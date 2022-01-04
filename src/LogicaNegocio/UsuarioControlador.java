@@ -2,6 +2,7 @@ package LogicaNegocio;
 
 import Vista.Usuario.CRUDUsuarioVista;
 import Vista.Usuario.LoginVista;
+import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
 import modelo.logica.UsuarioLogica;
 
@@ -14,8 +15,8 @@ public class UsuarioControlador {
 	private UsuarioLogica logicaUsuario;
 	
 	public UsuarioControlador() {
-		this.vistaCRUDUsuario = new CRUDUsuarioVista();
-		this.vistaLogin = new LoginVista();
+		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
+		this.vistaLogin = new LoginVista(this);
 		this.logicaUsuario = UsuarioLogica.getInstance();
 		this.usuarioActual = logicaUsuario.getUsuarioActivo();
 	}
@@ -33,7 +34,7 @@ public class UsuarioControlador {
 	}
 	
 	public void mostrarLogin() {
-		//TODO
+		vistaLogin.botonAutentificar();
 	}
 	
 	public void mostrarAniadir() {
@@ -44,7 +45,7 @@ public class UsuarioControlador {
 		vistaCRUDUsuario.pulsarBotonModificar(usuarioActual);
 	}
 	
-	public void aniadirUsuario(String tipo, String nombre, String correo, String DNI) {
+	public void aniadirUsuario(String DNI, String nombre, String email, String password, TipoUsuario tipoUsuario) {
 		//TODO 
 	}
 	
