@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -106,6 +107,7 @@ public class CRUDUsuarioVista extends JDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
+		okButton.setForeground(Color.BLACK);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Aniadir boton pulsado");
@@ -118,6 +120,7 @@ public class CRUDUsuarioVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+		cancelButton.setForeground(Color.BLACK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
@@ -133,66 +136,51 @@ public class CRUDUsuarioVista extends JDialog {
 		setBounds(100, 100, 526, 382);
 		setTitle("Modificar Usuario");
 		getContentPane().setLayout(null);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 310, 510, 33);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane);
 
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Modificar");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setVisible(false);
-					}
-				});
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setVisible(false);
-					}
-				});
-			}
-		}
+		JLabel lbDNI = new JLabel("DNI");
+		lbDNI.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbDNI.setBounds(10, 34, 113, 33);
+		getContentPane().add(lbDNI);
 
 		tfDNI = new JTextField();
-		tfDNI.setBounds(316, 181, 94, 38);
-		getContentPane().add(tfDNI);
 		tfDNI.setColumns(10);
+		getContentPane().add(tfDNI);
+		tfDNI.setBounds(316, 34, 94, 38);
+
+		JLabel lbNombre = new JLabel("Nombre");
+		lbNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbNombre.setBounds(10, 88, 77, 33);
+		getContentPane().add(lbNombre);
 
 		tfNombre = new JTextField();
-		tfNombre.setBounds(316, 230, 94, 38);
-		getContentPane().add(tfNombre);
 		tfNombre.setColumns(10);
+		getContentPane().add(tfNombre);
+		tfNombre.setBounds(316, 83, 94, 38);
 
-		JLabel lbPassword = new JLabel("Password");
-		lbPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbPassword.setBounds(10, 186, 77, 33);
-		getContentPane().add(lbPassword);
-
-		JLabel lbTipoUsuario = new JLabel("Tipo de Usuario");
-		lbTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbTipoUsuario.setBounds(10, 233, 200, 35);
-		getContentPane().add(lbTipoUsuario);
+		JLabel lbEmail = new JLabel("Email");
+		lbEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbEmail.setBounds(10, 137, 77, 33);
+		getContentPane().add(lbEmail);
 
 		tfEmail = new JTextField();
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(316, 132, 94, 38);
 		getContentPane().add(tfEmail);
 
+		JLabel lbPassword = new JLabel("Password");
+		lbPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbPassword.setBounds(10, 186, 77, 33);
+		getContentPane().add(lbPassword);
+
 		tfPassword = new JTextField();
-		tfPassword.setColumns(10);
-		tfPassword.setBounds(316, 83, 94, 38);
+		tfPassword.setBounds(316, 181, 94, 38);
 		getContentPane().add(tfPassword);
+		tfPassword.setColumns(10);
+
+		JLabel lbTipoUsuario = new JLabel("Tipo de Usuario");
+		lbTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbTipoUsuario.setBounds(10, 233, 200, 35);
+		getContentPane().add(lbTipoUsuario);
 
 		cbTipoUsuario = new JComboBox();
 		cbTipoUsuario.setBounds(316, 230, 94, 38);
@@ -201,21 +189,58 @@ public class CRUDUsuarioVista extends JDialog {
 		cbTipoUsuario.addItem("Cajero");
 		getContentPane().add(cbTipoUsuario);
 
-		JLabel lbEmail = new JLabel("Email");
-		lbEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbEmail.setBounds(10, 137, 77, 33);
-		getContentPane().add(lbEmail);
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBounds(0, 310, 510, 33);
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane);
 
-		JLabel lbNombre = new JLabel("Nombre");
-		lbNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbNombre.setBounds(10, 88, 77, 33);
-		getContentPane().add(lbNombre);
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JLabel lbDNI = new JLabel("DNI");
-		lbDNI.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbDNI.setBounds(10, 34, 113, 33);
-		getContentPane().add(lbDNI);
+		//Comprobacion de que furrula hasta que tengamos el resto hecho
 
+		String DNI = usuario.getDNI();
+		String nombre = usuario.getNombre();
+		String email = usuario.getEmail();
+		String password = usuario.getPassword();
+		TipoUsuario tipoUsuario = usuario.getTipoUsuario();
+
+		tfDNI.setText(DNI);
+		tfNombre.setText(nombre);
+		tfEmail.setText(email);
+		tfPassword.setText(password);
+		int index = 0;
+		if(tipoUsuario.toString() == "ADMINISTRADOR"){
+			index = 1;
+		} else {
+			 index = 2;
+		}
+		cbTipoUsuario.setSelectedIndex(index);
+
+		JButton okButton = new JButton("Modificar");
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+		okButton.setForeground(Color.BLACK);
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				modificarUsuario(usuario);
+				limpiarCampos();
+			}
+		});
+
+		JButton cancelButton = new JButton("Cancelar");
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
+		cancelButton.setForeground(Color.BLACK);
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+
+		
 	}
 
 	public void pulsarBotonEliminar() {
@@ -234,7 +259,6 @@ public class CRUDUsuarioVista extends JDialog {
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {
 		tipoUsuario = TipoUsuario.ADMINISTRADOR;
-		System.out.println("hola/n");
 		} else {
 		tipoUsuario = TipoUsuario.CAJERO;
 		}
@@ -243,12 +267,31 @@ public class CRUDUsuarioVista extends JDialog {
 		limpiarCampos();
 	}
 
+	public void modificarUsuario(UsuarioVO usuario){
+		String DNI = tfDNI.getText();
+		String nombre = tfNombre.getText();
+		String email = tfEmail.getText();
+		String password = tfPassword.getText();
+		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
+
+		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb + " el usuario antiguo era " + usuario.toString());
+
+		TipoUsuario tipoUsuario;
+		if (tipoUsuariocb.toString() == "Administrador") {
+		tipoUsuario = TipoUsuario.ADMINISTRADOR;
+		} else {
+		tipoUsuario = TipoUsuario.CAJERO;
+		}
+		controladorUsuario.modificarUsuario(usuario, DNI, nombre, email, password,
+				tipoUsuario);
+	}
+
 	public void limpiarCampos() {
 		tfDNI.setText("");
 		tfNombre.setText("");
 		tfEmail.setText("");
 		tfPassword.setText("");
-		cbTipoUsuario.removeAll();
+		cbTipoUsuario.setSelectedIndex(0);
 	}
 
 	// TODO?: Necesitamos getters y setters en las vistas??

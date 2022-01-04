@@ -42,6 +42,10 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarModificar() {
+		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
+		// TipoUsuario tipoUsuarioI;
+		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
+		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan", "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
 		vistaCRUDUsuario.pulsarBotonModificar(usuarioActual);
 	}
 
@@ -49,7 +53,7 @@ public class UsuarioControlador {
 		this.logicaUsuario.registrarUsuario(DNI, nombre, correo, password, tipo);
 	}
 
-	public void modificarUsuario(UsuarioVO usuarioAntiguo, String tipo, String nombre, String correo, String DNI) {
+	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
 		// TODO
 	}
 
