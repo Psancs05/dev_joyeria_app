@@ -4,17 +4,21 @@ import java.util.ArrayList;
 
 import modelo.VO.ProductoVO;
 import modelo.logica.VentaLogica;
+import Vista.Venta.VentaVista;
 
 public class VentaControlador {
 
 	private VentaLogica logicaVenta;
-		
-	public VentaControlador(VentaLogica logicaVenta) {
-		this.logicaVenta = logicaVenta;
+	private VentaLogica vistaVenta;
+
+	public VentaControlador() {
+		this.logicaVenta = new VentaLogica();
+		this.vistaVenta = new VentaLogica();
 	}
 	
 	public void registrarVenta(ArrayList<ProductoVO> productos) {
-		//TODO
+		int idVenta = logicaVenta.registrarVenta(productos);
+		logicaVenta.retirarProductosDeBBDD(productos,idVenta);
 	}
 
 	public VentaLogica getLogicaVenta() {
