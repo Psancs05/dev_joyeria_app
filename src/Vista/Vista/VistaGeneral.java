@@ -7,23 +7,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import LogicaNegocio.UsuarioControlador;
-import Vista.Backup.CrearBackupVista;
-import Vista.Backup.RestaurarBackupVista;
-import Vista.Catalogo.CatalogoVista;
-import Vista.Catalogo.FiltrarVista;
-import Vista.Facturas.ListadoFacturasVista;
-import Vista.Producto.CRUDProductoVista;
-import Vista.Producto.DetallesProductoVista;
-import Vista.Producto.ListaEtiquetasVista;
-import Vista.Proveedor.CRUDProveedorVista;
-import Vista.Usuario.CRUDUsuarioVista;
-import Vista.Usuario.LoginVista;
-import Vista.Venta.VentaVista;
-import modelo.logica.VentaLogica;
 
 import javax.swing.JMenu;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -59,15 +45,23 @@ public class VistaGeneral {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		UsuarioControlador.getInstance().mostrarLogin();
+		
+		//TODO: hacer que no se muetsre la ventana principal antes de iniciar sesion (actualmente se muestran las 2 a la vez)
+
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(128, 128, 128));
 		frame.setBackground(new Color(105, 105, 105));
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1000, 550);
+		frame.setTitle("Claudio Panigua Joyas");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setForeground(new Color(255, 255, 255));
 		menuBar.setBackground(new Color(128, 128, 128));
+		menuBar.setBounds(0, 0, 1072, 21);
 		frame.setJMenuBar(menuBar);
 
 		JMenu UsuarioMenuItem = new JMenu("Usuario");
@@ -164,9 +158,9 @@ public class VistaGeneral {
 		AyudaMenuItem.setBackground(new Color(128, 128, 128));
 		AyudaMenuItem.setForeground(new Color(255, 255, 255));
 		menuBar.add(AyudaMenuItem);
-		frame.getContentPane().setLayout(new GridLayout(1, 2, 0, 0));
 
 		JButton botonVenta = new JButton("Venta");
+		botonVenta.setBounds(171, 282, 200, 87);
 		botonVenta.setForeground(new Color(255, 255, 255));
 		botonVenta.setBackground(new Color(50, 205, 50));
 		botonVenta.addActionListener(new ActionListener() {
@@ -177,6 +171,7 @@ public class VistaGeneral {
 		frame.getContentPane().add(botonVenta);
 
 		JButton botonCatalogo = new JButton("Catalogo");
+		botonCatalogo.setBounds(622, 282, 200, 87);
 		botonCatalogo.setForeground(new Color(255, 255, 255));
 		botonCatalogo.setBackground(new Color(102, 205, 170));
 		botonCatalogo.addActionListener(new ActionListener() {
