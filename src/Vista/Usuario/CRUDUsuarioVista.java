@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,9 +32,15 @@ public class CRUDUsuarioVista extends JDialog {
 	JTextField tfNombre;
 	JTextField tfEmail;
 	JTextField tfPassword;
-	JTextField tfTipoUsuario;
+	JComboBox cbTipoUsuario;
 
 	public void pulsarBotonAniadir() {
+
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setVisible(true);
+		setBounds(100, 100, 526, 382);
+		setTitle("Aniadir Usuario");
+		getContentPane().setLayout(null);
 
 		JLabel lbDNI = new JLabel("DNI");
 		lbDNI.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -80,16 +87,12 @@ public class CRUDUsuarioVista extends JDialog {
 		lbTipoUsuario.setBounds(10, 233, 200, 35);
 		getContentPane().add(lbTipoUsuario);
 
-		tfTipoUsuario = new JTextField();
-		tfTipoUsuario.setBounds(316, 230, 94, 38);
-		getContentPane().add(tfTipoUsuario);
-		tfTipoUsuario.setColumns(10);
-
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setBounds(100, 100, 526, 382);
-		setTitle("Aniadir Usuario");
-		getContentPane().setLayout(null);
+		cbTipoUsuario = new JComboBox();
+		cbTipoUsuario.setBounds(316, 230, 94, 38);
+		cbTipoUsuario.addItem("default");
+		cbTipoUsuario.addItem("Administrador");
+		cbTipoUsuario.addItem("Cajero");
+		getContentPane().add(cbTipoUsuario);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(0, 310, 510, 33);
@@ -191,10 +194,12 @@ public class CRUDUsuarioVista extends JDialog {
 		tfPassword.setBounds(316, 83, 94, 38);
 		getContentPane().add(tfPassword);
 
-		tfTipoUsuario = new JTextField();
-		tfTipoUsuario.setColumns(10);
-		tfTipoUsuario.setBounds(316, 34, 94, 38);
-		getContentPane().add(tfTipoUsuario);
+		cbTipoUsuario = new JComboBox();
+		cbTipoUsuario.setBounds(316, 230, 94, 38);
+		cbTipoUsuario.addItem("default");
+		cbTipoUsuario.addItem("Administrador");
+		cbTipoUsuario.addItem("Cajero");
+		getContentPane().add(cbTipoUsuario);
 
 		JLabel lbEmail = new JLabel("Email");
 		lbEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -222,24 +227,20 @@ public class CRUDUsuarioVista extends JDialog {
 		String nombre = tfNombre.getText();
 		String email = tfEmail.getText();
 		String password = tfPassword.getText();
-		String tipoUsuario = tfTipoUsuario.getText();
+		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
 
-		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuario);
+		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb);
 
-		// TODO: Cambiar el JTextField por un JComboBox para el tipo de usuario y
-		// arreglarlo en la logica a continuacion
-
-		// TODO: Habría que comprobar que los campos no estén vacíos y hacer algo en
-		// caso de que lo estén
-
-		// TipoUsuario tipoUsuario;
-		// if (Integer.parseInt(tfTipoUsuario.getText()) == 1) {
-		// tipoUsuario = TipoUsuario.ADMINISTRADOR;
-		// } else {
-		// tipoUsuario = TipoUsuario.CAJERO;
-		// }
+		TipoUsuario tipoUsuario;
+		if (tipoUsuariocb.toString() == "Administrador") {
+		tipoUsuario = TipoUsuario.ADMINISTRADOR;
+		System.out.println("hola/n");
+		} else {
+		tipoUsuario = TipoUsuario.CAJERO;
+		}
 		controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
-				TipoUsuario.ADMINISTRADOR);
+				tipoUsuario);
+		limpiarCampos();
 	}
 
 	public void limpiarCampos() {
@@ -247,7 +248,7 @@ public class CRUDUsuarioVista extends JDialog {
 		tfNombre.setText("");
 		tfEmail.setText("");
 		tfPassword.setText("");
-		tfTipoUsuario.setText("");
+		cbTipoUsuario.removeAll();
 	}
 
 	// TODO?: Necesitamos getters y setters en las vistas??

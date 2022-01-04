@@ -16,7 +16,7 @@ public class UsuarioControlador {
 
 	public UsuarioControlador() {
 		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
-		this.vistaLogin = new LoginVista();
+		this.vistaLogin = new LoginVista(this);
 		this.logicaUsuario = UsuarioLogica.getInstance();
 		this.usuarioActual = logicaUsuario.getUsuarioActivo();
 	}
@@ -34,7 +34,7 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarLogin() {
-		// TODO
+		vistaLogin.botonAutentificar();
 	}
 
 	public void mostrarAniadir() {
