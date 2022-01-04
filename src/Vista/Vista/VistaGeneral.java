@@ -7,25 +7,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import LogicaNegocio.UsuarioControlador;
-import Vista.Backup.CrearBackupVista;
-import Vista.Backup.RestaurarBackupVista;
-import Vista.Catalogo.CatalogoVista;
-import Vista.Catalogo.FiltrarVista;
-import Vista.Facturas.ListadoFacturasVista;
-import Vista.Producto.CRUDProductoVista;
-import Vista.Producto.DetallesProductoVista;
-import Vista.Producto.ListaEtiquetasVista;
-import Vista.Proveedor.CRUDProveedorVista;
-import Vista.Usuario.CRUDUsuarioVista;
-import Vista.Usuario.LoginVista;
-import Vista.Venta.VentaVista;
-import modelo.logica.VentaLogica;
-
-import javax.swing.JMenu;
 import javax.swing.JButton;
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JMenu;
 import java.awt.Color;
 
 public class VistaGeneral {
@@ -59,20 +46,28 @@ public class VistaGeneral {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		UsuarioControlador.getInstance().mostrarLogin();
+
+		//TODO: hacer que el frame principal no se muestre hasta que se complete el login
+		Color blanco = new Color(255, 255, 255);
+		Color negro = new Color(0, 0, 0);
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(128, 128, 128));
-		frame.setBackground(new Color(105, 105, 105));
-		frame.setBounds(100, 100, 450, 300);
+		frame.getContentPane().setBackground(blanco);
+		frame.setBackground(blanco);
+		frame.setBounds(100, 100, 1600, 900);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setForeground(new Color(255, 255, 255));
-		menuBar.setBackground(new Color(128, 128, 128));
+		menuBar.setBounds(0, 0, 1584, 21);
+		menuBar.setForeground(negro);
+		menuBar.setBackground(blanco);
 		frame.setJMenuBar(menuBar);
 
 		JMenu UsuarioMenuItem = new JMenu("Usuario");
-		UsuarioMenuItem.setBackground(new Color(128, 128, 128));
-		UsuarioMenuItem.setForeground(new Color(255, 255, 255));
+		UsuarioMenuItem.setBackground(blanco);
+		UsuarioMenuItem.setForeground(negro);
 		menuBar.add(UsuarioMenuItem);
 
 		JMenuItem aniadirUsuario = new JMenuItem("Aniadir");
@@ -81,8 +76,8 @@ public class VistaGeneral {
 				UsuarioControlador.getInstance().mostrarAniadir();
 			}
 		});
-		aniadirUsuario.setBackground(new Color(128, 128, 128));
-		aniadirUsuario.setForeground(new Color(255, 255, 255));
+		aniadirUsuario.setBackground(blanco);
+		aniadirUsuario.setForeground(negro);
 		UsuarioMenuItem.add(aniadirUsuario);
 
 		JMenuItem modificarUsuario = new JMenuItem("Modificar");
@@ -91,84 +86,85 @@ public class VistaGeneral {
 				UsuarioControlador.getInstance().mostrarModificar();
 			}
 		});
-		modificarUsuario.setForeground(new Color(255, 255, 255));
-		modificarUsuario.setBackground(new Color(128, 128, 128));
+		modificarUsuario.setForeground(negro);
+		modificarUsuario.setBackground(blanco);
 		UsuarioMenuItem.add(modificarUsuario);
 
 		JMenuItem eliminarUsuario = new JMenuItem("Eliminar");
-		eliminarUsuario.setBackground(new Color(128, 128, 128));
-		eliminarUsuario.setForeground(new Color(255, 255, 255));
+		eliminarUsuario.setBackground(blanco);
+		eliminarUsuario.setForeground(negro);
 		UsuarioMenuItem.add(eliminarUsuario);
 
 		JMenu ProveedorMenuItem = new JMenu("Proveedor");
-		ProveedorMenuItem.setBackground(new Color(128, 128, 128));
-		ProveedorMenuItem.setForeground(new Color(255, 255, 255));
+		ProveedorMenuItem.setBackground(blanco);
+		ProveedorMenuItem.setForeground(negro);
 		menuBar.add(ProveedorMenuItem);
 
 		JMenuItem aniadirProveedor = new JMenuItem("Aniadir");
-		aniadirProveedor.setForeground(new Color(255, 255, 255));
-		aniadirProveedor.setBackground(new Color(128, 128, 128));
+		aniadirProveedor.setForeground(negro);
+		aniadirProveedor.setBackground(blanco);
 		ProveedorMenuItem.add(aniadirProveedor);
 
 		JMenuItem modificarProveedor = new JMenuItem("Modificar");
-		modificarProveedor.setForeground(new Color(255, 255, 255));
-		modificarProveedor.setBackground(new Color(128, 128, 128));
+		modificarProveedor.setForeground(negro);
+		modificarProveedor.setBackground(blanco);
 		ProveedorMenuItem.add(modificarProveedor);
 
 		JMenuItem eliminarProveedor = new JMenuItem("Eliminar");
-		eliminarProveedor.setForeground(new Color(255, 255, 255));
+		eliminarProveedor.setForeground(negro);
 		eliminarProveedor.setBackground(new Color(128, 128, 128));
 		ProveedorMenuItem.add(eliminarProveedor);
 
 		JMenu ProductoMenuItem = new JMenu("Producto");
-		ProductoMenuItem.setBackground(new Color(128, 128, 128));
-		ProductoMenuItem.setForeground(new Color(255, 255, 255));
+		ProductoMenuItem.setBackground(blanco);
+		ProductoMenuItem.setForeground(negro);
 		menuBar.add(ProductoMenuItem);
 
 		JMenuItem aniadirProducto = new JMenuItem("Aniadir");
-		aniadirProducto.setForeground(new Color(255, 255, 255));
-		aniadirProducto.setBackground(new Color(128, 128, 128));
+		aniadirProducto.setForeground(negro);
+		aniadirProducto.setBackground(blanco);
 		ProductoMenuItem.add(aniadirProducto);
 
 		JMenuItem modificarProducto = new JMenuItem("Modificar");
-		modificarProducto.setForeground(new Color(255, 255, 255));
-		modificarProducto.setBackground(new Color(128, 128, 128));
+		modificarProducto.setForeground(negro);
+		modificarProducto.setBackground(blanco);
 		ProductoMenuItem.add(modificarProducto);
 
 		JMenuItem eliminarProducto = new JMenuItem("Eliminar");
-		eliminarProducto.setForeground(new Color(255, 255, 255));
-		eliminarProducto.setBackground(new Color(128, 128, 128));
+		eliminarProducto.setForeground(negro);
+		eliminarProducto.setBackground(blanco);
 		ProductoMenuItem.add(eliminarProducto);
 
 		JMenu FacturaMenuItem = new JMenu("Facturas");
-		FacturaMenuItem.setBackground(new Color(128, 128, 128));
-		FacturaMenuItem.setForeground(new Color(255, 255, 255));
+		FacturaMenuItem.setBackground(blanco);
+		FacturaMenuItem.setForeground(negro);
 		menuBar.add(FacturaMenuItem);
 
 		JMenu BackupMenuItem = new JMenu("Backup");
-		BackupMenuItem.setBackground(new Color(128, 128, 128));
-		BackupMenuItem.setForeground(new Color(255, 255, 255));
+		BackupMenuItem.setBackground(blanco);
+		BackupMenuItem.setForeground(negro);
 		menuBar.add(BackupMenuItem);
 
 		JMenuItem crearBackup = new JMenuItem("Crear");
-		crearBackup.setForeground(new Color(255, 255, 255));
-		crearBackup.setBackground(new Color(128, 128, 128));
+		crearBackup.setForeground(negro);
+		crearBackup.setBackground(blanco);
 		BackupMenuItem.add(crearBackup);
 
 		JMenuItem restaurarBackup = new JMenuItem("Restaurar");
-		restaurarBackup.setForeground(new Color(255, 255, 255));
-		restaurarBackup.setBackground(new Color(128, 128, 128));
+		restaurarBackup.setForeground(negro);
+		restaurarBackup.setBackground(blanco);
 		BackupMenuItem.add(restaurarBackup);
 
 		JMenu AyudaMenuItem = new JMenu("Ayuda");
-		AyudaMenuItem.setBackground(new Color(128, 128, 128));
-		AyudaMenuItem.setForeground(new Color(255, 255, 255));
+		AyudaMenuItem.setBackground(blanco);
+		AyudaMenuItem.setForeground(negro);
 		menuBar.add(AyudaMenuItem);
-		frame.getContentPane().setLayout(new GridLayout(1, 2, 0, 0));
 
 		JButton botonVenta = new JButton("Venta");
+		botonVenta.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		botonVenta.setBounds(263, 464, 306, 123);
 		botonVenta.setForeground(new Color(255, 255, 255));
-		botonVenta.setBackground(new Color(50, 205, 50));
+		botonVenta.setBackground(new Color(30, 177, 0));
 		botonVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("jsfdahsjkfdhsa");
@@ -177,8 +173,10 @@ public class VistaGeneral {
 		frame.getContentPane().add(botonVenta);
 
 		JButton botonCatalogo = new JButton("Catalogo");
+		botonCatalogo.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		botonCatalogo.setBounds(1064, 464, 306, 123);
 		botonCatalogo.setForeground(new Color(255, 255, 255));
-		botonCatalogo.setBackground(new Color(102, 205, 170));
+		botonCatalogo.setBackground(new Color(0, 148, 177));
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("sa");
