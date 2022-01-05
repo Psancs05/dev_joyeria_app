@@ -10,8 +10,16 @@ public class VentaControlador {
 
 	private VentaLogica logicaVenta;
 	private VentaLogica vistaVenta;
+	private static VentaControlador miventaControlador;
 
-	public VentaControlador() {
+    public static VentaControlador getInstance() {
+        if (miventaControlador == null) {
+            miventaControlador = new VentaControlador();
+        }
+        return miventaControlador;
+    }
+
+	private VentaControlador() {
 		this.logicaVenta = new VentaLogica();
 		this.vistaVenta = new VentaLogica();
 	}

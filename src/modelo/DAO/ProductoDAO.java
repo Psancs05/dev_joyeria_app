@@ -1,6 +1,7 @@
 package modelo.DAO;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.sql.*;
 
 import globals.enums.*;
@@ -297,4 +298,41 @@ public class ProductoDAO implements DAO {
         placeholder.setIDProducto(id);
         return search(placeholder);
     }
+
+    // ? Deberia ser un ArrayList de ProductoVO o de Object??
+    public ArrayList<ProductoVO> getListaProductos() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
+                    "rootroot");
+            String query = "SELECT * FROM producto";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<ProductoVO> listaProductos = new ArrayList<ProductoVO>();
+            while (rs.next()) {
+                // Obtenemos los datos del producto de la db
+                int iDProducto = rs.getInt("IDproducto");
+                TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoPieza"));
+                double precio = rs.getDouble("Precio");
+                Blob imagen = rs.getBlob("Imagen");
+                TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
+                ProveedorVO proveedor = new ProveedorVO(rs.getString("Proveedor"), "nombre");
+                int iDVenta = rs.getInt("IDVenta");
+                String descripcion = rs.getString("Descripcion");
+
+                // Creamos el producto con los datos obtenidos
+                ProductoVO producto = new ProductoVO(tipo, precio, imagen, material, proveedor, iDVenta, descripcion);
+                producto.setIDProducto(iDProducto);
+
+                // Añadimos el producto a la lista
+                listaProductos.add(producto);
+            }
+            con.close();
+            return listaProductos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

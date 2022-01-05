@@ -1,13 +1,13 @@
 package modelo.logica;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Calendar;
 
 import LogicaNegocio.UsuarioControlador;
 import modelo.DAO.VentaDAO;
+import modelo.DAO.ProductoDAO;
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;
+
 
 public class VentaLogica {
     private VentaDAO ventaDAO;
@@ -33,8 +33,10 @@ public class VentaLogica {
      * marca los productos de la lista como vendidos actualizando su campo IDVenta
      */
     public void retirarProductosDeBBDD(ArrayList<ProductoVO> productos,int IDVenta) {
+        ProductoDAO PDAO = ProductoDAO.getInstance();
         for(ProductoVO producto: productos){
-        
+            producto.setIDVenta(IDVenta);
+            PDAO.update(producto);
         }
     }
 
@@ -46,9 +48,9 @@ public class VentaLogica {
         double precioVenta = obtenerPrecioVenta(productos);
         //String DNI = UsuarioControlador.getInstance().getUsuarioActual().getDNI();
         int cantidadArticulos = productos.size();
-        Date date=java.util.Calendar.getInstance().getTime();
-
-        VentaVO nuevaVenta = new VentaVO(date, cantidadArticulos, precioVenta, productos, "02770155C");
+        java.util.Date date = new java.util.Date();
+    
+        VentaVO nuevaVenta = new VentaVO(date, cantidadArticulos, precioVenta, productos, "12345678C", "Mi casa");
         this.ventaDAO.create(nuevaVenta);
         return nuevaVenta.getID();
     }

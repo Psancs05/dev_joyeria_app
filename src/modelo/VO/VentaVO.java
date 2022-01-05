@@ -1,23 +1,36 @@
 package modelo.VO;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat; 
+import java.util.Date;  
 
 public class VentaVO {
     private int ID;
-    private java.util.Date fecha;
+    private Date fecha;
     private int cantidadArticulos;
     private double precioTotal;
     private ArrayList<ProductoVO> productos;
     private String DNIUsuario;
+    private String direccionFacturacion;
 
-    public VentaVO(java.util.Date date, int cantidadArticulos, double precioTotal, ArrayList<ProductoVO> productos, String DNIUsuario) {
+    public VentaVO(Date date, int cantidadArticulos, double precioTotal, ArrayList<ProductoVO> productos, String DNIUsuario, String direccionFacturacion) {
         this.ID = -1;
         this.fecha = date;
         this.cantidadArticulos = cantidadArticulos;
         this.precioTotal = precioTotal;
         this.productos = productos;
         this.DNIUsuario = DNIUsuario;
+        this.direccionFacturacion = direccionFacturacion;
+    }
+
+    public VentaVO(int ID,Date date, int cantidadArticulos, double precioTotal, ArrayList<ProductoVO> productos, String DNIUsuario, String direccionFacturacion) {
+        this.ID = ID;
+        this.fecha = date;
+        this.cantidadArticulos = cantidadArticulos;
+        this.precioTotal = precioTotal;
+        this.productos = productos;
+        this.DNIUsuario = DNIUsuario;
+        this.direccionFacturacion = direccionFacturacion;
     }
 
     public int getID() {
@@ -28,7 +41,7 @@ public class VentaVO {
         this.ID = ID;
     }
 
-    public java.util.Date getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
@@ -66,5 +79,25 @@ public class VentaVO {
 
     public void setDNIUsuario(String DNIUsuario) {
         this.DNIUsuario = DNIUsuario;
+    }
+
+    public String getDireccionFacturacion(){
+        return this.direccionFacturacion;
+    }
+
+    public void setDireccionFacturacion(String direccion){
+        this.direccionFacturacion = direccion;
+    }
+
+    @Override
+    public String toString(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("IDventa: " + ID + "\nFecha: " + fecha.toString() + "\nCantidad de articulos: " + cantidadArticulos + "\nPrecio: " + precioTotal + "\nDNIEmpleado: " + DNIUsuario 
+        + "\nDireccion de facturacion\n");
+        for(ProductoVO producto: productos){
+            buffer.append("ID producto: " + producto.getIDProducto() + " , " );
+            buffer.append("Material:  " + producto.getMaterial() + "\n");
+        }
+        return buffer.toString();
     }
 }
