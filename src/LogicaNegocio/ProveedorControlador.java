@@ -8,29 +8,43 @@ import modelo.logica.ProveedorLogica;
 
 public class ProveedorControlador {
 
+	private static ProveedorControlador miProveedorControlador;
 	private CRUDProveedorVista vistaCRUDProveedor;
+	private ProveedorVO proveedorActual;
 	private ProveedorLogica logicaProveedor;
 
-	private ProveedorControlador() {
+	public ProveedorControlador() {
 		this.vistaCRUDProveedor = new CRUDProveedorVista(this);
 		this.logicaProveedor = ProveedorLogica.getInstance();
 	}
+
 
 	public static ProveedorControlador getInstance() {
 		return new ProveedorControlador();
 	}
 
-	public void aniadirProducto(String tipo) {
+	public void aniadirProveedor(String CIF, String nombre) {
 		// TODO
 	}
 
-	public void modificarProducto(ProveedorVO proveedorAntiguo, String tipo) {
+	public void modificarProveedor(ProveedorVO proveedorAntiguo, String CIF, String nombre) {
 		// TODO
 	}
 
-	public void eliminarProducto(ProveedorVO proveedor) {
+	public void eliminarProveedor(ProveedorVO proveedor) {
 		// TODO
 	}
+
+	public void mostrarAniadir() {
+		vistaCRUDProveedor.pulsarBotonAniadir();
+	}
+
+	public void mostrarModificar() {
+		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD LA SIGUIENTE LINEA
+		proveedorActual = new ProveedorVO("12345678A", "Nahamahan");
+		vistaCRUDProveedor.pulsarBotonModificar(proveedorActual);
+	}
+
 
 	public void gestionarAccionProveedor() {
 
