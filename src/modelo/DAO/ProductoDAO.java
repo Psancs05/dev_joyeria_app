@@ -46,7 +46,7 @@ public class ProductoDAO implements DAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
             // TODO: imagen
-            String query = "INSERT INTO producto (TipoPieza, Precio, Material, Proveedor, Descripcion) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO producto (TipoProducto, Precio, Material, Proveedor, Descripcion) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, tipoProducto.toString());
             pst.setDouble(2, precio);
