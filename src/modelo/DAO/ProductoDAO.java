@@ -335,4 +335,8 @@ public class ProductoDAO implements DAO {
         }
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0f358de68d4ffb8564ddcd676a626bd364ee46b8
