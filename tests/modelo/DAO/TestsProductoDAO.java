@@ -5,19 +5,27 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import LogicaNegocio.ProductoControlador;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
+import globals.enums.TipoUsuario;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
+import modelo.VO.UsuarioVO;
+import modelo.VO.VentaVO;
 
 public class TestsProductoDAO {
     private ProductoDAO prodDAO = ProductoDAO.getInstance();
     private ProveedorDAO provDAO = ProveedorDAO.getInstance();
+    private VentaDAO ventDAO = VentaDAO.getInstance();
+    private UsuarioDAO userDAO = UsuarioDAO.getInstance();
     private ProductoVO anillo;
     private ProductoVO pulsera;
     private ProveedorVO distr;
@@ -52,7 +60,7 @@ public class TestsProductoDAO {
 
     @Before
     public void setUp() {
-        distr = new ProveedorVO("123456G", "distribuidor");
+        distr = new ProveedorVO("123456G", "distribuidorTestProdDAO");
         provDAO.create(distr);
         anillo = new ProductoVO(TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, distr, "anillo de oro");
         pulsera = new ProductoVO(TipoProducto.PULSERA, 120, null, TipoMaterial.OROPLATA, distr,
@@ -95,6 +103,8 @@ public class TestsProductoDAO {
     public void testSearch() {
         prodDAO.create(pulsera);
         ProductoVO copia = (ProductoVO) prodDAO.search(pulsera);
+        System.out.println(copia.toString());
+        System.out.println(pulsera.toString());
         assertTrue(copia.equals(pulsera));
     }
 
@@ -111,6 +121,24 @@ public class TestsProductoDAO {
         assertEquals(pulsera.getDescripcion(), productoDescModificado.getDescripcion());
         pulsera.setDescripcion(antiguaDesc);
         prodDAO.update(pulsera);
+    }
+
+    @Test
+    public void testUpdateIDVenta() {
+        UsuarioVO usuarioPlaceholder = new UsuarioVO("TVENTADAO", "nombre", "email", "password", TipoUsuario.CAJERO);
+        userDAO.create(usuarioPlaceholder);
+        ArrayList<ProductoVO> listaPlaceholder = new ArrayList<ProductoVO>();
+        listaPlaceholder.add(anillo);
+        prodDAO.create(anillo);
+        VentaVO ventaPlaceholder = new VentaVO(Calendar.getInstance().getTime(), 1, 1, listaPlaceholder,
+                usuarioPlaceholder.getDNI(), "direccionTESTVENTADAO");
+        ventDAO.create(ventaPlaceholder);
+        assertEquals(anillo.getIDVenta(), ventaPlaceholder.getID());
+        // ProductoVO anilloBD = (ProductoVO) prodDAO.search(anillo);
+        // assertEquals(anillo.getIDProducto(), anilloBD.getIDProducto());
+        // assertEquals(5555, anilloBD.getIDVenta());
+        // prodDAO.delete(anillo);
+
     }
 
     @Test
@@ -134,6 +162,34 @@ public class TestsProductoDAO {
         prodDAO.create(anillo);
         ProductoVO prodCopia = (ProductoVO) prodDAO.getProductoPorID(anillo.getIDProducto());
         assertTrue(prodCopia.equals(anillo));
+    }
+
+    @Test
+    public void testGetProductosSegunIDVentaExtenso() {
+        ArrayList<ProductoVO> lista = new ArrayList<ProductoVO>();
+        lista.add(anillo);
+        lista.add(pulsera);
+        prodDAO.create(anillo);
+        prodDAO.create(pulsera);
+        UsuarioVO usuario = new UsuarioVO("88888", "nap", "nhuerp00", "pipopipo", TipoUsuario.ADMINISTRADOR);
+        UsuarioDAO userDAO = UsuarioDAO.getInstance();
+        userDAO.create(usuario);
+        VentaVO venta = new VentaVO(Calendar.getInstance().getTime(), 2, anillo.getPrecio() + pulsera.getPrecio(),
+                lista, usuario.getDNI(), "mikasa");
+        VentaDAO ventDAO = VentaDAO.getInstance();
+        System.out.println(venta.getProductos().toString());
+        ventDAO.create(venta);
+        System.out.println("ID VENTA: " + venta.getID());
+        ArrayList<ProductoVO> listaCopia = prodDAO.getProductosSegunIDVenta(venta.getID());
+        System.out.println("Lista original: " + lista.toString());
+        System.out.println("Lista copia: " + listaCopia.toString());
+        assertEquals(lista.size(), listaCopia.size());
+        assertEquals(lista, listaCopia);
+
+        ventDAO.delete(venta);
+        userDAO.create(usuario);
+        prodDAO.delete(anillo);
+        prodDAO.delete(pulsera);
     }
 
 }
