@@ -7,6 +7,7 @@ import java.sql.*;
 import globals.enums.*;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
+import modelo.conexion.Conexion;
 
 public class ProductoDAO implements DAO {
 
@@ -43,8 +44,8 @@ public class ProductoDAO implements DAO {
         }
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             // TODO: imagen
             String query = "INSERT INTO producto (TipoProducto, Precio, Material, Proveedor, Descripcion) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
@@ -64,7 +65,7 @@ public class ProductoDAO implements DAO {
             } else {
                 // throw an exception from here
             }
-            con.close();
+            // con.close();
             producto.setIDProducto(idProducto);
             return true;
 
@@ -94,8 +95,8 @@ public class ProductoDAO implements DAO {
             if (!exist(producto)) {
                 throw new Exception("ProductoDAO: No hay resultados");
             }
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "SELECT * FROM producto WHERE IDProducto=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setInt(1, IDProd);
@@ -110,10 +111,10 @@ public class ProductoDAO implements DAO {
                 int IDVenta = rs.getInt("IDVenta");
                 ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, null, material, proveedor, IDVenta,
                         descripcion);
-                con.close();
+                // con.close();
                 return nuevoProd;
             } else {
-                con.close();
+                // con.close();
                 throw new Exception("ProveedorDAO: No hay resultados");
             }
 
@@ -156,15 +157,14 @@ public class ProductoDAO implements DAO {
 
         if (!tipoProductoMod.toString().equals(tipoProductoBD.toString())) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET TipoProducto=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, tipoProductoMod.toString());
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -172,15 +172,14 @@ public class ProductoDAO implements DAO {
         // cambiamos precio
         if (precioMod != precioBD) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET Precio=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setDouble(1, precioMod);
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -188,15 +187,14 @@ public class ProductoDAO implements DAO {
         // cambiamos material
         if (!materialMod.toString().equals(materialBD.toString())) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET Material=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, materialMod.toString());
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -204,15 +202,14 @@ public class ProductoDAO implements DAO {
         // cambiamos proveedor
         if (!proveedorMod.equals(proveedorBD)) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET Proveedor=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, proveedorMod.getCIF());
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -220,15 +217,14 @@ public class ProductoDAO implements DAO {
         // cambiamos descripcion
         if (!descripcionMod.equals(descripcionBD)) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET Descripcion=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, descripcionMod);
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -236,15 +232,14 @@ public class ProductoDAO implements DAO {
         // cambiamos IDVenta
         if (IDVentaMod != IDVentaBD) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE producto SET IDVenta=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setInt(1, IDVentaMod);
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -266,14 +261,13 @@ public class ProductoDAO implements DAO {
         }
         int IDProd = prodDel.getIDProducto();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                    "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "DELETE FROM producto WHERE IDProducto=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setInt(1, IDProd);
             pst.executeUpdate();
-            con.close();
+            // con.close();
             prodDel.setIDProducto(-1);
             return true;
         } catch (Exception e) {
@@ -302,9 +296,8 @@ public class ProductoDAO implements DAO {
     // ? Deberia ser un ArrayList de ProductoVO o de Object??
     public ArrayList<ProductoVO> getListaProductos() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                    "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "SELECT * FROM producto";
             PreparedStatement pst = con.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -327,7 +320,7 @@ public class ProductoDAO implements DAO {
                 // Añadimos el producto a la lista
                 listaProductos.add(producto);
             }
-            con.close();
+            // con.close();
             return listaProductos;
         } catch (Exception e) {
             e.printStackTrace();
@@ -335,8 +328,4 @@ public class ProductoDAO implements DAO {
         }
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0f358de68d4ffb8564ddcd676a626bd364ee46b8

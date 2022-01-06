@@ -2,6 +2,7 @@ package modelo.DAO;
 
 import java.sql.*;
 import modelo.VO.ProveedorVO;
+import modelo.conexion.Conexion;
 
 public class ProveedorDAO implements DAO {
     private static ProveedorDAO miProveedorDAO;
@@ -29,14 +30,14 @@ public class ProveedorDAO implements DAO {
         }
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "INSERT INTO proveedor (CIF, Nombre) VALUES (?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CIF);
             pst.setString(2, nombre);
             pst.executeUpdate();
-            con.close();
+            // con.close();
             return true;
 
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -65,8 +66,8 @@ public class ProveedorDAO implements DAO {
             if (!exist(proveedor)) {
                 throw new Exception("ProveedorDAO: No hay resultados");
             }
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "SELECT * FROM proveedor WHERE CIF=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CIFProv);
@@ -75,10 +76,10 @@ public class ProveedorDAO implements DAO {
                 String CIFNuevoProv = rs.getString("CIF");
                 String NombreNuevoProv = rs.getString("Nombre");
                 ProveedorVO nuevoProv = new ProveedorVO(CIFNuevoProv, NombreNuevoProv);
-                con.close();
+                // con.close();
                 return nuevoProv;
             } else {
-                con.close();
+                // con.close();
                 throw new Exception("ProveedorDAO: No hay resultados");
             }
 
@@ -108,15 +109,14 @@ public class ProveedorDAO implements DAO {
         if (!nombreMod.equals(nombreBD)) {
             // modificamos nombre
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE proveedor SET Nombre=? WHERE CIF=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, nombreMod);
                 pst.setString(2, CIFMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -137,14 +137,13 @@ public class ProveedorDAO implements DAO {
         }
         String CIFDel = provDel.getCIF();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                    "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "DELETE FROM proveedor WHERE CIF=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, CIFDel);
             pst.executeUpdate();
-            con.close();
+            // con.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,8 +160,8 @@ public class ProveedorDAO implements DAO {
         ProveedorVO proveedor = (ProveedorVO) objeto;
         String CIF = proveedor.getCIF();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM proveedor WHERE CIF='" + CIF + "'");
             if (rs.next()) {

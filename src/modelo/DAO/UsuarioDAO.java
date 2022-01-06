@@ -3,6 +3,7 @@ package modelo.DAO;
 import java.sql.*;
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
+import modelo.conexion.Conexion;
 
 public class UsuarioDAO implements DAO {
 
@@ -34,14 +35,14 @@ public class UsuarioDAO implements DAO {
             String password = usuario.getPassword();
             TipoUsuario tipoUsuario = usuario.getTipoUsuario();
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             Statement st = con.createStatement();
 
             st.executeUpdate(
                     "INSERT INTO usuario (DNI, Nombre, Email, Password, TipoUsuario) VALUES ('" + DNI + "','"
                             + nombre + "','" + email + "','" + password + "','" + tipoUsuario + "');");
-            con.close();
+            // con.close();
             return true;
 
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -67,8 +68,8 @@ public class UsuarioDAO implements DAO {
             UsuarioVO usuario = (UsuarioVO) objeto;
             String DNIusuario = usuario.getDNI();
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE DNI='" + DNIusuario + "'");
@@ -81,10 +82,10 @@ public class UsuarioDAO implements DAO {
                 String TipoUsuarioNuevoUsuario = rs.getString("TipoUsuario");
                 UsuarioVO nuevoUsuario = new UsuarioVO(DNINuevoUsuario, NombreNuevoUsuario, EmailNuevoUsuario,
                         PasswordNuevoUsuario, TipoUsuario.valueOf(TipoUsuarioNuevoUsuario));
-                con.close();
+                // con.close();
                 return nuevoUsuario;
             } else {
-                con.close();
+                // con.close();
                 throw new Exception("UsuarioDAO: No hay resultados");
             }
 
@@ -124,15 +125,14 @@ public class UsuarioDAO implements DAO {
         if (!nombreMod.equals(nombreBD)) {
             // modificamos nombre
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE usuario SET Nombre=? WHERE DNI=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, nombreMod);
                 pst.setString(2, DNIMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -141,15 +141,14 @@ public class UsuarioDAO implements DAO {
         if (!emailMod.equals(emailBD)) {
             // modificamos email
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE usuario SET Email=? WHERE DNI=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, emailMod);
                 pst.setString(2, DNIMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -157,15 +156,14 @@ public class UsuarioDAO implements DAO {
         if (!passwordMod.equals(passwordBD)) {
             // modificamos password
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE usuario SET Password=? WHERE DNI=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, passwordMod);
                 pst.setString(2, DNIMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -173,15 +171,14 @@ public class UsuarioDAO implements DAO {
         if (!tipoUsuarioMod.toString().equals(tipoUsuarioBD.toString())) {
             // modificamos tipoUsuario
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                        "rootroot");
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
                 String query = "UPDATE usuario SET TipoUsuario=? WHERE DNI=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, tipoUsuarioMod.toString());
                 pst.setString(2, DNIMod);
                 pst.executeUpdate();
-                con.close();
+                // con.close();
             } catch (Exception e) {
                 return false;
             }
@@ -203,14 +200,13 @@ public class UsuarioDAO implements DAO {
         }
         String DNIDel = usuarioDel.getDNI();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-                    "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             String query = "DELETE FROM usuario WHERE DNI=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, DNIDel);
             pst.executeUpdate();
-            con.close();
+            // con.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -223,8 +219,8 @@ public class UsuarioDAO implements DAO {
         UsuarioVO usuario = (UsuarioVO) objeto;
         String DNI = usuario.getDNI();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE DNI='" + DNI + "'");
             if (rs.next()) {
@@ -240,8 +236,8 @@ public class UsuarioDAO implements DAO {
 
     public boolean autenticarUsuario(String dni, String password) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
             Statement st = con.createStatement();
             ResultSet rs = st
                     .executeQuery("SELECT * FROM usuario WHERE DNI='" + dni + "' AND Password='" + password + "'");
