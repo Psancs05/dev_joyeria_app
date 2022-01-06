@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,16 +17,23 @@ import javax.swing.JPanel;
 import LogicaNegocio.ProveedorControlador;
 import modelo.VO.ProveedorVO;
 
-public class CRUDProveedorVista extends JDialog{
+public class CRUDProveedorVista extends JDialog {
 
-    private ProveedorControlador controladorProveedor;
+	private ProveedorControlador controladorProveedor;
 
-    // constructor
-    public CRUDProveedorVista(ProveedorControlador controladorProveedor) {
-        this.controladorProveedor = controladorProveedor;
-    }
+	// * Constructor
+	public CRUDProveedorVista(ProveedorControlador controladorProveedor) {
+		this.controladorProveedor = controladorProveedor;
 
-    JTextField tfCIF;
+		// ? Provisional
+		ArrayList<ProveedorVO> listaProveedores = this.controladorProveedor.getProveedores();
+		System.out.println("Lista de proveedores");
+		for (ProveedorVO prov : listaProveedores) {
+			System.out.println(prov.toString());
+		}
+	}
+
+	JTextField tfCIF;
 	JTextField tfNombre;
 
 	public void pulsarBotonAniadir() {
@@ -87,9 +95,9 @@ public class CRUDProveedorVista extends JDialog{
 		});
 
 	}
-	
+
 	public void pulsarBotonModificar(ProveedorVO proveedor) {
-		
+
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 526, 382);
@@ -124,7 +132,7 @@ public class CRUDProveedorVista extends JDialog{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		//Comprobacion de que furrula hasta que tengamos el resto hecho
+		// Comprobacion de que furrula hasta que tengamos el resto hecho
 
 		String CIF = proveedor.getCIF();
 		String nombre = proveedor.getNombre();
@@ -154,8 +162,6 @@ public class CRUDProveedorVista extends JDialog{
 				setVisible(false);
 			}
 		});
-		
-
 
 	}
 
@@ -171,7 +177,7 @@ public class CRUDProveedorVista extends JDialog{
 		limpiarCampos();
 	}
 
-    public void modificarProveedor(ProveedorVO Proveedor){
+	public void modificarProveedor(ProveedorVO Proveedor) {
 		String CIF = tfCIF.getText();
 		String nombre = tfNombre.getText();
 

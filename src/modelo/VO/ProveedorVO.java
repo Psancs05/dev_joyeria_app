@@ -1,14 +1,17 @@
 package modelo.VO;
 
 public class ProveedorVO {
+    // * Atributos
     private String CIF;
     private String nombre;
 
+    // * Constructor
     public ProveedorVO(String CIF, String nombre) {
         this.CIF = CIF;
         this.nombre = nombre;
     }
 
+    // * Getters y Setters
     public String getCIF() {
         return CIF;
     }
@@ -25,6 +28,7 @@ public class ProveedorVO {
         this.nombre = nombre;
     }
 
+    // * Metodos toString y equals
     @Override
     public String toString() {
         return "ProveedorVO [CIF=" + CIF + ", nombre=" + nombre + "]";
@@ -51,5 +55,5 @@ public class ProveedorVO {
             return false;
         return true;
     }
-    
+
 }

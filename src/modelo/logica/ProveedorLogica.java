@@ -6,16 +6,15 @@ import modelo.DAO.ProveedorDAO;
 import modelo.VO.ProveedorVO;
 
 public class ProveedorLogica {
+    // * Atributos
     private ProveedorDAO proveedorDAO;
 
-    private ProveedorLogica() {
+    // * Constructor
+    public ProveedorLogica() {
         this.proveedorDAO = new ProveedorDAO();
     }
 
-    public static ProveedorLogica getInstance() {
-        return new ProveedorLogica();
-    }
-
+    // * Getters y Setters
     public ProveedorDAO getProveedorDAO() {
         return proveedorDAO;
     }
@@ -24,6 +23,7 @@ public class ProveedorLogica {
         this.proveedorDAO = proveedorDAO;
     }
 
+    // * Metodos de la logica
     public ArrayList<ProveedorVO> getProveedores() {
         ArrayList<ProveedorVO> lista = proveedorDAO.getListaProveedores();
         System.out.println("Proveedores: " + lista.toString());

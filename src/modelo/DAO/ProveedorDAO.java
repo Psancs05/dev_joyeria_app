@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import modelo.VO.ProveedorVO;
 
 public class ProveedorDAO implements DAO {
+
+    // * Atributos
     private static ProveedorDAO miProveedorDAO;
 
+    // * Sinlgeton
     public static ProveedorDAO getInstance() {
         if (miProveedorDAO == null) {
             miProveedorDAO = new ProveedorDAO();
