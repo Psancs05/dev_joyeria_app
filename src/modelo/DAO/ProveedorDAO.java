@@ -176,7 +176,7 @@ public class ProveedorDAO implements DAO {
     }
 
     public Object getProveedorPorCIF(String cif) {
-        ProveedorVO placeholder = new ProveedorVO(cif, "nombre");
+        ProveedorVO placeholder = new ProveedorVO(cif, "name");
         return search(placeholder);
     }
 }

@@ -2,6 +2,7 @@ package modelo.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import modelo.VO.VentaVO;
 import modelo.VO.ProductoVO;
@@ -48,6 +49,13 @@ public class VentaDAO implements DAO {
             }
             venta.setID(idVenta);
             // con.close();
+            ArrayList<ProductoVO> listaProds = venta.getProductos();
+            ProductoDAO prodDAO = ProductoDAO.getInstance();
+            for (ProductoVO producto : listaProds) {
+                producto.setIDVenta(idVenta);
+                prodDAO.update(producto);
+            }
+            venta.setID(idVenta);
             return true;
         } catch (SQLException e) {
             System.out.println(e);
@@ -58,7 +66,7 @@ public class VentaDAO implements DAO {
     public Object search(Object objeto) {
         VentaVO venta = (VentaVO) objeto;
         int idVenta = venta.getID();
-        ArrayList<ProductoVO> listaProductos = venta.getProductos();
+        // ArrayList<ProductoVO> listaProductos = venta.getProductos();
 
         try {
             if (!exist(venta)) {
@@ -79,12 +87,14 @@ public class VentaDAO implements DAO {
                 int ID = rs.getInt("IDVenta");
                 // con.close();
                 // Cogemos la lista de productos correspondiente a la venta
-                ArrayList<ProductoVO> nuevaLista = new ArrayList<ProductoVO>();
                 ProductoDAO pDAO = ProductoDAO.getInstance();
-                for (ProductoVO producto : listaProductos) {
-                    ProductoVO nuevo = (ProductoVO) pDAO.search(producto);
-                    nuevaLista.add(nuevo);
-                }
+                ArrayList<ProductoVO> nuevaLista = pDAO.getProductosSegunIDVenta(ID);
+                System.out.println("LISTA EN SEARCH: " + nuevaLista.toString());
+
+                // for (ProductoVO producto : listaProductos) {
+                // ProductoVO nuevo = (ProductoVO) pDAO.search(producto);
+                // nuevaLista.add(nuevo);
+                // }
 
                 VentaVO nuevaVenta = new VentaVO(ID, fecha, articulos, precioTotal, nuevaLista, DNI, direccion);
                 return nuevaVenta;
@@ -99,42 +109,12 @@ public class VentaDAO implements DAO {
         }
     }
 
-    // public Object searchID(int id) {
-    // try {
-    // Class.forName("com.mysql.cj.jdbc.Driver");
-    // Connection con =
-    // DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-    // "rootroot");
-    // String query = "SELECT * FROM venta WHERE IDVenta=?";
-    // PreparedStatement pst = con.prepareStatement(query);
-    // pst.setInt(1, id);
-    // ResultSet rs = pst.executeQuery();
-    // if (rs.next()) {
-    // java.util.Date fecha = new Date(rs.getDate("Fecha").getTime());
-    // int articulos = rs.getInt("CantidadArticulos");
-    // double precioTotal = rs.getDouble("PrecioVenta");
-    // String DNI = rs.getString("DNIUsuario");
-    // String direccion = rs.getString("DireccionFacturacion");
-
-    // con.close();
-
-    // // Cogemos la lista de productos correspondiente a la venta
-    // ArrayList<ProductoVO> nuevaLista = new ArrayList<ProductoVO>();
-    // ProductoDAO pDAO = ProductoDAO.getInstance();
-
-    // VentaVO nuevaVenta = new VentaVO(id,fecha, articulos, precioTotal, null, DNI,
-    // direccion);
-    // return nuevaVenta;
-    // } else {
-    // con.close();
-    // throw new Exception("VentaDAO: No hay resultados");
-    // }
-
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // return null;
-    // }
-    // }
+    public Object searchID(int id) {
+        VentaVO ventaPlaceholder = new VentaVO(Calendar.getInstance().getTime(), 1, 1, null, "777",
+                "direccionFacturacion");
+        ventaPlaceholder.setID(id);
+        return search(ventaPlaceholder);
+    }
 
     public boolean update(Object objeto) {
         VentaVO venta = (VentaVO) objeto;

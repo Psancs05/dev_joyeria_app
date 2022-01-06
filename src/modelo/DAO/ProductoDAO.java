@@ -112,6 +112,7 @@ public class ProductoDAO implements DAO {
                 ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, null, material, proveedor, IDVenta,
                         descripcion);
                 // con.close();
+                nuevoProd.setIDProducto(IDProd);
                 return nuevoProd;
             } else {
                 // con.close();
@@ -293,7 +294,6 @@ public class ProductoDAO implements DAO {
         return search(placeholder);
     }
 
-    // ? Deberia ser un ArrayList de ProductoVO o de Object??
     public ArrayList<ProductoVO> getListaProductos() {
         try {
             Conexion conexionBD = Conexion.getInstance();
@@ -302,14 +302,16 @@ public class ProductoDAO implements DAO {
             PreparedStatement pst = con.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             ArrayList<ProductoVO> listaProductos = new ArrayList<ProductoVO>();
+            ProveedorDAO provDAO = ProveedorDAO.getInstance();
             while (rs.next()) {
                 // Obtenemos los datos del producto de la db
                 int iDProducto = rs.getInt("IDproducto");
-                TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoPieza"));
+                TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoProducto"));
                 double precio = rs.getDouble("Precio");
                 Blob imagen = rs.getBlob("Imagen");
                 TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
-                ProveedorVO proveedor = new ProveedorVO(rs.getString("Proveedor"), "nombre");
+                ProveedorVO proveedor = (ProveedorVO) provDAO
+                        .search(new ProveedorVO(rs.getString("Proveedor"), "nombre"));
                 int iDVenta = rs.getInt("IDVenta");
                 String descripcion = rs.getString("Descripcion");
 
@@ -326,6 +328,45 @@ public class ProductoDAO implements DAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public ArrayList<ProductoVO> getProductosSegunIDVenta(int IDVenta) {
+        try {
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
+            String query = "SELECT * FROM producto WHERE IDVenta=?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, IDVenta);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<ProductoVO> listaProductos = new ArrayList<ProductoVO>();
+            ProveedorDAO provDAO = ProveedorDAO.getInstance();
+
+            while (rs.next()) {
+                // Obtenemos los datos del producto de la db
+                int iDProducto = rs.getInt("IDproducto");
+                TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoProducto"));
+                double precio = rs.getDouble("Precio");
+                Blob imagen = rs.getBlob("Imagen");
+                TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
+                ProveedorVO proveedor = (ProveedorVO) provDAO
+                        .search(new ProveedorVO(rs.getString("Proveedor"), "nombre"));
+                int iDVenta = rs.getInt("IDVenta");
+                String descripcion = rs.getString("Descripcion");
+
+                // Creamos el producto con los datos obtenidos
+                ProductoVO producto = new ProductoVO(tipo, precio, imagen, material, proveedor, iDVenta, descripcion);
+                producto.setIDProducto(iDProducto);
+
+                // Añadimos el producto a la lista
+                listaProductos.add(producto);
+            }
+            // con.close();
+            return listaProductos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 }
