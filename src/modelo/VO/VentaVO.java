@@ -90,6 +90,40 @@ public class VentaVO {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VentaVO other = (VentaVO) obj;
+        if (ID != other.ID)
+            return false;
+        if(fecha.compareTo(other.fecha) != 0)
+            return false;
+        if (Double.doubleToLongBits(precioTotal) != Double.doubleToLongBits(other.precioTotal))
+            return false;
+        if (cantidadArticulos != other.cantidadArticulos) 
+             return false;
+        if(!(DNIUsuario.equals(other.DNIUsuario)))
+            return false;
+        if(!(direccionFacturacion.equals(other.direccionFacturacion)))
+            return false;
+        if(productos.size() != other.productos.size()){
+            return false;
+        }
+        for(int i =0; i < productos.size(); i++){
+            ProductoVO prod1 = productos.get(i);
+            ProductoVO prod2 = productos.get(i);
+            if(!(prod1.equals(prod2))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public String toString(){
         StringBuffer buffer = new StringBuffer();
         buffer.append("IDventa: " + ID + "\nFecha: " + fecha.toString() + "\nCantidad de articulos: " + cantidadArticulos + "\nPrecio: " + precioTotal + "\nDNIEmpleado: " + DNIUsuario 

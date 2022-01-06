@@ -9,7 +9,7 @@ import Vista.Venta.VentaVista;
 public class VentaControlador {
 
 	private VentaLogica logicaVenta;
-	private VentaLogica vistaVenta;
+	private VentaVista vistaVenta;
 	private static VentaControlador miventaControlador;
 
     public static VentaControlador getInstance() {
@@ -21,12 +21,11 @@ public class VentaControlador {
 
 	private VentaControlador() {
 		this.logicaVenta = new VentaLogica();
-		this.vistaVenta = new VentaLogica();
+		this.vistaVenta = new VentaVista();
 	}
 	
 	public void registrarVenta(ArrayList<ProductoVO> productos) {
-		int idVenta = logicaVenta.registrarVenta(productos);
-		logicaVenta.retirarProductosDeBBDD(productos,idVenta);
+		logicaVenta.registrarVenta(productos);
 	}
 
 	public VentaLogica getLogicaVenta() {

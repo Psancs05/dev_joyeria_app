@@ -91,11 +91,6 @@ public class VentaDAO implements DAO {
                 ArrayList<ProductoVO> nuevaLista = pDAO.getProductosSegunIDVenta(ID);
                 System.out.println("LISTA EN SEARCH: " + nuevaLista.toString());
 
-                // for (ProductoVO producto : listaProductos) {
-                // ProductoVO nuevo = (ProductoVO) pDAO.search(producto);
-                // nuevaLista.add(nuevo);
-                // }
-
                 VentaVO nuevaVenta = new VentaVO(ID, fecha, articulos, precioTotal, nuevaLista, DNI, direccion);
                 return nuevaVenta;
             } else {
@@ -273,38 +268,35 @@ public class VentaDAO implements DAO {
         }
     }
 
-    // public ArrayList<VentaVO> getListadoVentas() {
-    // ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
-    // try {
-    // Class.forName("com.mysql.cj.jdbc.Driver");
-    // Connection con =
-    // DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root",
-    // "rootroot");
-    // String query = "SELECT * FROM venta";
-    // PreparedStatement pst = con.prepareStatement(query);
-    // ResultSet rs = pst.executeQuery();
-    // while(rs.next()) {
-    // java.util.Date fecha = new Date(rs.getDate("Fecha").getTime());
-    // int articulos = rs.getInt("CantidadArticulos");
-    // double precioTotal = rs.getDouble("PrecioVenta");
-    // String DNI = rs.getString("DNIUsuario");
-    // String direccion = rs.getString("DireccionFacturacion");
-    // int id = rs.getInt("IDVenta");
+     public ArrayList<VentaVO> getListadoVentas() {
+         ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
+         try {
+             String query = "SELECT * FROM venta";
+             PreparedStatement pst = con.prepareStatement(query);
+             ResultSet rs = pst.executeQuery();
+             while (rs.next()) {
+                 java.util.Date fecha = new Date(rs.getDate("Fecha").getTime());
+                 int articulos = rs.getInt("CantidadArticulos");
+                 double precioTotal = rs.getDouble("PrecioVenta");
+                 String DNI = rs.getString("DNIUsuario");
+                 String direccion = rs.getString("DireccionFacturacion");
+                 int id = rs.getInt("IDVenta");
 
-    // // Cogemos la lista de productos correspondiente a la venta
-    // ArrayList<ProductoVO> nuevaLista = new ArrayList<ProductoVO>();
-    // ProductoDAO pDAO = ProductoDAO.getInstance();
+                 // Cogemos la lista de productos correspondiente a la venta
+                
+                 ProductoDAO pDAO = ProductoDAO.getInstance();
+                 ArrayList<ProductoVO> nuevaLista = pDAO.getListaProductos();
+                 
+                 VentaVO nuevaVenta = new VentaVO(id, fecha, articulos, precioTotal, nuevaLista,
+                 DNI, direccion);
+                 listaVentas.add(nuevaVenta);
+             }
+             //con.close();
+             return listaVentas;
 
-    // VentaVO nuevaVenta = new VentaVO(id, fecha, articulos, precioTotal, null,
-    // DNI, direccion);
-    // listaVentas.add(nuevaVenta);
-    // }
-    // con.close();
-    // return listaVentas;
-
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // return null;
-    // }
-    // }
+         } catch (Exception e) {
+             System.out.println(e);
+             return null;
+         }
+     }
 }
