@@ -1,65 +1,36 @@
 package modelo.conexion;
 
-import globals.MiSingleton;
+import java.sql.*;
 
-public class Conexion extends MiSingleton {
-    private String db;
-    private String login;
-    private String password;
-    private String url;
-    private String connection;
+public class Conexion {
+    private static Conexion miConexion;
+    private Connection conexionBD;
 
-    public Conexion(String db, String login, String password, String url, String connection) {
-        this.db = db;
-        this.login = login;
-        this.password = password;
-        this.url = url;
-        this.connection = connection;
+    public Conexion() {
+        try {
+            conexionBD = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    // Getters & Setters
-    public String getDb() {
-        return db;
+    public static Conexion getInstance() {
+        if (miConexion == null) {
+            miConexion = new Conexion();
+        }
+        return miConexion;
     }
 
-    public void setDb(String db) {
-        this.db = db;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getConnection() {
-        return connection;
-    }
-
-    public void setConnection(String connection) {
-        this.connection = connection;
+    public Connection getConexion() {
+        return conexionBD;
     }
 
     public void disconnect() {
-        // TODO: implement
+        try {
+            conexionBD.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void generarBackup(String ubicacion) {
