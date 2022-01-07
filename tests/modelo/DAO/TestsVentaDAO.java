@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.xml.ws.BindingType;
-
 import org.junit.Before;
 import org.junit.Test;
 
