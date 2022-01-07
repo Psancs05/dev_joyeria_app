@@ -1,26 +1,28 @@
 package Vista.Usuario;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
-import com.itextpdf.text.Font;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import LogicaNegocio.UsuarioControlador;
 
 public class LoginVista extends JDialog{
 
-    private UsuarioControlador controladorUsuario;
+	private UsuarioControlador controladorUsuario;
 
-    public LoginVista(UsuarioControlador usuarioControlador) {
+	public LoginVista(UsuarioControlador usuarioControlador) {
 		this.controladorUsuario = usuarioControlador;
 	}
 
-    public void botonAutentificar(){
+	public void botonAutentificar(){
 
-        JTextField textField;
-	    JTextField textField_1;
+		JTextField textField;
+		JTextField textField_1;
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -28,14 +30,13 @@ public class LoginVista extends JDialog{
 		setTitle("Login");
 		getContentPane().setLayout(null);
 
-
-        JLabel lblNewLabel = new JLabel("Usuario");
-		// lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		JLabel lblNewLabel = new JLabel("Usuario");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel.setBounds(147, 123, 70, 33);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password");
-		// lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel_1.setBounds(147, 176, 90, 33);
 		getContentPane().add(lblNewLabel_1);
 		
@@ -54,10 +55,13 @@ public class LoginVista extends JDialog{
 		getContentPane().add(btnNewButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnCancelar.setBounds(263, 256, 106, 23);
 		getContentPane().add(btnCancelar);
 
 
-    }
-
+	}
 }

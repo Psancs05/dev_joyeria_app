@@ -10,10 +10,14 @@ import javax.swing.JMenuItem;
 import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JMenu;
@@ -117,25 +121,15 @@ public class VistaGeneral {
 		menuBar.add(ProveedorMenuItem);
 
 		JMenuItem aniadirProveedor = new JMenuItem("Aniadir");
+		aniadirProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		aniadirProveedor.setForeground(negro);
 		aniadirProveedor.setBackground(blanco);
-		aniadirProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-		aniadirProveedor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ProveedorControlador.getInstance().mostrarAniadir();
-			}
-		});
 		ProveedorMenuItem.add(aniadirProveedor);
 
 		JMenuItem modificarProveedor = new JMenuItem("Modificar");
+		modificarProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		modificarProveedor.setForeground(negro);
 		modificarProveedor.setBackground(blanco);
-		modificarProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-		modificarProveedor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ProveedorControlador.getInstance().mostrarModificar();
-			}
-		});
 		ProveedorMenuItem.add(modificarProveedor);
 
 		JMenuItem eliminarProveedor = new JMenuItem("Eliminar");

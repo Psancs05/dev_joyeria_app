@@ -13,57 +13,61 @@ public class UsuarioControlador {
 	private LoginVista vistaLogin;
 	private UsuarioVO usuarioActual;
 	private UsuarioLogica logicaUsuario;
-	
+
 	public UsuarioControlador() {
 		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
 		this.vistaLogin = new LoginVista(this);
 		this.logicaUsuario = UsuarioLogica.getInstance();
 		this.usuarioActual = logicaUsuario.getUsuarioActivo();
 	}
-	
+
 	public void gestionarAccionUsuario() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void comprobarUsuario(UsuarioVO usuario, String contrasenia) {
-		//TODO
+		// TODO
 	}
-	
+
 	public void cerrarSesion() {
-		//TODO
+		// TODO
 	}
-	
+
 	public void mostrarLogin() {
 		vistaLogin.botonAutentificar();
 	}
-	
+
 	public void mostrarAniadir() {
 		vistaCRUDUsuario.pulsarBotonAniadir();
 	}
-	
+
 	public void mostrarModificar() {
+		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
+		// TipoUsuario tipoUsuarioI;
+		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
+		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan", "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
 		vistaCRUDUsuario.pulsarBotonModificar(usuarioActual);
 	}
-	
-	public void aniadirUsuario(String DNI, String nombre, String email, String password, TipoUsuario tipoUsuario) {
-		//TODO 
+
+	public void aniadirUsuario(String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
+		this.logicaUsuario.registrarUsuario(DNI, nombre, correo, password, tipo);
 	}
-	
-	public void modificarUsuario(UsuarioVO usuarioAntiguo, String tipo, String nombre, String correo, String DNI) {
-		//TODO
+
+	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
+		// TODO
 	}
-	
+
 	public void eliminarUsuario(UsuarioVO usuarioAntiguo) {
-		//TODO
+		// TODO
 	}
-	
+
 	public static UsuarioControlador getInstance() {
-		
-		if(miUsuarioControlador == null) {
+
+		if (miUsuarioControlador == null) {
 			miUsuarioControlador = new UsuarioControlador();
 		}
-		
+
 		return miUsuarioControlador;
-		
+
 	}
 }
