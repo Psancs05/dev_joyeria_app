@@ -1,8 +1,5 @@
 package modelo.DAO;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -14,7 +11,6 @@ import org.junit.Test;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import globals.enums.TipoUsuario;
-import modelo.*;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
 import modelo.VO.UsuarioVO;
@@ -39,7 +35,7 @@ public class TestsVentaDAO {
         proveedor = new ProveedorVO("999999", "Proveedor de testVentaDAO");
         provDAO.create(proveedor);
         gafas = new ProductoVO(TipoProducto.GAFAS, 30, null, TipoMaterial.PLATA, proveedor, "gafas de testVentaDAO");
-        prodDAO.create(gafas);
+       
         arrayProductos = new ArrayList<>();
         arrayProductos.add(gafas);
         java.util.Date fecha = new java.util.Date();
@@ -48,19 +44,8 @@ public class TestsVentaDAO {
     }
 
     @Test
-    public void testIDVentaProductos() {
-        assertEquals(0, gafas.getIDVenta());
-        assertEquals(0, gafas.getIDVenta());
-        assertEquals(-1, venta.getID());
-        assertTrue(ventDAO.create(venta));
-        assertNotEquals(-1, venta.getID());
-        assertEquals(gafas.getIDVenta(), venta.getID());
-        ventDAO.delete(venta);
-        
-    }
-
-    @Test
     public void testCreateDelete() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
         assertTrue(ventaDAO.delete(venta));
     }
@@ -72,6 +57,7 @@ public class TestsVentaDAO {
 
     @Test
     public void testCreateRepetido() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
         assertFalse(ventaDAO.create(venta));
         assertTrue(ventaDAO.delete(venta));
@@ -79,38 +65,41 @@ public class TestsVentaDAO {
 
     @Test
     public void testSearchExiste() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
-        VentaVO ventaEncontrada = assertTrue(ventaDAO.search(venta));
+        VentaVO ventaEncontrada = (VentaVO)ventaDAO.search(venta);
         assertTrue(ventaEncontrada.equals(venta));
         assertTrue(ventaDAO.delete(venta));
     }
 
     @Test
     public void testSearchNoExiste() {
-        assertFalse(ventaDAO.search(venta));
+        assertTrue(ventaDAO.search(venta) == null);
     }
 
     @Test
     public void testSearchIDExiste() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
         int idVenta = venta.getID();
-        assertTrue(ventaDAO.search(idVenta));
+        assertTrue(ventaDAO.search(idVenta) != null);
         assertTrue(ventaDAO.delete(venta));
     }
 
     @Test
     public void testSearchIDNoExiste() {
-        assertFalse(ventaDAO.search(-10000));
+        assertTrue(ventaDAO.search(-10000) == null);
     }
 
     @Test
     public void testUpdate() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
         venta.setDireccionFacturacion("donde estoy");
         venta.setPrecioTotal(-300.0);
         venta.setCantidadArticulos(-20);
         assertTrue(ventaDAO.update(venta));
-        VentaVO ventaUpdateada = ventaDao.search(venta);
+        VentaVO ventaUpdateada = (VentaVO)ventaDAO.search(venta);
         assertTrue(venta.equals(ventaUpdateada));
         assertTrue(ventaDAO.delete(venta));
     }
@@ -122,27 +111,34 @@ public class TestsVentaDAO {
 
     @Test
     public void testExistsExiste() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
-        assertTrue(ventaDAO.exists(venta));
+        assertTrue(ventaDAO.exist(venta));
         assertTrue(ventaDAO.delete(venta));
     }
 
     @Test
     public void testExistsNoExiste() {
-        assertFalse(ventaDAO.exists(venta));
+        assertFalse(ventaDAO.exist(venta));
     
     }
 
     @Test
     public void testGetListado() {
+        prodDAO.create(gafas);
         assertTrue(ventaDAO.create(venta));
         ArrayList<VentaVO> listadoVentas = ventaDAO.getListadoVentas();
+        VentaVO ventaTemp = null;
         for(VentaVO vent: listadoVentas){
-            if(vent.getID() ==venta.getID()){
-                VentaVO ventaTemp = vent;
+            if(vent.getID() == venta.getID()){
+                ventaTemp = vent;
             }
         }
-        assertTrue(venta.equals(ventaTemp));
+        if(ventaTemp == null){
+            assertTrue(false);
+        } else {
+            assertTrue(venta.equals(ventaTemp));
+        }
         assertTrue(ventaDAO.delete(venta));
     
     }

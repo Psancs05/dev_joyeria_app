@@ -271,6 +271,8 @@ public class VentaDAO implements DAO {
      public ArrayList<VentaVO> getListadoVentas() {
          ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
          try {
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
              String query = "SELECT * FROM venta";
              PreparedStatement pst = con.prepareStatement(query);
              ResultSet rs = pst.executeQuery();
