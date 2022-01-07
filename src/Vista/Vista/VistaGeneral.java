@@ -70,7 +70,8 @@ public class VistaGeneral {
 
 
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("assets\\logo.jpg"));
+		String fileSeparator = File.separator;
+		lblNewLabel.setIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg"));
 		lblNewLabel.setBounds(605, 135, 387, 231);
 		frame.getContentPane().add(lblNewLabel);
 		
