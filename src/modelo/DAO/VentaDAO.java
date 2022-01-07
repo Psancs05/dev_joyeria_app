@@ -19,8 +19,13 @@ public class VentaDAO implements DAO {
     }
 
     public boolean create(Object objeto) {
+
+        VentaVO venta = (VentaVO) objeto;
         try {
-            VentaVO venta = (VentaVO) objeto;
+            if (exist(venta)) {
+                throw new Exception("VentaDAO: No creo la venta porque ya existe");
+            }
+
             java.util.Date fecha = venta.getFecha();
             java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
             int articulos = venta.getCantidadArticulos();
@@ -58,6 +63,9 @@ public class VentaDAO implements DAO {
             venta.setID(idVenta);
             return true;
         } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        } catch (Exception e) {
             System.out.println(e);
             return false;
         }
@@ -268,37 +276,37 @@ public class VentaDAO implements DAO {
         }
     }
 
-     public ArrayList<VentaVO> getListadoVentas() {
-         ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
-         try {
+    public ArrayList<VentaVO> getListadoVentas() {
+        ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
+        try {
             Conexion conexionBD = Conexion.getInstance();
             Connection con = conexionBD.getConexion();
-             String query = "SELECT * FROM venta";
-             PreparedStatement pst = con.prepareStatement(query);
-             ResultSet rs = pst.executeQuery();
-             while (rs.next()) {
-                 java.util.Date fecha = new Date(rs.getDate("Fecha").getTime());
-                 int articulos = rs.getInt("CantidadArticulos");
-                 double precioTotal = rs.getDouble("PrecioVenta");
-                 String DNI = rs.getString("DNIUsuario");
-                 String direccion = rs.getString("DireccionFacturacion");
-                 int id = rs.getInt("IDVenta");
+            String query = "SELECT * FROM venta";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                java.util.Date fecha = new Date(rs.getDate("Fecha").getTime());
+                int articulos = rs.getInt("CantidadArticulos");
+                double precioTotal = rs.getDouble("PrecioVenta");
+                String DNI = rs.getString("DNIUsuario");
+                String direccion = rs.getString("DireccionFacturacion");
+                int id = rs.getInt("IDVenta");
 
-                 // Cogemos la lista de productos correspondiente a la venta
-                
-                 ProductoDAO pDAO = ProductoDAO.getInstance();
-                 ArrayList<ProductoVO> nuevaLista = pDAO.getListaProductos();
-                 
-                 VentaVO nuevaVenta = new VentaVO(id, fecha, articulos, precioTotal, nuevaLista,
-                 DNI, direccion);
-                 listaVentas.add(nuevaVenta);
-             }
-             //con.close();
-             return listaVentas;
+                // Cogemos la lista de productos correspondiente a la venta
 
-         } catch (Exception e) {
-             System.out.println(e);
-             return null;
-         }
-     }
+                ProductoDAO pDAO = ProductoDAO.getInstance();
+                ArrayList<ProductoVO> nuevaLista = pDAO.getListaProductos();
+
+                VentaVO nuevaVenta = new VentaVO(id, fecha, articulos, precioTotal, nuevaLista,
+                        DNI, direccion);
+                listaVentas.add(nuevaVenta);
+            }
+            // con.close();
+            return listaVentas;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }
