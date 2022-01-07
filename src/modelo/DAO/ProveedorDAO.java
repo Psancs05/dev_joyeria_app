@@ -1,12 +1,17 @@
 package modelo.DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import modelo.VO.ProveedorVO;
 import modelo.conexion.Conexion;
 
 public class ProveedorDAO implements DAO {
+
+    // * Atributos
     private static ProveedorDAO miProveedorDAO;
 
+    // * Sinlgeton
     public static ProveedorDAO getInstance() {
         if (miProveedorDAO == null) {
             miProveedorDAO = new ProveedorDAO();
@@ -179,4 +184,52 @@ public class ProveedorDAO implements DAO {
         ProveedorVO placeholder = new ProveedorVO(cif, "name");
         return search(placeholder);
     }
+
+    // ? Deberia ser un arraylist de proveedores o de objetos??
+    public ArrayList<ProveedorVO> getListaProveedores() {
+        ArrayList<ProveedorVO> listaProveedores = new ArrayList<ProveedorVO>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria", "root", "rootroot");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM proveedor");
+            while (rs.next()) {
+                String CIF = rs.getString("CIF");
+                String Nombre = rs.getString("Nombre");
+                ProveedorVO nuevoProv = new ProveedorVO(CIF, Nombre);
+                listaProveedores.add(nuevoProv);
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaProveedores;
+    }
+
+    // @Deprecated: Usar mas adelante si lo necesitamos (lo ha generado copilot :) )
+    // // public ArrayList<ProveedorVO> getListaProveedoresPorNombre(String nombre)
+    // // {
+    // // ArrayList<ProveedorVO> listaProveedores = new ArrayList<ProveedorVO>();
+    // // try {
+    // // Class.forName("com.mysql.cj.jdbc.Driver");
+    // // Connection con =
+    // // DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria",
+    // // "root",
+    // // "rootroot");
+    // // Statement st = con.createStatement();
+    // // ResultSet rs = st.executeQuery("SELECT * FROM proveedor WHERE Nombre LIKE
+    // // '%" + nombre + "%'");
+    // // while (rs.next()) {
+    // // String CIF = rs.getString("CIF");
+    // // String Nombre = rs.getString("Nombre");
+    // // ProveedorVO nuevoProv = new ProveedorVO(CIF, Nombre);
+    // // listaProveedores.add(nuevoProv);
+    // // }
+    // // con.close();
+    // // return listaProveedores;
+    // // } catch (Exception e) {
+    // // e.printStackTrace();
+    // // return null;
+    // // }
+    // // }
 }
