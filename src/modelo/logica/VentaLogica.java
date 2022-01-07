@@ -28,18 +28,6 @@ public class VentaLogica {
         return precioTotal;
     }
 
-    /**
-     * @param productos lista de todos los productos que componen en una venta
-     * marca los productos de la lista como vendidos actualizando su campo IDVenta
-     */
-    public void retirarProductosDeBBDD(ArrayList<ProductoVO> productos,int IDVenta) {
-        ProductoDAO PDAO = ProductoDAO.getInstance();
-        for(ProductoVO producto: productos){
-            producto.setIDVenta(IDVenta);
-            PDAO.update(producto);
-        }
-    }
-
      /**
      * @param productos lista de todos los productos que componen en una venta
      * registra la venta en la base de datos y devuelve el id de la venta creada
@@ -59,8 +47,9 @@ public class VentaLogica {
         // TODO: implement
     }
 
-    public void mostrarListadoFacturas() {
-        // TODO: implement
+    public ArrayList<VentaVO> mostrarListadoFacturas() {
+        ArrayList<VentaVO> ventas = ventaDAO.getListadoVentas();
+        return ventas;
     }
 
     public void copiaFactura(VentaVO venta) {
