@@ -135,9 +135,9 @@ INSERT INTO
   )
 VALUES
   (
-    'Anillo',
+    'ANILLO',
     '100',
-    'Oro',
+    'ORO',
     '6523D',
     'Anillo de oro 24K'
   );
@@ -152,9 +152,9 @@ INSERT INTO
   )
 VALUES
   (
-    'Pulsera',
+    'PULSERA',
     '150',
-    'Plata',
+    'PLATA',
     '6523D',
     'Pulsera de plata de ley'
   );
@@ -169,9 +169,9 @@ INSERT INTO
   )
 VALUES
   (
-    'Broche',
+    'BROCHE',
     '20.5',
-    'Metal',
+    'METAL',
     '1234J',
     'Broche de pelo'
   );
@@ -186,9 +186,9 @@ INSERT INTO
   )
 VALUES
   (
-    'Cadena',
+    'CADENA',
     '500',
-    'Oro',
+    'ORO',
     '7895N',
     'Cadena de eslabones'
   );
