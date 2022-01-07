@@ -169,11 +169,11 @@ INSERT INTO
   )
 VALUES
   (
-    'BROCHE',
+    'GAFAS',
     '20.5',
-    'METAL',
+    'OROPLATA',
     '1234J',
-    'Broche de pelo'
+    'Gafas chulas'
   );
 
 INSERT INTO
@@ -186,11 +186,11 @@ INSERT INTO
   )
 VALUES
   (
-    'CADENA',
+    'PULSERA',
     '500',
     'ORO',
     '7895N',
-    'Cadena de eslabones'
+    'Para que nahahaman la venda'
   );
 
 -- -----------------------------------------------------
@@ -231,7 +231,7 @@ SET
       DireccionFacturacion = 'Calle perico 5'
   )
 WHERE
-  TipoProducto = 'Anillo';
+  TipoProducto = 'ANILLO';
 
 ALTER TABLE
   producto
