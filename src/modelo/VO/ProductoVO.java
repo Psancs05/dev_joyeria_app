@@ -1,5 +1,6 @@
 package modelo.VO;
 
+import java.io.File;
 import java.sql.Blob;
 
 import globals.enums.TipoMaterial;
@@ -9,14 +10,14 @@ public class ProductoVO {
     int IDProducto;
     TipoProducto tipoProducto;
     double precio;
-    Blob imagen;
+    java.sql.Blob imagen;
     TipoMaterial material;
     ProveedorVO proveedor;
     int IDVenta;
     String descripcion;
 
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(TipoProducto tipoProducto, double precio, Blob imagen, TipoMaterial material,
+    public ProductoVO(TipoProducto tipoProducto, double precio,   java.sql.Blob imagen, TipoMaterial material,
             ProveedorVO proveedor, int IDVenta, String descripcion) {
         this.tipoProducto = tipoProducto;
         this.precio = precio;
@@ -31,7 +32,7 @@ public class ProductoVO {
     // constructor para crear un producto sin venta. Si el ID de la venta es 0, el
     // producto NO esta vendido
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(TipoProducto tipoProducto, double precio, Blob imagen,
+    public ProductoVO(TipoProducto tipoProducto, double precio,   java.sql.Blob imagen,
             TipoMaterial material, ProveedorVO proveedor, String descripcion) {
         this.tipoProducto = tipoProducto;
         this.precio = precio;
@@ -59,11 +60,11 @@ public class ProductoVO {
         this.precio = precio;
     }
 
-    public Blob getImagen() {
+    public java.sql.Blob getImagen() {
         return imagen;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(java.sql.Blob imagen) {
         this.imagen = imagen;
     }
 

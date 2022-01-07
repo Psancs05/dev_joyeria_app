@@ -1,7 +1,9 @@
 package modelo.DAO;
 
-import java.sql.Blob;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
 
 import globals.enums.*;
@@ -33,8 +35,8 @@ public class ProductoDAO implements DAO {
 
         TipoProducto tipoProducto = producto.getTipoProducto();
         double precio = producto.getPrecio();
-        // ya veremos
-        // Blob imagen = producto.getImagen();
+        // Imagen
+        java.sql.Blob image = producto.getImagen();
         TipoMaterial material = producto.getMaterial();
         ProveedorVO proveedor = producto.getProveedor();
         String descripcion = producto.getDescripcion();
@@ -42,18 +44,19 @@ public class ProductoDAO implements DAO {
         if (exist(producto)) {
             return false;
         }
-
         try {
             Conexion conexionBD = Conexion.getInstance();
             Connection con = conexionBD.getConexion();
-            // TODO: imagen
-            String query = "INSERT INTO producto (TipoProducto, Precio, Material, Proveedor, Descripcion) VALUES (?, ?, ?, ?, ?)";
+        
+            String query = "INSERT INTO producto (TipoProducto, Precio, Material, Proveedor, Descripcion, Imagen) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, tipoProducto.toString());
             pst.setDouble(2, precio);
             pst.setString(3, material.toString());
             pst.setString(4, proveedor.getCIF());
             pst.setString(5, descripcion);
+            //Imagen
+            pst.setBlob(6, image);
             pst.executeUpdate();
 
             int idProducto = -1;
@@ -109,8 +112,8 @@ public class ProductoDAO implements DAO {
                 ProveedorVO proveedor = (ProveedorVO) provDAO.getProveedorPorCIF(rs.getString("Proveedor"));
                 String descripcion = rs.getString("Descripcion");
                 int IDVenta = rs.getInt("IDVenta");
-                ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, null, material, proveedor, IDVenta,
-                        descripcion);
+                java.sql.Blob blob = rs.getBlob("Imagen");
+                ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, blob, material, proveedor, IDVenta, descripcion);
                 // con.close();
                 nuevoProd.setIDProducto(IDProd);
                 return nuevoProd;
@@ -146,6 +149,7 @@ public class ProductoDAO implements DAO {
         ProveedorVO proveedorMod = prodMod.getProveedor();
         String descripcionMod = prodMod.getDescripcion();
         int IDVentaMod = prodMod.getIDVenta();
+        java.sql.Blob blob = prodMod.getImagen();
 
         // info del de la bbdd
         ProductoVO prodBD = (ProductoVO) search(prodMod);
@@ -155,6 +159,7 @@ public class ProductoDAO implements DAO {
         ProveedorVO proveedorBD = prodBD.getProveedor();
         String descripcionBD = prodBD.getDescripcion();
         int IDVentaBD = prodBD.getIDVenta();
+        java.sql.Blob blobBD = prodBD.getImagen();
 
         if (!tipoProductoMod.toString().equals(tipoProductoBD.toString())) {
             try {
@@ -230,7 +235,7 @@ public class ProductoDAO implements DAO {
                 return false;
             }
         }
-        // cambiamos IDVenta
+        // cambiamos idventa
         if (IDVentaMod != IDVentaBD) {
             try {
                 Conexion conexionBD = Conexion.getInstance();
@@ -245,7 +250,30 @@ public class ProductoDAO implements DAO {
                 return false;
             }
         }
-
+        
+        // cambiamos imagen
+        try {
+            byte[] bdata1 = blob.getBytes(1, (int) blob.length());
+            String strBlob1 = new String(bdata1);
+            byte[] bdata2 = blobBD.getBytes(1, (int) blobBD.length());
+            String strBlob2= new String(bdata2);
+            if (!(strBlob1.equals(strBlob2))) {
+                try {
+                    Conexion conexionBD = Conexion.getInstance();
+                    Connection con = conexionBD.getConexion();
+                    String query = "UPDATE producto SET Imagen=? WHERE IDProducto=?";
+                    PreparedStatement pst = con.prepareStatement(query);
+                    pst.setBlob(1, blob);
+                    pst.setInt(2, IDProdMod);
+                    pst.executeUpdate();
+                    // con.close();
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
         return true;
     }
 
@@ -366,7 +394,19 @@ public class ProductoDAO implements DAO {
             e.printStackTrace();
             return null;
         }
-
     }
-
 }
+
+//Codigo para convertir una imagen del ordenador en un blob que se le pasa al producto que se crea
+        // java.awt.image.BufferedImage img = ImageIO.read(new FileInputStream("pathDeLaImagen"));
+        // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // ImageIO.write(img, "jpg", baos);  en jpg se pone el formato no se si es totalmente necesario
+        // byte[] bytes = baos.toByteArray();
+        // java.sql.Blob blob = new SerialBlob(bytes);
+
+//Codigo para coger un blob de un producto y guardarlo en una imagen en tu ordenador
+        // java.sql.Blob blob = prod.getImagen();
+        // java.io.InputStream in = blob.getBinaryStream();
+        // java.awt.image.BufferedImage image = ImageIO.read(in);
+        // File outputfile = new File("pathDelArhivoDondeSeEscribiraLaImagen");
+        // ImageIO.write(image, "jpg", outputfile);
