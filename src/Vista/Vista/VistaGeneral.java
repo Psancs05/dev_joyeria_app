@@ -64,7 +64,7 @@ public class VistaGeneral {
 		menuBar.setBounds(0, 0, 1072, 21);
 		frame.setJMenuBar(menuBar);
 
-		JMenu UsuarioMenuItem = new JMenu("Usuario");
+		JMenu UsuarioMenuItem = new JMenu("Usuario ");
 		UsuarioMenuItem.setBackground(new Color(128, 128, 128));
 		UsuarioMenuItem.setForeground(new Color(255, 255, 255));
 		menuBar.add(UsuarioMenuItem);
