@@ -44,7 +44,7 @@ public class Conexion {
         }
     }
 
-    public void generarBackup(String ubicacion) {
+    public boolean generarBackup(String ubicacion) {
         try {
             String fileSeparator = File.separator;
             String archivoBackup;
@@ -62,6 +62,7 @@ public class Conexion {
 
             if (resultado == 0) {
                 System.out.println("Backup completado");
+                return true;
             } else {
                 System.out.println("El backup ha fallado");
                 System.out.println(
@@ -74,81 +75,56 @@ public class Conexion {
                 } catch (final IOException e) {
                     e.printStackTrace();
                 }
+                return false;
             }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
 
-    public void restaurarBackup(String ubicacion) {
+    public boolean restaurarBackup(String ubicacion) {
         try {
 
-            
-            try (
-            Connection conn = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/", bdUsuario, bdPassword);
-            Statement stmt = conn.createStatement();) {
-            String sql = "DROP DATABASE bdJoyeria";
-            stmt.executeUpdate(sql);
-            System.out.println("Database DELETED successfully...");
-            String sql2 = "CREATE DATABASE bdJoyeria";
-            stmt.executeUpdate(sql2);
-            System.out.println("Database created successfully...");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", bdUsuario, bdPassword);
+            Statement stmt = conn.createStatement();
+            String sqlBorrarBBDD = "DROP DATABASE bdJoyeria";
+            stmt.executeUpdate(sqlBorrarBBDD);
+            // System.out.println("Database DELETED successfully...");
+            String sqlCrearBBDD = "CREATE DATABASE bdJoyeria";
+            stmt.executeUpdate(sqlCrearBBDD);
+            // System.out.println("Database CREATED successfully...");
 
-            } catch (SQLException e) {
-            e.printStackTrace();
-            }
-
-            // String comando = "mysqldump " + "--user=" + bdUsuario + " --password=" +
-            // bdPassword + " -e 'CREATE DATABASE bdJoyeria'";
-
-            // Process runtimeProcess = Runtime.getRuntime().exec(comando);
-            // int resultado = runtimeProcess.waitFor();
-
-            // if (resultado == 0) {
-            // System.out.println("Restauramos BBDD correctamente");
-            // } else {
-            // System.out.println("No hemos restaurado la BBDD");
-            // System.out.println(
-            // "Fallo al ejecutar el comando: " + comando + " con los siguientes errores:");
-            // try (final BufferedReader b = new BufferedReader(new InputStreamReader(
-            // runtimeProcess.getErrorStream()))) {
-            // String line;
-            // while ((line = b.readLine()) != null)
-            // System.out.println(line);
-            // } catch (final IOException e) {
-            // e.printStackTrace();
-            // }
-            // }
-            String[] comando2 = new String[] { "mysql", "--user=" + bdUsuario, "--password=" + bdPassword, "-e",
+            String[] comandoRestaurar = new String[] { "mysql", "--user=" + bdUsuario, "--password=" + bdPassword, "-e",
                     "source " + ubicacion };
-            String xd = "mysqldump " + "--user=" + bdUsuario + " --password=" + bdPassword + " " + bdNombre
-                    + " < "
-                    + ubicacion;
 
-            Process runtimeProcess2 = Runtime.getRuntime().exec(comando2);
-            int resultado2 = runtimeProcess2.waitFor();
+            Process runtimeProcess = Runtime.getRuntime().exec(comandoRestaurar);
+            int resultado = runtimeProcess.waitFor();
 
-            if (resultado2 == 0) {
-                System.out.println("Restauramos BBDD correctamente");
+            if (resultado == 0) {
+                System.out.println("BBDD restaurada correctamente");
+                return true;
             } else {
-                System.out.println("No hemos restaurado la BBDD");
+                System.out.println("No se ha podido restaurar la BBDD");
+                
                 System.out.println(
-                        "Fallo al ejecutar el comando: " + comando2 + " con los siguientes errores:");
+                        "Fallo al ejecutar el comando: " + comandoRestaurar + " con los siguientes errores:");
                 try (final BufferedReader b = new BufferedReader(new InputStreamReader(
-                        runtimeProcess2.getErrorStream()))) {
+                        runtimeProcess.getErrorStream()))) {
                     String line;
                     while ((line = b.readLine()) != null)
                         System.out.println(line);
                 } catch (final IOException e) {
                     e.printStackTrace();
                 }
+                return false;
             }
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException | SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
