@@ -47,6 +47,7 @@ public class TestsVentaDAO {
 
     @After
     public void tearDown() {
+        ventaDAO.delete(venta);
         userDAO.delete(user);
         provDAO.delete(proveedor);
     }
