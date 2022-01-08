@@ -1,4 +1,4 @@
-package modelo.Logica;
+package modelo.logicaaaaaaaa;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
