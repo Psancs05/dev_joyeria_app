@@ -47,7 +47,7 @@ public class ProductoDAO implements DAO {
         try {
             Conexion conexionBD = Conexion.getInstance();
             Connection con = conexionBD.getConexion();
-        
+
             String query = "INSERT INTO producto (TipoProducto, Precio, Material, Proveedor, Descripcion, Imagen) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, tipoProducto.toString());
@@ -55,7 +55,7 @@ public class ProductoDAO implements DAO {
             pst.setString(3, material.toString());
             pst.setString(4, proveedor.getCIF());
             pst.setString(5, descripcion);
-            //Imagen
+            // Imagen
             pst.setBlob(6, image);
             pst.executeUpdate();
 
@@ -113,7 +113,8 @@ public class ProductoDAO implements DAO {
                 String descripcion = rs.getString("Descripcion");
                 int IDVenta = rs.getInt("IDVenta");
                 java.sql.Blob blob = rs.getBlob("Imagen");
-                ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, blob, material, proveedor, IDVenta, descripcion);
+                ProductoVO nuevoProd = new ProductoVO(tipoProducto, precio, blob, material, proveedor, IDVenta,
+                        descripcion);
                 // con.close();
                 nuevoProd.setIDProducto(IDProd);
                 return nuevoProd;
@@ -250,13 +251,25 @@ public class ProductoDAO implements DAO {
                 return false;
             }
         }
-        
+
         // cambiamos imagen
+
         try {
-            byte[] bdata1 = blob.getBytes(1, (int) blob.length());
-            String strBlob1 = new String(bdata1);
-            byte[] bdata2 = blobBD.getBytes(1, (int) blobBD.length());
-            String strBlob2= new String(bdata2);
+            String strBlob1;
+            String strBlob2;
+            if (blob != null) {
+                byte[] bdata1 = blob.getBytes(1, (int) blob.length());
+                strBlob1 = new String(bdata1);
+            } else {
+                strBlob1 = new String();
+            }
+            if (blobBD != null) {
+                byte[] bdata2 = blobBD.getBytes(1, (int) blobBD.length());
+                strBlob2 = new String(bdata2);
+            } else {
+                strBlob2 = new String();
+            }
+
             if (!(strBlob1.equals(strBlob2))) {
                 try {
                     Conexion conexionBD = Conexion.getInstance();
@@ -397,16 +410,20 @@ public class ProductoDAO implements DAO {
     }
 }
 
-//Codigo para convertir una imagen del ordenador en un blob que se le pasa al producto que se crea
-        // java.awt.image.BufferedImage img = ImageIO.read(new FileInputStream("pathDeLaImagen"));
-        // ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        // ImageIO.write(img, "jpg", baos);  en jpg se pone el formato no se si es totalmente necesario
-        // byte[] bytes = baos.toByteArray();
-        // java.sql.Blob blob = new SerialBlob(bytes);
+// Codigo para convertir una imagen del ordenador en un blob que se le pasa al
+// producto que se crea
+// java.awt.image.BufferedImage img = ImageIO.read(new
+// FileInputStream("pathDeLaImagen"));
+// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+// ImageIO.write(img, "jpg", baos); en jpg se pone el formato no se si es
+// totalmente necesario
+// byte[] bytes = baos.toByteArray();
+// java.sql.Blob blob = new SerialBlob(bytes);
 
-//Codigo para coger un blob de un producto y guardarlo en una imagen en tu ordenador
-        // java.sql.Blob blob = prod.getImagen();
-        // java.io.InputStream in = blob.getBinaryStream();
-        // java.awt.image.BufferedImage image = ImageIO.read(in);
-        // File outputfile = new File("pathDelArhivoDondeSeEscribiraLaImagen");
-        // ImageIO.write(image, "jpg", outputfile);
+// Codigo para coger un blob de un producto y guardarlo en una imagen en tu
+// ordenador
+// java.sql.Blob blob = prod.getImagen();
+// java.io.InputStream in = blob.getBinaryStream();
+// java.awt.image.BufferedImage image = ImageIO.read(in);
+// File outputfile = new File("pathDelArhivoDondeSeEscribiraLaImagen");
+// ImageIO.write(image, "jpg", outputfile);
