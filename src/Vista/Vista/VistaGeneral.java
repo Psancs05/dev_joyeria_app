@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
 
@@ -149,12 +150,22 @@ public class VistaGeneral {
 		aniadirProducto.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		aniadirProducto.setForeground(negro);
 		aniadirProducto.setBackground(blanco);
+		aniadirProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProductoControlador.getInstance().mostrarAniadir();
+			}
+		});
 		ProductoMenuItem.add(aniadirProducto);
 
 		JMenuItem modificarProducto = new JMenuItem("Modificar");
 		modificarProducto.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		modificarProducto.setForeground(negro);
 		modificarProducto.setBackground(blanco);
+		modificarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProductoControlador.getInstance().mostrarModificar();
+			}
+		});
 		ProductoMenuItem.add(modificarProducto);
 
 		JMenuItem eliminarProducto = new JMenuItem("Eliminar");
