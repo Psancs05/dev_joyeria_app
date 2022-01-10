@@ -28,10 +28,6 @@ public class ProductoLogica {
         // TODO: implement
     }
 
-    public void filtrarProductos(ProductoVO parametros) {
-        // TODO: implement
-    }
-
     public ArrayList<ProductoVO> solicitarProductos() {
         return this.productoDAO.getListaProductos();
     }
@@ -43,10 +39,16 @@ public class ProductoLogica {
         return this.productoDAO.create(nuevoProducto);
     }
 
-    public void actualizarProducto(ProductoVO productoAntiguo, String tipoDePieza, String precio, String imagen,
-            String material,
+    public void actualizarProducto(ProductoVO productoAntiguo, TipoProducto producto, double precio, Blob imagen,
+            TipoMaterial material,
             ProveedorVO proveedor) {
-        // TODO: implement
+        productoAntiguo.setTipoProducto(producto);
+        productoAntiguo.setPrecio(precio);
+        productoAntiguo.setImagen(imagen);
+        productoAntiguo.setMaterial(material);
+        productoAntiguo.setProveedor(proveedor);
+
+        productoDAO.update(productoAntiguo);
     }
 
     public void generarProductoActualizado() {
