@@ -80,10 +80,10 @@ INSERT INTO
   usuario (DNI, Nombre, Email, Password, TipoUsuario)
 VALUES
   (
-    '87654321W',
+    'a',
     'Javier',
     'psancs00@estudiantes.unileon.es',
-    'JavierJoyas',
+    'a',
     'CAJERO'
   );
 
