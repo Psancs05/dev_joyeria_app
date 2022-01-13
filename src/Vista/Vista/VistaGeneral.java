@@ -27,21 +27,6 @@ import java.awt.Color;
 public class VistaGeneral {
 
 	private JFrame frame;
-	
-	/**
-	 * Launch the application.
-	 */
-	 public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UsuarioControlador.getInstance().mostrarLogin();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -193,6 +178,26 @@ public class VistaGeneral {
 		restaurarBackup.setForeground(negro);
 		restaurarBackup.setBackground(blanco);
 		BackupMenuItem.add(restaurarBackup);
+
+		JMenu LogOutMenuItem = new JMenu("  Cerrar Sesion  ");
+		LogOutMenuItem.setForeground(Color.BLACK);
+		LogOutMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LogOutMenuItem.setBackground(Color.WHITE);
+	
+		JMenuItem cerrarSesion = new JMenuItem("Salir");
+		cerrarSesion.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		cerrarSesion.setForeground(negro);
+		cerrarSesion.setBackground(blanco);
+		cerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioControlador.getInstance().cerrarSesion();
+				frame.setVisible(false);
+				UsuarioControlador.getInstance().mostrarLogin();
+			}
+		});
+
+		LogOutMenuItem.add(cerrarSesion);
+		menuBar.add(LogOutMenuItem);
 
 		JMenu AyudaMenuItem = new JMenu("  Ayuda  ");
 		AyudaMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));

@@ -27,7 +27,7 @@ public class UsuarioControlador {
 
 	public boolean comprobarUsuario(String dni, String password) {
 		UsuarioVO usuarioActivo = logicaUsuario.comprobarUsuario(dni, password);
-		if(usuarioActual == null){
+		if(usuarioActivo == null){
 			return false;
 		} else {
 			usuarioActual = usuarioActivo;
@@ -37,7 +37,7 @@ public class UsuarioControlador {
 	}
 
 	public void cerrarSesion() {
-		// TODO
+		usuarioActual = null;
 	}
 
 	public void mostrarLogin() {
