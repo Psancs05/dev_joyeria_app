@@ -72,9 +72,7 @@ public class TestsProductoDAO {
         ProveedorVO perico = new ProveedorVO("dsadad", "nombre");
         provDAO.create(perico);
         ProductoVO prod1 = new ProductoVO(TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, perico, "anillo de oro");
-        System.out.println(prod1.getIDProducto());
         assertTrue(prodDAO.create(prod1));
-        System.out.println("HEY" + prod1.getIDProducto());
     }
 
     @Test
@@ -103,8 +101,6 @@ public class TestsProductoDAO {
     public void testSearch() {
         prodDAO.create(pulsera);
         ProductoVO copia = (ProductoVO) prodDAO.search(pulsera);
-        System.out.println(copia.toString());
-        System.out.println(pulsera.toString());
         assertTrue(copia.equals(pulsera));
     }
 
@@ -177,12 +173,8 @@ public class TestsProductoDAO {
         VentaVO venta = new VentaVO(Calendar.getInstance().getTime(), 2, anillo.getPrecio() + pulsera.getPrecio(),
                 lista, usuario.getDNI(), "mikasa");
         VentaDAO ventDAO = VentaDAO.getInstance();
-        System.out.println(venta.getProductos().toString());
         ventDAO.create(venta);
-        System.out.println("ID VENTA: " + venta.getID());
         ArrayList<ProductoVO> listaCopia = prodDAO.getProductosSegunIDVenta(venta.getID());
-        System.out.println("Lista original: " + lista.toString());
-        System.out.println("Lista copia: " + listaCopia.toString());
         assertEquals(lista.size(), listaCopia.size());
         assertEquals(lista, listaCopia);
 

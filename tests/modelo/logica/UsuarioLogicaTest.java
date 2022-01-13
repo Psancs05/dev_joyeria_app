@@ -12,11 +12,11 @@ import modelo.logica.UsuarioLogica;
 public class UsuarioLogicaTest {
     private UsuarioLogica userLogic = UsuarioLogica.getInstance();
 
-    String dni = "11111111A";
-    String nombre = "Juan";
-    String email = "juan@gmail.com";
-    String password = "juan";
-    TipoUsuario tipoUsuario = TipoUsuario.CAJERO;
+    private String dni = "11111111A";
+    private String nombre = "Juan";
+    private String email = "juan@gmail.com";
+    private String password = "juan";
+    private TipoUsuario tipoUsuario = TipoUsuario.CAJERO;
 
     @Test
     public void testRegistrarUsuario() {

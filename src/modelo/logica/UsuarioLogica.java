@@ -23,8 +23,8 @@ public class UsuarioLogica {
     public boolean comprobarUsuario(String dni, String password) {
         boolean response = this.usuarioDAO.autenticarUsuario(dni, password);
         UsuarioVO usuario = (UsuarioVO) usuarioDAO.search(new UsuarioVO(dni, ".", ".", password, TipoUsuario.CAJERO));
-        if(response) {
-        	this.usuarioActivo = usuario;
+        if (response) {
+            this.usuarioActivo = usuario;
         }
         return response;
     }
@@ -36,10 +36,7 @@ public class UsuarioLogica {
     public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
-        boolean response = this.usuarioDAO.create(nuevoUsuario); //no vale para nada
-
-        System.out.println("Usuario registrado: " + nuevoUsuario.toString());
-
+        boolean response = this.usuarioDAO.create(nuevoUsuario); // no vale para nada
         return nuevoUsuario;
     }
 
@@ -64,12 +61,12 @@ public class UsuarioLogica {
         return response;
     }
 
-	public UsuarioVO getUsuarioActivo() {
-		return usuarioActivo;
-	}
+    public UsuarioVO getUsuarioActivo() {
+        return usuarioActivo;
+    }
 
-	public void setUsuarioActivo(UsuarioVO usuarioActivo) {
-		this.usuarioActivo = usuarioActivo;
-	}
+    public void setUsuarioActivo(UsuarioVO usuarioActivo) {
+        this.usuarioActivo = usuarioActivo;
+    }
 
 }
