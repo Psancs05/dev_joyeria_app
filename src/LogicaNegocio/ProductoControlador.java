@@ -34,7 +34,8 @@ public class ProductoControlador {
 	}
 
 	public void aniadirProducto(TipoProducto tipoProducto, ProveedorVO proveedor, TipoMaterial material, double precio, Blob imagen, String descripcion, int numCuaderno, int ID) {
-		this.logicaProducto.registrarProducto(tipoProducto, precio, imagen, material, proveedor, descripcion);
+		// !ESTO DA ERROR CERDAS
+		//this.logicaProducto.registrarProducto(tipoProducto, precio, imagen, material, proveedor, descripcion);
 	}
 	
 	public void modificarProducto(ProductoVO productoAntiguo, String taller, String tipo, String material, int numCuaderno, int ID) {

@@ -41,11 +41,11 @@ public class ProductoLogica {
         return this.productoDAO.getListaProductos();
     }
 
-    public boolean registrarProducto(TipoProducto tipoDeProducto, double precio, String path, TipoMaterial material,
+    public boolean registrarProducto(TipoProducto tipoDeProducto, double precio, String pathImg, TipoMaterial material,
             ProveedorVO proveedor, String descripcion) throws SerialException, SQLException {
         try {
             java.awt.image.BufferedImage img;
-            img = ImageIO.read(new FileInputStream(path));
+            img = ImageIO.read(new FileInputStream(pathImg));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] bytes = baos.toByteArray();
