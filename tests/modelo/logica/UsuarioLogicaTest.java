@@ -10,7 +10,7 @@ import modelo.VO.UsuarioVO;
 import modelo.logica.UsuarioLogica;
 
 public class UsuarioLogicaTest {
-    private UsuarioLogica userLogic = UsuarioLogica.getInstance();
+    private UsuarioLogica userLogic = new UsuarioLogica();
 
     private String dni = "11111111A";
     private String nombre = "Juan";
@@ -18,13 +18,7 @@ public class UsuarioLogicaTest {
     private String password = "juan";
     private TipoUsuario tipoUsuario = TipoUsuario.CAJERO;
 
-    @Test
-    public void testRegistrarUsuario() {
-        UsuarioVO usuario = userLogic.registrarUsuario(dni, nombre, email, password, tipoUsuario);
-        assertNotNull(usuario);
-        assertNotNull(this.userLogic.getUsuarioActivo());
-        userLogic.retirarUsuario(usuario);
-    }
+   
 
     @Test
     public void testRetirarUsuario() {
@@ -33,11 +27,6 @@ public class UsuarioLogicaTest {
         userLogic.retirarUsuario(usuario);
     }
 
-    @Test
-    public void testComprobarUsuario() {
-        UsuarioVO usuario = userLogic.registrarUsuario(dni, nombre, email, password, tipoUsuario);
-        assertTrue(userLogic.comprobarUsuario("11111111A", "juan"));
-        userLogic.retirarUsuario(usuario);
-    }
+   
 
 }
