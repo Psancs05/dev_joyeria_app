@@ -35,8 +35,7 @@ public class VistaGeneral {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaGeneral window = new VistaGeneral();
-					window.frame.setVisible(true);
+					UsuarioControlador.getInstance().mostrarLogin();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,13 +54,10 @@ public class VistaGeneral {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
-		UsuarioControlador.getInstance().mostrarLogin();
-
-		//TODO: hacer que el frame principal no se muestre hasta que se complete el login
+		frame = new JFrame();
+		this.frame.setVisible(true);
 		Color blanco = new Color(255, 255, 255);
 		Color negro = new Color(0, 0, 0);
-		frame = new JFrame();
 		frame.getContentPane().setBackground(blanco);
 		frame.setBackground(blanco);
 		frame.setBounds(100, 100, 1600, 900);

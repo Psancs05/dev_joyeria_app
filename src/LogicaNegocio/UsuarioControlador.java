@@ -25,8 +25,8 @@ public class UsuarioControlador {
 		// TODO
 	}
 
-	public void comprobarUsuario(UsuarioVO usuario, String contrasenia) {
-		// TODO
+	public boolean comprobarUsuario(String dni, String password) {
+		return logicaUsuario.comprobarUsuario(dni, password);
 	}
 
 	public void cerrarSesion() {
