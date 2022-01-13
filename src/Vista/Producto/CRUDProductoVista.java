@@ -82,7 +82,6 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxProveedor = new JComboBox<String>();
 		comboBoxProveedor.setBounds(316, 181, 378, 38);
 		comboBoxProveedor.setToolTipText("Selecciona\r\n");
-		comboBoxProveedor.setBounds(316, 279, 378, 38);
 		comboBoxProveedor.addItem("default");
 		for (ProveedorVO proveedor : this.proveedores) {
 			comboBoxProveedor.addItem(proveedor.getNombre());
