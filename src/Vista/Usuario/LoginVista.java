@@ -58,8 +58,8 @@ public class LoginVista extends JDialog{
 		btnNewButton.setBounds(147, 256, 106, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String dni = lblNewLabel.getText();
-				String password = lblNewLabel_1.getText();
+				String dni = textField.getText();
+				String password = textField_1.getText();
 				if(controladorUsuario.comprobarUsuario(dni, password) == false){
 					JFrame error = new JFrame();
 					JOptionPane.showMessageDialog(error, "Usuario o contrasenia incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
