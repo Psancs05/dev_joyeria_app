@@ -17,8 +17,8 @@ public class UsuarioControlador {
 	public UsuarioControlador() {
 		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
 		this.vistaLogin = new LoginVista(this);
-		this.logicaUsuario = UsuarioLogica.getInstance();
-		this.usuarioActual = logicaUsuario.getUsuarioActivo();
+		this.logicaUsuario = new UsuarioLogica();
+		this.usuarioActual = null;
 	}
 
 	public void gestionarAccionUsuario() {
@@ -26,7 +26,14 @@ public class UsuarioControlador {
 	}
 
 	public boolean comprobarUsuario(String dni, String password) {
-		return logicaUsuario.comprobarUsuario(dni, password);
+		UsuarioVO usuarioActivo = logicaUsuario.comprobarUsuario(dni, password);
+		if(usuarioActual == null){
+			return false;
+		} else {
+			usuarioActual = usuarioActivo;
+			return true;
+		}
+
 	}
 
 	public void cerrarSesion() {

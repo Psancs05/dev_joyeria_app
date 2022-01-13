@@ -32,14 +32,14 @@ public class LoginVista extends JDialog{
 		setTitle("Login");
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("DNI");
+		JLabel lblNewLabel = new JLabel("        DNI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel.setBounds(147, 123, 70, 33);
+		lblNewLabel.setBounds(132, 123, 121, 33);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password");
+		JLabel lblNewLabel_1 = new JLabel("     Password");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_1.setBounds(147, 176, 90, 33);
+		lblNewLabel_1.setBounds(132, 176, 121, 33);
 		getContentPane().add(lblNewLabel_1);
 		
 		textField = new JTextField();
@@ -55,7 +55,8 @@ public class LoginVista extends JDialog{
 		
 		
 		JButton btnNewButton = new JButton("Iniciar sesion");
-		btnNewButton.setBounds(147, 256, 106, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnNewButton.setBounds(194, 245, 141, 51);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dni = textField.getText();
@@ -72,15 +73,6 @@ public class LoginVista extends JDialog{
 			}
 		});
 		getContentPane().add(btnNewButton);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
-		btnCancelar.setBounds(263, 256, 106, 23);
-		getContentPane().add(btnCancelar);
 
 
 	}

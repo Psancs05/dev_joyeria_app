@@ -7,26 +7,16 @@ import modelo.VO.UsuarioVO;
 public class UsuarioLogica {
     private static UsuarioLogica miUsuarioLogica;
     private UsuarioDAO usuarioDAO;
-    private UsuarioVO usuarioActivo;
 
-    public static UsuarioLogica getInstance() {
-        if (miUsuarioLogica == null) {
-            miUsuarioLogica = new UsuarioLogica();
-        }
-        return miUsuarioLogica;
-    }
 
-    private UsuarioLogica() {
+    public UsuarioLogica() {
         this.usuarioDAO = UsuarioDAO.getInstance();
     }
 
-    public boolean comprobarUsuario(String dni, String password) {
+    public UsuarioVO comprobarUsuario(String dni, String password) {
         boolean response = this.usuarioDAO.autenticarUsuario(dni, password);
         UsuarioVO usuario = (UsuarioVO) usuarioDAO.search(new UsuarioVO(dni, ".", ".", password, TipoUsuario.CAJERO));
-        if (response) {
-            this.usuarioActivo = usuario;
-        }
-        return response;
+        return usuario;
     }
 
     public void cerrarSesion() {
@@ -59,14 +49,6 @@ public class UsuarioLogica {
     public boolean retirarUsuario(UsuarioVO usuario) {
         boolean response = this.usuarioDAO.delete(usuario);
         return response;
-    }
-
-    public UsuarioVO getUsuarioActivo() {
-        return usuarioActivo;
-    }
-
-    public void setUsuarioActivo(UsuarioVO usuarioActivo) {
-        this.usuarioActivo = usuarioActivo;
     }
 
 }
