@@ -97,7 +97,6 @@ public class VentaDAO implements DAO {
                 // Cogemos la lista de productos correspondiente a la venta
                 ProductoDAO pDAO = ProductoDAO.getInstance();
                 ArrayList<ProductoVO> nuevaLista = pDAO.getProductosSegunIDVenta(ID);
-                System.out.println("LISTA EN SEARCH: " + nuevaLista.toString());
 
                 VentaVO nuevaVenta = new VentaVO(ID, fecha, articulos, precioTotal, nuevaLista, DNI, direccion);
                 return nuevaVenta;
