@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
+import modelo.VO.ProductoVO;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JMenu;
@@ -50,13 +52,12 @@ public class VistaGeneral {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Claudio Paniagua Joyas");
 
-
 		JLabel lblNewLabel = new JLabel("New label");
 		String fileSeparator = File.separator;
 		lblNewLabel.setIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg"));
 		lblNewLabel.setBounds(605, 135, 387, 231);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1584, 21);
 		menuBar.setForeground(negro);
@@ -183,7 +184,7 @@ public class VistaGeneral {
 		LogOutMenuItem.setForeground(Color.BLACK);
 		LogOutMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		LogOutMenuItem.setBackground(Color.WHITE);
-	
+
 		JMenuItem cerrarSesion = new JMenuItem("Salir");
 		cerrarSesion.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		cerrarSesion.setForeground(negro);
@@ -224,7 +225,11 @@ public class VistaGeneral {
 		botonCatalogo.setBackground(new Color(0, 148, 177));
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("sa");
+				System.out.println("Boton Abrir Catalogo seleccionado");
+				ArrayList<ProductoVO> productos = ProductoControlador.getInstance().getProductos();
+				for (ProductoVO producto : productos) {
+					System.out.println(producto.toString());
+				}
 			}
 		});
 		frame.getContentPane().add(botonCatalogo);

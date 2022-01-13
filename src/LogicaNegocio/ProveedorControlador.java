@@ -39,13 +39,18 @@ public class ProveedorControlador {
 		this.logicaProveedor.retirarProveedorVO(proveedor);
 	}
 
+	public ProveedorVO getProveedorPorNombre(String nombre) {
+		return this.logicaProveedor.getProveedorPorNombre(nombre);
+	}
+
 	// ? Que hace este metodo
 	public void gestionarAccionProveedor() {
 
 	}
 
 	public ArrayList<ProveedorVO> getProveedores() {
-		return logicaProveedor.getProveedores();
+		System.out.println(this.logicaProveedor);
+		return this.logicaProveedor.getProveedores();
 	}
 
 	// * Metodos de la vista
