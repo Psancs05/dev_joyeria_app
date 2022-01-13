@@ -1,47 +1,45 @@
 package Vista.Producto;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
-import com.itextpdf.text.Rectangle;
-import com.mysql.cj.jdbc.Blob;
 
 import LogicaNegocio.ProductoControlador;
+import LogicaNegocio.ProveedorControlador;
+import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
-import globals.enums.TipoUsuario;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
 
-public class CRUDProductoVista extends JDialog{
+public class CRUDProductoVista extends JDialog {
 
-    private ProductoControlador controladorProducto;
-	private final JPanel contentPanel = new JPanel();
-	
-	public CRUDProductoVista(ProductoControlador controlador) {
-		this.controladorProducto = controlador;
+	private ProductoControlador controladorProducto;
+	private ProveedorControlador controladorProveedor;
+	private ArrayList<ProveedorVO> proveedores;
+
+	public CRUDProductoVista(ProductoControlador controladorProducto) {
+		System.out.println("Creando CRUDProductoVista");
+		this.controladorProducto = controladorProducto;
+		this.controladorProveedor = ProveedorControlador.getInstance();
+		this.proveedores = controladorProveedor.getProveedores();
 	}
 
 	JTextField tfID;
 	JTextField tfPrecio;
-	JTextField tfImagen;
-	JTextField tfProveedor;
-    JTextField tfDescripcion;
-	JComboBox comboBoxTipoProducto;
+	String imagenPath;
+	JTextField tfDescripcion;
+	JComboBox<String> comboBoxProveedor;
+	JComboBox<String> comboBoxTipoProducto;
+	JComboBox<String> comboBoxMaterialProducto;
 
 	public void pulsarBotonAniadir() {
 
@@ -81,12 +79,19 @@ public class CRUDProductoVista extends JDialog{
 		lbProveedor.setBounds(10, 186, 77, 33);
 		getContentPane().add(lbProveedor);
 
-		tfProveedor = new JTextField();
-		tfProveedor.setBounds(316, 181, 378, 38);
-		getContentPane().add(tfProveedor);
-		tfProveedor.setColumns(10);
+		comboBoxProveedor = new JComboBox<String>();
+		comboBoxProveedor.setBounds(316, 181, 378, 38);
+		comboBoxProveedor.setToolTipText("Selecciona\r\n");
+		comboBoxProveedor.setBounds(316, 279, 378, 38);
+		comboBoxProveedor.addItem("default");
+		for (ProveedorVO proveedor : this.proveedores) {
+			comboBoxProveedor.addItem(proveedor.getNombre());
 
-        JLabel lbDescripcion = new JLabel("Descripcion");
+		}
+		getContentPane().add(comboBoxProveedor);
+		// comboBoxProveedor.setColumns(10);
+
+		JLabel lbDescripcion = new JLabel("Descripcion");
 		lbDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbDescripcion.setBounds(10, 328, 107, 33);
 		getContentPane().add(lbDescripcion);
@@ -95,7 +100,7 @@ public class CRUDProductoVista extends JDialog{
 		tfDescripcion.setBounds(316, 328, 378, 93);
 		getContentPane().add(tfDescripcion);
 		tfDescripcion.setColumns(10);
-		
+
 		JButton btnSeleccionIm = new JButton("Selecciona una imagen");
 		btnSeleccionIm.setBounds(316, 132, 154, 38);
 		getContentPane().add(btnSeleccionIm);
@@ -104,9 +109,10 @@ public class CRUDProductoVista extends JDialog{
 				JFileChooser selectorImagen = new JFileChooser();
 				selectorImagen.showDialog(null, "Selecciona una imagen");
 				selectorImagen.setCurrentDirectory(new File("."));
+				imagenPath = selectorImagen.getSelectedFile().getAbsolutePath();
+
 			}
 		});
-		
 
 		JLabel lbTipoProducto = new JLabel("Tipo de Producto");
 		lbTipoProducto.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -116,7 +122,7 @@ public class CRUDProductoVista extends JDialog{
 		JButton okButton = new JButton("Aniadir");
 		okButton.setActionCommand("OK");
 		getContentPane().add(okButton);
-        okButton.setBounds(506, 454, 89, 23);
+		okButton.setBounds(506, 454, 89, 23);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -124,13 +130,13 @@ public class CRUDProductoVista extends JDialog{
 				crearProducto();
 				limpiarCampos();
 				setVisible(false);
-				
+
 			}
 		});
 
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
-        cancelButton.setBounds(605, 454, 89, 23);
+		cancelButton.setBounds(605, 454, 89, 23);
 		getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -138,7 +144,7 @@ public class CRUDProductoVista extends JDialog{
 			}
 		});
 
-		comboBoxTipoProducto = new JComboBox();
+		comboBoxTipoProducto = new JComboBox<String>();
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 230, 378, 38);
 		getContentPane().add(comboBoxTipoProducto);
@@ -148,24 +154,24 @@ public class CRUDProductoVista extends JDialog{
 		comboBoxTipoProducto.addItem("Pulsera");
 		comboBoxTipoProducto.addItem("Colgante");
 		comboBoxTipoProducto.addItem("Gafas");
-		
+
 		JLabel lbTipoMaterial = new JLabel("Tipo de Material");
 		lbTipoMaterial.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoMaterial.setBounds(10, 282, 200, 35);
 		getContentPane().add(lbTipoMaterial);
-		
-		JComboBox comboBoxTipoMaterial = new JComboBox();
-		comboBoxTipoMaterial.setToolTipText("Selecciona\r\n");
-		comboBoxTipoMaterial.setBounds(316, 279, 378, 38);
-		getContentPane().add(comboBoxTipoMaterial);
-		comboBoxTipoMaterial.addItem("default");
-		comboBoxTipoMaterial.addItem("Oro");
-		comboBoxTipoMaterial.addItem("Plata");
-		comboBoxTipoMaterial.addItem("Oro + Plata");
+
+		comboBoxMaterialProducto = new JComboBox<String>();
+		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
+		comboBoxMaterialProducto.setBounds(316, 279, 378, 38);
+		getContentPane().add(comboBoxMaterialProducto);
+		comboBoxMaterialProducto.addItem("default");
+		comboBoxMaterialProducto.addItem("Oro");
+		comboBoxMaterialProducto.addItem("Plata");
+		comboBoxMaterialProducto.addItem("Oro + Plata");
 	}
-	
+
 	public void pulsarBotonModificar(ProductoVO producto) {
-		
+
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 720, 524);
@@ -212,7 +218,7 @@ public class CRUDProductoVista extends JDialog{
 		getContentPane().add(tfProveedor);
 		tfProveedor.setColumns(10);
 
-        JLabel lbDescripcion = new JLabel("Descripcion");
+		JLabel lbDescripcion = new JLabel("Descripcion");
 		lbDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbDescripcion.setBounds(10, 328, 107, 33);
 		getContentPane().add(lbDescripcion);
@@ -221,7 +227,7 @@ public class CRUDProductoVista extends JDialog{
 		tfDescripcion.setBounds(316, 328, 378, 93);
 		getContentPane().add(tfDescripcion);
 		tfDescripcion.setColumns(10);
-		
+
 		JButton btnSeleccionIm = new JButton("Selecciona una imagen");
 		btnSeleccionIm.setBounds(316, 132, 154, 38);
 		getContentPane().add(btnSeleccionIm);
@@ -232,7 +238,6 @@ public class CRUDProductoVista extends JDialog{
 				selectorImagen.setCurrentDirectory(new File("."));
 			}
 		});
-		
 
 		JLabel lbTipoProducto = new JLabel("Tipo de Producto");
 		lbTipoProducto.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -249,47 +254,38 @@ public class CRUDProductoVista extends JDialog{
 		comboBoxTipoProducto.addItem("Pulsera");
 		comboBoxTipoProducto.addItem("Colgante");
 		comboBoxTipoProducto.addItem("Gafas");
-		
+
 		JLabel lbTipoMaterial = new JLabel("Tipo de Material");
 		lbTipoMaterial.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoMaterial.setBounds(10, 282, 200, 35);
 		getContentPane().add(lbTipoMaterial);
-		
-		JComboBox comboBoxTipoMaterial = new JComboBox();
-		comboBoxTipoMaterial.setToolTipText("Selecciona\r\n");
-		comboBoxTipoMaterial.setBounds(316, 279, 378, 38);
-		getContentPane().add(comboBoxTipoMaterial);
-		comboBoxTipoMaterial.addItem("default");
-		comboBoxTipoMaterial.addItem("Oro");
-		comboBoxTipoMaterial.addItem("Plata");
-		comboBoxTipoMaterial.addItem("Oro + Plata");
 
-		int ID = producto.getIDProducto();
-		double Precio = producto.getPrecio();
-		java.sql.Blob Imagen = producto.getImagen();
-		ProveedorVO Proveedor = producto.getProveedor();
-		TipoProducto tipoProducto = producto.getTipoProducto();
-
-		//TODO ACABAR EL METODO
-
+		comboBoxMaterialProducto = new JComboBox<String>();
+		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
+		comboBoxMaterialProducto.setBounds(316, 279, 378, 38);
+		getContentPane().add(comboBoxMaterialProducto);
+		comboBoxMaterialProducto.addItem("default");
+		comboBoxMaterialProducto.addItem("Oro");
+		comboBoxMaterialProducto.addItem("Plata");
+		comboBoxMaterialProducto.addItem("Oro + Plata");
 
 		JButton okButton = new JButton("Modificar");
 		okButton.setActionCommand("OK");
 		getContentPane().add(okButton);
-        okButton.setBounds(506, 454, 89, 23);
+		okButton.setBounds(506, 454, 89, 23);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Aniadir boton pulsado");
 				limpiarCampos();
 				setVisible(false);
-				
+
 			}
 		});
 
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
-        cancelButton.setBounds(605, 454, 89, 23);
+		cancelButton.setBounds(605, 454, 89, 23);
 		getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -304,38 +300,49 @@ public class CRUDProductoVista extends JDialog{
 	}
 
 	public void crearProducto() {
-		String ID = tfID.getText();
-		String Precio = tfPrecio.getText();
-		String Imagen = tfImagen.getText();
-		String Proveedor = tfProveedor.getText();
+		double precio = Double.parseDouble(tfPrecio.getText());
+		String imagen = imagenPath;
 		String descripcion = tfDescripcion.getText();
-		Object combo = comboBoxTipoProducto.getSelectedItem();
+		String proveedor = comboBoxProveedor.getSelectedItem().toString();
 
-		System.out.println(ID + " " + Precio + " " + Imagen + " " + Proveedor + " " + combo.toString());
+		Object comboTipo = comboBoxTipoProducto.getSelectedItem();
+		Object comboMaterial = comboBoxTipoProducto.getSelectedItem();
 
 		TipoProducto tipoProducto;
-		if (combo.toString() == "Anillo") {
-		tipoProducto = TipoProducto.ANILLO;
-		} else if (combo.toString() == "Colgante") {
+		TipoMaterial tipoMaterial;
+
+		if (comboTipo.toString() == "Anillo") {
+			tipoProducto = TipoProducto.ANILLO;
+		} else if (comboTipo.toString() == "Colgante") {
 			tipoProducto = TipoProducto.COLGANTE;
-		} else if (combo.toString() == "Gafas") {
+		} else if (comboTipo.toString() == "Gafas") {
 			tipoProducto = TipoProducto.GAFAS;
-		} else if (combo.toString() == "Pendiente") {
+		} else if (comboTipo.toString() == "Pendiente") {
 			tipoProducto = TipoProducto.PENDIENTE;
 		} else {
 			tipoProducto = TipoProducto.PULSERA;
 		}
-		// controladorProducto.aniadirProducto(ID, Precio, Imagen, Proveedor,
-		// 		tipoProducto);
+
+		if (comboMaterial.toString() == "Oro") {
+			tipoMaterial = TipoMaterial.ORO;
+		} else if (comboMaterial.toString() == "Plata") {
+			tipoMaterial = TipoMaterial.PLATA;
+		} else {
+			tipoMaterial = TipoMaterial.OROPLATA;
+		}
+
+		// TODO: Aniadir numero cuaderno
+
+		controladorProducto.aniadirProducto(tipoProducto, proveedor, tipoMaterial, precio, imagen, descripcion, 1);
 		limpiarCampos();
 	}
 
 	public void limpiarCampos() {
 		tfID.setText("");
 		tfPrecio.setText("");
-		tfImagen.setText("");
-		tfProveedor.setText("");
 		comboBoxTipoProducto.removeAllItems();
+		comboBoxMaterialProducto.removeAllItems();
+		comboBoxProveedor.removeAllItems();
 	}
 
 	// TODO?: Necesitamos getters y setters en las vistas??
@@ -346,6 +353,5 @@ public class CRUDProductoVista extends JDialog{
 	public void setControladorProducto(ProductoControlador controladorProducto) {
 		this.controladorProducto = controladorProducto;
 	}
-
 
 }

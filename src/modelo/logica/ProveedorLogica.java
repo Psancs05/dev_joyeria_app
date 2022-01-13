@@ -56,4 +56,10 @@ public class ProveedorLogica {
 
         System.out.println("Proveedor retirado: " + proveedor.toString());
     }
+
+    public ProveedorVO getProveedorPorNombre(String nombre) {
+        ProveedorVO proveedor = this.proveedorDAO.getProveedorPorNombre(nombre);
+        System.out.println("Proveedor encontrado: " + proveedor.toString());
+        return proveedor;
+    }
 }

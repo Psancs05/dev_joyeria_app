@@ -110,10 +110,25 @@ public class TestsProveedorDAO {
     }
 
     @Test
-    public void testGetProveedorPorCIF(){
+    public void testGetProveedorPorCIF() {
         provDAO.create(proveedor1);
         ProveedorVO provCopia = (ProveedorVO) provDAO.getProveedorPorCIF(proveedor1.getCIF());
         assertTrue(provCopia.equals(proveedor1));
+    }
+
+    @Test
+    public void testGetProveedorPorNombre() {
+        provDAO.create(proveedor1);
+        ProveedorVO prov = provDAO.getProveedorPorNombre("Joyas S.L.");
+        assertTrue(prov.equals(proveedor1));
+    }
+
+    // Crea un test que espera una excepcion
+    @Test(expected = Exception.class)
+    public void testGetProveedorPorNombreNoExistente() {
+        provDAO.create(proveedor1);
+        ProveedorVO prov = provDAO.getProveedorPorNombre("Joyas S.A.");
+        assertFalse(prov.equals(proveedor1));
     }
 
 }

@@ -25,12 +25,17 @@ public class CRUDProveedorVista extends JDialog {
 	public CRUDProveedorVista(ProveedorControlador controladorProveedor) {
 		this.controladorProveedor = controladorProveedor;
 
-		// ? Provisional
-		ArrayList<ProveedorVO> listaProveedores = this.controladorProveedor.getProveedores();
-		System.out.println("Lista de proveedores");
-		for (ProveedorVO prov : listaProveedores) {
-			System.out.println(prov.toString());
-		}
+		// TODO? Esto no puede ir así porque llamamos a la instancia de
+		// productoControlador
+		// y esta llama a proveedorControlador y se forma un bucle infinito
+
+		// // ? Provisional
+		// ArrayList<ProveedorVO> listaProveedores =
+		// this.controladorProveedor.getProveedores();
+		// System.out.println("Lista de proveedores");
+		// for (ProveedorVO prov : listaProveedores) {
+		// System.out.println(prov.toString());
+		// }
 	}
 
 	JTextField tfCIF;

@@ -206,30 +206,27 @@ public class ProveedorDAO implements DAO {
         return listaProveedores;
     }
 
-    // @Deprecated: Usar mas adelante si lo necesitamos (lo ha generado copilot :) )
-    // // public ArrayList<ProveedorVO> getListaProveedoresPorNombre(String nombre)
-    // // {
-    // // ArrayList<ProveedorVO> listaProveedores = new ArrayList<ProveedorVO>();
-    // // try {
-    // // Class.forName("com.mysql.cj.jdbc.Driver");
-    // // Connection con =
-    // // DriverManager.getConnection("jdbc:mysql://localhost:3306/bdJoyeria",
-    // // "root",
-    // // "rootroot");
-    // // Statement st = con.createStatement();
-    // // ResultSet rs = st.executeQuery("SELECT * FROM proveedor WHERE Nombre LIKE
-    // // '%" + nombre + "%'");
-    // // while (rs.next()) {
-    // // String CIF = rs.getString("CIF");
-    // // String Nombre = rs.getString("Nombre");
-    // // ProveedorVO nuevoProv = new ProveedorVO(CIF, Nombre);
-    // // listaProveedores.add(nuevoProv);
-    // // }
-    // // con.close();
-    // // return listaProveedores;
-    // // } catch (Exception e) {
-    // // e.printStackTrace();
-    // // return null;
-    // // }
-    // // }
+    public ProveedorVO getProveedorPorNombre(String nombre) {
+        ProveedorVO nuevoProv = null;
+        try {
+            Connection con = Conexion.getInstance().getConexion();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM proveedor WHERE Nombre LIKE '%" + nombre + "%'");
+
+            if (rs.next()) {
+
+                String CIF = rs.getString("CIF");
+                String Nombre = rs.getString("Nombre");
+                nuevoProv = new ProveedorVO(CIF, Nombre);
+            } else {
+                throw new Exception("No hay resultados");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return nuevoProv;
+
+    }
 }

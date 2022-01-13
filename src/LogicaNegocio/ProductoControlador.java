@@ -1,6 +1,7 @@
 package LogicaNegocio;
 
-import com.mysql.cj.jdbc.Blob;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Vista.Producto.CRUDProductoVista;
 import globals.enums.TipoMaterial;
@@ -16,7 +17,7 @@ public class ProductoControlador {
 	private CRUDProductoVista vistaCRUDProducto;
 	private ProductoVO productoActual;
 
-	public ProductoControlador() {
+	private ProductoControlador() {
 		this.logicaProducto = ProductoLogica.getInstance();
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 	}
@@ -29,25 +30,37 @@ public class ProductoControlador {
 		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
 		// TipoUsuario tipoUsuarioI;
 		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
-		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan", "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
+		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan",
+		// "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
 		vistaCRUDProducto.pulsarBotonModificar(productoActual);
 	}
 
-	public void aniadirProducto(TipoProducto tipoProducto, ProveedorVO proveedor, TipoMaterial material, double precio, Blob imagen, String descripcion, int numCuaderno, int ID) {
-		// !ESTO DA ERROR CERDAS
-		//this.logicaProducto.registrarProducto(tipoProducto, precio, imagen, material, proveedor, descripcion);
+	public void aniadirProducto(TipoProducto tipoProducto, String nombreProveedor, TipoMaterial material, double precio,
+			String imagen, String descripcion, int numCuaderno) {
+		try {
+			ProveedorVO proveedor = ProveedorControlador.getInstance().getProveedorPorNombre(nombreProveedor);
+			this.logicaProducto.registrarProducto(tipoProducto, precio, imagen, material, proveedor, descripcion);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
-	public void modificarProducto(ProductoVO productoAntiguo, String taller, String tipo, String material, int numCuaderno, int ID) {
-		//TODO
+
+	public ArrayList<ProductoVO> getProductos() {
+		return this.logicaProducto.solicitarProductos();
 	}
-	
+
+	public void modificarProducto(ProductoVO productoAntiguo, String taller, String tipo, String material,
+			int numCuaderno, int ID) {
+		// TODO
+	}
+
 	public void eliminarProducto(ProductoVO producto) {
-		//TODO
+		// TODO
 	}
 
 	public ProductoLogica getLogicaProducto() {
-		return logicaProducto;
+		return this.logicaProducto;
 	}
 
 	public void setLogicaProducto(ProductoLogica logicaProducto) {
