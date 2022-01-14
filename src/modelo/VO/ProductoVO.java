@@ -5,6 +5,7 @@ import globals.enums.TipoProducto;
 
 public class ProductoVO {
     int IDProducto;
+    int numCuaderno;
     String nombre;
     TipoProducto tipoProducto;
     double precio;
@@ -15,10 +16,11 @@ public class ProductoVO {
     String descripcion;
 
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(String nombre, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
+    public ProductoVO(String nombre, int numCuaderno, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
             TipoMaterial material,
             ProveedorVO proveedor, int IDVenta, String descripcion) {
         this.nombre = nombre;
+        this.numCuaderno = numCuaderno;
         this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
@@ -32,9 +34,10 @@ public class ProductoVO {
     // constructor para crear un producto sin venta. Si el ID de la venta es 0, el
     // producto NO esta vendido
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(String nombre, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
+    public ProductoVO(String nombre, int numCuaderno, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
             TipoMaterial material, ProveedorVO proveedor, String descripcion) {
         this.nombre = nombre;
+        this.numCuaderno = numCuaderno;
         this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
@@ -51,6 +54,14 @@ public class ProductoVO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getNumCuaderno() {
+        return numCuaderno;
+    }
+
+    public void setNumCuaderno(int numCuaderno) {
+        this.numCuaderno = numCuaderno;
     }
 
     public TipoProducto getTipoProducto() {
@@ -119,7 +130,8 @@ public class ProductoVO {
 
     @Override
     public String toString() {
-        return "ProductoVO [IDVenta=" + IDVenta + ", imagen=" + imagen + ", material=" + material + ", precio=" + precio
+        return "ProductoVO [Nombre= " + nombre + "numero de cuaderno= " + numCuaderno + "IDVenta=" + IDVenta
+                + ", imagen=" + imagen + ", material=" + material + ", precio=" + precio
                 + ", proveedor=" + proveedor + ", tipoProducto=" + tipoProducto + "]";
     }
 
@@ -133,6 +145,11 @@ public class ProductoVO {
             return false;
         ProductoVO other = (ProductoVO) obj;
         if (IDVenta != other.IDVenta)
+            return false;
+        if (!nombre.equals(other.nombre)) {
+            return false;
+        }
+        if (numCuaderno != other.numCuaderno)
             return false;
         if (imagen == null) {
             if (other.imagen != null)

@@ -300,6 +300,7 @@ public class CRUDProductoVista extends JDialog {
 
 	public void crearProducto() {
 		String nombre = tfNombre.getText();
+		int numCuaderno = 1; // TODO: Hacer la interfaz de numCuaderno con eclipse
 		double precio = Double.parseDouble(tfPrecio.getText());
 		String imagen = imagenPath;
 		String descripcion = tfDescripcion.getText();
@@ -336,8 +337,8 @@ public class CRUDProductoVista extends JDialog {
 		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
 		// gestionar errores
 
-		controladorProducto.aniadirProducto(nombre, tipoProducto, proveedor, tipoMaterial, precio, imagen, descripcion,
-				1);
+		controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio, imagen,
+				descripcion);
 		limpiarCampos();
 	}
 

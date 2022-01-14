@@ -35,12 +35,14 @@ public class ProductoControlador {
 		vistaCRUDProducto.pulsarBotonModificar(productoActual);
 	}
 
-	public void aniadirProducto(String nombre, TipoProducto tipoProducto, String nombreProveedor, TipoMaterial material,
+	public void aniadirProducto(String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
+			TipoMaterial material,
 			double precio,
-			String imagen, String descripcion, int numCuaderno) {
+			String imagen, String descripcion) {
 		try {
 			ProveedorVO proveedor = ProveedorControlador.getInstance().getProveedorPorNombre(nombreProveedor);
-			this.logicaProducto.registrarProducto(nombre, tipoProducto, precio, imagen, material, proveedor,
+			this.logicaProducto.registrarProducto(nombre, numCuaderno, tipoProducto, precio, imagen, material,
+					proveedor,
 					descripcion);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -41,7 +41,8 @@ public class ProductoLogica {
         return this.productoDAO.getListaProductos();
     }
 
-    public boolean registrarProducto(String nombre, TipoProducto tipoDeProducto, double precio, String pathImg,
+    public boolean registrarProducto(String nombre, int numCuaderno, TipoProducto tipoDeProducto, double precio,
+            String pathImg,
             TipoMaterial material,
             ProveedorVO proveedor, String descripcion) throws SerialException, SQLException {
         try {
@@ -51,7 +52,8 @@ public class ProductoLogica {
             ImageIO.write(img, "jpg", baos);
             byte[] bytes = baos.toByteArray();
             java.sql.Blob blob = new SerialBlob(bytes);
-            ProductoVO nuevoProducto = new ProductoVO(nombre, tipoDeProducto, precio, blob, material, proveedor,
+            ProductoVO nuevoProducto = new ProductoVO(nombre, numCuaderno, tipoDeProducto, precio, blob, material,
+                    proveedor,
                     descripcion);
             return this.productoDAO.create(nuevoProducto);
         } catch (FileNotFoundException e) {

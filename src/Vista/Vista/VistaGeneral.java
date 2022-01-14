@@ -1,30 +1,23 @@
 package Vista.Vista;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import LogicaNegocio.ProductoControlador;
-import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
 import modelo.VO.ProductoVO;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JMenu;
-import java.awt.Color;
 
 public class VistaGeneral {
 

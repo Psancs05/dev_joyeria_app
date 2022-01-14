@@ -34,6 +34,7 @@ public class ProductoDAO implements DAO {
         ProductoVO producto = (ProductoVO) objeto;
 
         String nombre = producto.getNombre();
+        int numCuaderno = producto.getNumCuaderno();
         TipoProducto tipoProducto = producto.getTipoProducto();
         double precio = producto.getPrecio();
         java.sql.Blob image = producto.getImagen();
@@ -48,15 +49,16 @@ public class ProductoDAO implements DAO {
             Conexion conexionBD = Conexion.getInstance();
             Connection con = conexionBD.getConexion();
 
-            String query = "INSERT INTO producto (Nombre, TipoProducto, Precio, Material, Proveedor, Descripcion, Imagen) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO producto (Nombre, NumeroCuaderno, TipoProducto, Precio, Material, Proveedor, Descripcion, Imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, nombre);
-            pst.setString(2, tipoProducto.toString());
-            pst.setDouble(3, precio);
-            pst.setString(4, material.toString());
-            pst.setString(5, proveedor.getCIF());
-            pst.setString(6, descripcion);
-            pst.setBlob(7, image);
+            pst.setString(2, numCuaderno + "");
+            pst.setString(3, tipoProducto.toString());
+            pst.setDouble(4, precio);
+            pst.setString(5, material.toString());
+            pst.setString(6, proveedor.getCIF());
+            pst.setString(7, descripcion);
+            pst.setBlob(8, image);
             pst.executeUpdate();
 
             int idProducto = -1;
@@ -106,6 +108,7 @@ public class ProductoDAO implements DAO {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 String nombre = rs.getString("Nombre");
+                int numCuaderno = rs.getInt("NumeroCuaderno");
                 TipoProducto tipoProducto = TipoProducto.valueOf(rs.getString("TipoProducto"));
                 double precio = rs.getDouble("Precio");
                 TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
@@ -114,7 +117,8 @@ public class ProductoDAO implements DAO {
                 String descripcion = rs.getString("Descripcion");
                 int IDVenta = rs.getInt("IDVenta");
                 java.sql.Blob blob = rs.getBlob("Imagen");
-                ProductoVO nuevoProd = new ProductoVO(nombre, tipoProducto, precio, blob, material, proveedor, IDVenta,
+                ProductoVO nuevoProd = new ProductoVO(nombre, numCuaderno, tipoProducto, precio, blob, material,
+                        proveedor, IDVenta,
                         descripcion);
                 // con.close();
                 nuevoProd.setIDProducto(IDProd);
@@ -145,6 +149,7 @@ public class ProductoDAO implements DAO {
         // info del modificado
         int IDProdMod = prodMod.getIDProducto();
         String nombreProdMod = prodMod.getNombre();
+        int numCuadernoProdMod = prodMod.getNumCuaderno();
         TipoProducto tipoProductoMod = prodMod.getTipoProducto();
         double precioMod = prodMod.getPrecio();
         TipoMaterial materialMod = prodMod.getMaterial();
@@ -157,6 +162,7 @@ public class ProductoDAO implements DAO {
         ProductoVO prodBD = (ProductoVO) search(prodMod);
         TipoProducto tipoProductoBD = prodBD.getTipoProducto();
         String nombreBD = prodBD.getNombre();
+        int numCuadernoBD = prodBD.getNumCuaderno();
         double precioBD = prodBD.getPrecio();
         TipoMaterial materialBD = prodBD.getMaterial();
         ProveedorVO proveedorBD = prodBD.getProveedor();
@@ -172,6 +178,22 @@ public class ProductoDAO implements DAO {
                 String query = "UPDATE producto SET Nombre=? WHERE IDProducto=?";
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, nombreProdMod);
+                pst.setInt(2, IDProdMod);
+                pst.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+                return false;
+            }
+        }
+
+        // cambiamos el numero de cuaderno
+        if (numCuadernoProdMod != numCuadernoBD) {
+            try {
+                Conexion conexionBD = Conexion.getInstance();
+                Connection con = conexionBD.getConexion();
+                String query = "UPDATE producto SET NumeroCuaderno=? WHERE IDProducto=?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setInt(1, numCuadernoProdMod);
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
             } catch (Exception e) {
@@ -347,7 +369,8 @@ public class ProductoDAO implements DAO {
     }
 
     public Object getProductoPorID(int id) {
-        ProductoVO placeholder = new ProductoVO("Anillo", TipoProducto.ANILLO, 100, null, TipoMaterial.OROPLATA, null,
+        ProductoVO placeholder = new ProductoVO("Anillo", 1, TipoProducto.ANILLO, 100, null, TipoMaterial.OROPLATA,
+                null,
                 "descripcion");
         placeholder.setIDProducto(id);
         return search(placeholder);
@@ -366,6 +389,7 @@ public class ProductoDAO implements DAO {
                 // Obtenemos los datos del producto de la db
                 int iDProducto = rs.getInt("IDproducto");
                 String nombre = rs.getString("Nombre");
+                int numCuaderno = rs.getInt("NumeroCuaderno");
                 TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoProducto"));
                 double precio = rs.getDouble("Precio");
                 Blob imagen = rs.getBlob("Imagen");
@@ -376,7 +400,8 @@ public class ProductoDAO implements DAO {
                 String descripcion = rs.getString("Descripcion");
 
                 // Creamos el producto con los datos obtenidos
-                ProductoVO producto = new ProductoVO(nombre, tipo, precio, imagen, material, proveedor, iDVenta,
+                ProductoVO producto = new ProductoVO(nombre, numCuaderno, tipo, precio, imagen, material, proveedor,
+                        iDVenta,
                         descripcion);
                 producto.setIDProducto(iDProducto);
 
@@ -407,6 +432,7 @@ public class ProductoDAO implements DAO {
                 int iDProducto = rs.getInt("IDproducto");
                 TipoProducto tipo = TipoProducto.valueOf(rs.getString("TipoProducto"));
                 String nombre = rs.getString("Nombre");
+                int numCuaderno = rs.getInt("NumeroCuaderno");
                 double precio = rs.getDouble("Precio");
                 Blob imagen = rs.getBlob("Imagen");
                 TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
@@ -416,7 +442,8 @@ public class ProductoDAO implements DAO {
                 String descripcion = rs.getString("Descripcion");
 
                 // Creamos el producto con los datos obtenidos
-                ProductoVO producto = new ProductoVO(nombre, tipo, precio, imagen, material, proveedor, iDVenta,
+                ProductoVO producto = new ProductoVO(nombre, numCuaderno, tipo, precio, imagen, material, proveedor,
+                        iDVenta,
                         descripcion);
                 producto.setIDProducto(iDProducto);
 
