@@ -33,7 +33,7 @@ public class CRUDProductoVista extends JDialog {
 		this.proveedores = controladorProveedor.getProveedores();
 	}
 
-	JTextField tfID;
+	JTextField tfNombre;
 	JTextField tfPrecio;
 	String imagenPath;
 	JTextField tfDescripcion;
@@ -54,10 +54,10 @@ public class CRUDProductoVista extends JDialog {
 		lbID.setBounds(10, 34, 113, 33);
 		getContentPane().add(lbID);
 
-		tfID = new JTextField();
-		tfID.setBounds(316, 34, 378, 38);
-		getContentPane().add(tfID);
-		tfID.setBounds(316, 34, 131, 38);
+		tfNombre = new JTextField();
+		tfNombre.setBounds(316, 34, 378, 38);
+		getContentPane().add(tfNombre);
+		tfNombre.setBounds(316, 34, 131, 38);
 
 		JLabel lbPrecio = new JLabel("Precio");
 		lbPrecio.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -299,6 +299,7 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void crearProducto() {
+		String nombre = tfNombre.getText();
 		double precio = Double.parseDouble(tfPrecio.getText());
 		String imagen = imagenPath;
 		String descripcion = tfDescripcion.getText();
@@ -332,12 +333,16 @@ public class CRUDProductoVista extends JDialog {
 
 		// TODO: Aniadir numero cuaderno
 
-		controladorProducto.aniadirProducto(tipoProducto, proveedor, tipoMaterial, precio, imagen, descripcion, 1);
+		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
+		// gestionar errores
+
+		controladorProducto.aniadirProducto(nombre, tipoProducto, proveedor, tipoMaterial, precio, imagen, descripcion,
+				1);
 		limpiarCampos();
 	}
 
 	public void limpiarCampos() {
-		tfID.setText("");
+		tfNombre.setText("");
 		tfPrecio.setText("");
 		comboBoxTipoProducto.removeAllItems();
 		comboBoxMaterialProducto.removeAllItems();

@@ -1,13 +1,11 @@
 package modelo.VO;
 
-import java.io.File;
-import java.sql.Blob;
-
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 
 public class ProductoVO {
     int IDProducto;
+    String nombre;
     TipoProducto tipoProducto;
     double precio;
     java.sql.Blob imagen;
@@ -17,8 +15,10 @@ public class ProductoVO {
     String descripcion;
 
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(TipoProducto tipoProducto, double precio,   java.sql.Blob imagen, TipoMaterial material,
+    public ProductoVO(String nombre, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
+            TipoMaterial material,
             ProveedorVO proveedor, int IDVenta, String descripcion) {
+        this.nombre = nombre;
         this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
@@ -32,8 +32,9 @@ public class ProductoVO {
     // constructor para crear un producto sin venta. Si el ID de la venta es 0, el
     // producto NO esta vendido
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
-    public ProductoVO(TipoProducto tipoProducto, double precio,   java.sql.Blob imagen,
+    public ProductoVO(String nombre, TipoProducto tipoProducto, double precio, java.sql.Blob imagen,
             TipoMaterial material, ProveedorVO proveedor, String descripcion) {
+        this.nombre = nombre;
         this.tipoProducto = tipoProducto;
         this.precio = precio;
         this.imagen = imagen;
@@ -42,6 +43,14 @@ public class ProductoVO {
         this.IDVenta = 0;
         this.IDProducto = -1;
         this.descripcion = descripcion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public TipoProducto getTipoProducto() {
