@@ -62,8 +62,9 @@ public class TestsProductoDAO {
     public void setUp() {
         distr = new ProveedorVO("123456G", "distribuidorTestProdDAO");
         provDAO.create(distr);
-        anillo = new ProductoVO("Anillo", TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, distr, "anillo de oro");
-        pulsera = new ProductoVO("Pulsera para vender", TipoProducto.PULSERA, 120, null, TipoMaterial.OROPLATA, distr,
+        anillo = new ProductoVO("Anillo", 1, TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, distr, "anillo de oro");
+        pulsera = new ProductoVO("Pulsera para vender", 2, TipoProducto.PULSERA, 120, null, TipoMaterial.OROPLATA,
+                distr,
                 "pulsera de plata y oro");
     }
 
@@ -71,7 +72,7 @@ public class TestsProductoDAO {
     public void testModificarID() {
         ProveedorVO perico = new ProveedorVO("dsadad", "nombre");
         provDAO.create(perico);
-        ProductoVO prod1 = new ProductoVO("Anillo", TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, perico,
+        ProductoVO prod1 = new ProductoVO("Anillo", 1, TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, perico,
                 "anillo de oro");
         assertTrue(prodDAO.create(prod1));
     }
@@ -86,7 +87,7 @@ public class TestsProductoDAO {
 
     @Test
     public void testCreateNuevoProductoEnBBDD() {
-        ProductoVO prodRandom = new ProductoVO("Anillo", TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, distr,
+        ProductoVO prodRandom = new ProductoVO("Anillo", 1, TipoProducto.ANILLO, 200, null, TipoMaterial.ORO, distr,
                 getAlphaNumericString(15));
         assertTrue(prodDAO.create(prodRandom));
         prodDAO.delete(prodRandom);
@@ -140,7 +141,7 @@ public class TestsProductoDAO {
 
     @Test
     public void testUpdateNoExist() {
-        ProductoVO productoPlaceholder = new ProductoVO("Anillo", TipoProducto.ANILLO, 666, null, TipoMaterial.PLATA,
+        ProductoVO productoPlaceholder = new ProductoVO("Anillo", 1, TipoProducto.ANILLO, 666, null, TipoMaterial.PLATA,
                 null,
                 "descripcion");
         assertFalse(prodDAO.update(productoPlaceholder));

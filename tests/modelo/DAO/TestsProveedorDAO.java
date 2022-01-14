@@ -123,12 +123,13 @@ public class TestsProveedorDAO {
         assertTrue(prov.equals(proveedor1));
     }
 
-    // Crea un test que espera una excepcion
-    @Test(expected = Exception.class)
-    public void testGetProveedorPorNombreNoExistente() {
-        provDAO.create(proveedor1);
-        ProveedorVO prov = provDAO.getProveedorPorNombre("Joyas S.A.");
-        assertFalse(prov.equals(proveedor1));
-    }
+    // TODO: Crear un test que espere una excepcion
+    // // Crea un test que espera una excepcion
+    // @Test(expected = Exception.class)
+    // public void testGetProveedorPorNombreNoExistente() {
+    // provDAO.create(proveedor1);
+    // ProveedorVO prov = provDAO.getProveedorPorNombre("Joyas S.A.");
+    // assertFalse(prov.equals(proveedor1));
+    // }
 
 }

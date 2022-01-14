@@ -38,17 +38,19 @@ public class TestsPDFHelper {
                 userDAO.create(user);
                 proveedor = new ProveedorVO("999999", "Proveedor de testVentaDAO");
                 provDAO.create(proveedor);
-                gafas = new ProductoVO("Gafas refacheras", TipoProducto.GAFAS, 30, null, TipoMaterial.PLATA, proveedor,
+                gafas = new ProductoVO("Gafas refacheras", 1, TipoProducto.GAFAS, 30, null, TipoMaterial.PLATA,
+                                proveedor,
                                 "gafas de testVentaDAO");
-                ProductoVO anillo = new ProductoVO("Anillo", TipoProducto.ANILLO, 50, null, TipoMaterial.ORO, proveedor,
+                ProductoVO anillo = new ProductoVO("Anillo", 2, TipoProducto.ANILLO, 50, null, TipoMaterial.ORO,
+                                proveedor,
                                 "Anillo de oro modelo 03");
-                ProductoVO pulsera = new ProductoVO("Pulsera para vender", TipoProducto.PULSERA, 99.98, null,
+                ProductoVO pulsera = new ProductoVO("Pulsera para vender", 3, TipoProducto.PULSERA, 99.98, null,
                                 TipoMaterial.ORO, proveedor,
                                 "pulsera con indentaciones de oro");
-                ProductoVO anillo2 = new ProductoVO("Anillo de oro blanco", TipoProducto.ANILLO, 80, null,
+                ProductoVO anillo2 = new ProductoVO("Anillo de oro blanco", 2, TipoProducto.ANILLO, 80, null,
                                 TipoMaterial.PLATA, proveedor,
                                 "anillo plata de ley");
-                ProductoVO collar = new ProductoVO("Colgante persa", TipoProducto.COLGANTE, 34.99, null,
+                ProductoVO collar = new ProductoVO("Colgante persa", 1, TipoProducto.COLGANTE, 34.99, null,
                                 TipoMaterial.ORO, proveedor,
                                 "Cadena anuel AA");
                 arrayProductos = new ArrayList<>();

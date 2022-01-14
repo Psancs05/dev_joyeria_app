@@ -35,7 +35,7 @@ public class TestsVentaDAO {
         userDAO.create(user);
         proveedor = new ProveedorVO("999999", "Proveedor de testVentaDAO");
         provDAO.create(proveedor);
-        gafas = new ProductoVO("Gafas refacheras", TipoProducto.GAFAS, 30, null, TipoMaterial.PLATA, proveedor,
+        gafas = new ProductoVO("Gafas refacheras", 2, TipoProducto.GAFAS, 30, null, TipoMaterial.PLATA, proveedor,
                 "gafas de testVentaDAO");
 
         arrayProductos = new ArrayList<>();

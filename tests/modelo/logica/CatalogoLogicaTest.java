@@ -30,9 +30,9 @@ public class CatalogoLogicaTest {
         cL = new CatalogoLogica();
         distr = new ProveedorVO("123456G", "distribuidorTestProdDAO");
         provDAO.create(distr);
-        pendiente = new ProductoVO("Pulsera de Max", TipoProducto.PULSERA, 200, null, TipoMaterial.ORO, distr,
+        pendiente = new ProductoVO("Pulsera de Max", 3, TipoProducto.PULSERA, 200, null, TipoMaterial.ORO, distr,
                 "anillo de oro");
-        colgante = new ProductoVO("Pulsera de los lloros", TipoProducto.PULSERA, 200, null, TipoMaterial.OROPLATA,
+        colgante = new ProductoVO("Pulsera de los lloros", 2, TipoProducto.PULSERA, 200, null, TipoMaterial.OROPLATA,
                 distr, "pulsera de plata y oro");
     }
 
@@ -40,7 +40,7 @@ public class CatalogoLogicaTest {
     public void testListadoFiltradoPorMaterial() {
         prodDAO.create(pendiente);
         prodDAO.create(colgante);
-        ProductoVO parametros = new ProductoVO("Pendiente", TipoProducto.PENDIENTE, -1.0, null, null, null, null);
+        ProductoVO parametros = new ProductoVO("Pendiente", 2, TipoProducto.PENDIENTE, -1.0, null, null, null, null);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
         for (ProductoVO producto : listaFiltrada) {
@@ -54,7 +54,7 @@ public class CatalogoLogicaTest {
     public void testListadoFiltradoPorPrecio() {
         prodDAO.create(pendiente);
         prodDAO.create(colgante);
-        ProductoVO parametros = new ProductoVO(null, null, 120, null, null, null, null);
+        ProductoVO parametros = new ProductoVO(null, 0, null, 120, null, null, null, null);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
         for (ProductoVO producto : listaFiltrada) {
@@ -70,7 +70,7 @@ public class CatalogoLogicaTest {
         prodDAO.create(colgante);
 
         ProveedorVO prov = new ProveedorVO("12345678", null);
-        ProductoVO parametros = new ProductoVO(null, null, -1.0, null, null, prov, null);
+        ProductoVO parametros = new ProductoVO(null, 0, null, -1.0, null, null, prov, null);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
         for (ProductoVO producto : listaFiltrada) {
@@ -86,7 +86,7 @@ public class CatalogoLogicaTest {
         prodDAO.create(colgante);
 
         ProveedorVO prov = new ProveedorVO(null, "Mani Manitas");
-        ProductoVO parametros = new ProductoVO(null, null, -1.0, null, null, prov, null);
+        ProductoVO parametros = new ProductoVO(null, 0, null, -1.0, null, null, prov, null);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
         for (ProductoVO producto : listaFiltrada) {
@@ -101,7 +101,7 @@ public class CatalogoLogicaTest {
         prodDAO.create(pendiente);
         prodDAO.create(colgante);
 
-        ProductoVO parametros = new ProductoVO(null, null, -1.0, null, null, null, null);
+        ProductoVO parametros = new ProductoVO(null, 0, null, -1.0, null, null, null, null);
         parametros.setIDVenta(1);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
@@ -118,7 +118,7 @@ public class CatalogoLogicaTest {
         prodDAO.create(colgante);
 
         ProveedorVO prov = new ProveedorVO("123456G", null);
-        ProductoVO parametros = new ProductoVO(null, TipoProducto.PULSERA, 200, null, null, prov, null);
+        ProductoVO parametros = new ProductoVO(null, 0, TipoProducto.PULSERA, 200, null, null, prov, null);
 
         ArrayList<ProductoVO> listaFiltrada = cL.filtrarCatalogo(parametros);
         for (ProductoVO producto : listaFiltrada) {
