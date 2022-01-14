@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `bdJoyeria`.`proveedor` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdJoyeria`.`producto` (
   `IDProducto` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
   `TipoProducto` VARCHAR(45) NULL,
   `Precio` DOUBLE NULL,
   `Imagen` LONGBLOB NULL,
@@ -115,6 +116,7 @@ VALUES
 -- -----------------------------------------------------
 INSERT INTO
   producto (
+    Nombre,
     TipoProducto,
     Precio,
     Material,
@@ -123,6 +125,7 @@ INSERT INTO
   )
 VALUES
   (
+    'Anillo',
     'ANILLO',
     '100',
     'ORO',
@@ -132,6 +135,7 @@ VALUES
 
 INSERT INTO
   producto (
+    Nombre,
     TipoProducto,
     Precio,
     Material,
@@ -140,6 +144,7 @@ INSERT INTO
   )
 VALUES
   (
+    'Pulsera de oro blanco',
     'PULSERA',
     '150',
     'PLATA',
@@ -149,6 +154,7 @@ VALUES
 
 INSERT INTO
   producto (
+    Nombre,
     TipoProducto,
     Precio,
     Material,
@@ -157,6 +163,7 @@ INSERT INTO
   )
 VALUES
   (
+    'Gafas refacheras',
     'GAFAS',
     '20.5',
     'OROPLATA',
@@ -166,6 +173,7 @@ VALUES
 
 INSERT INTO
   producto (
+    Nombre,
     TipoProducto,
     Precio,
     Material,
@@ -174,6 +182,7 @@ INSERT INTO
   )
 VALUES
   (
+    'Pulsera para vender',
     'PULSERA',
     '500',
     'ORO',
