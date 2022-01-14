@@ -18,7 +18,7 @@ public class ProductoControlador {
 	private ProductoVO productoActual;
 
 	private ProductoControlador() {
-		this.logicaProducto = ProductoLogica.getInstance();
+		this.logicaProducto = new ProductoLogica();
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 	}
 
