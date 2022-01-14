@@ -17,6 +17,7 @@ import javax.swing.JMenuItem;
 
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.UsuarioControlador;
+import Vista.Catalogo.CatalogoVista;
 import modelo.VO.ProductoVO;
 
 public class VistaGeneral {
@@ -219,10 +220,8 @@ public class VistaGeneral {
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
-				ArrayList<ProductoVO> productos = ProductoControlador.getInstance().getProductos();
-				for (ProductoVO producto : productos) {
-					System.out.println(producto.toString());
-				}
+				CatalogoVista catalogoVista = new CatalogoVista();
+				frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonCatalogo);

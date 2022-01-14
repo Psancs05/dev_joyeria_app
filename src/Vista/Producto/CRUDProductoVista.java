@@ -64,7 +64,7 @@ public class CRUDProductoVista extends JDialog {
 		lbNumC.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbNumC.setBounds(10, 65, 176, 33);
 		getContentPane().add(lbNumC);
-		
+
 		tfNumC = new JTextField();
 		tfNumC.setBounds(316, 65, 131, 38);
 		getContentPane().add(tfNumC);
@@ -310,7 +310,7 @@ public class CRUDProductoVista extends JDialog {
 
 	public void crearProducto() {
 		String nombre = tfNombre.getText();
-		int numCuaderno = 1; // TODO: Hacer la interfaz de numCuaderno con eclipse
+		int numCuaderno = Integer.parseInt(tfNumC.getText());
 		double precio = Double.parseDouble(tfPrecio.getText());
 		String imagen = imagenPath;
 		String descripcion = tfDescripcion.getText();
@@ -354,10 +354,12 @@ public class CRUDProductoVista extends JDialog {
 
 	public void limpiarCampos() {
 		tfNombre.setText("");
+		tfNumC.setText("");
 		tfPrecio.setText("");
-		comboBoxTipoProducto.removeAllItems();
-		comboBoxMaterialProducto.removeAllItems();
-		comboBoxProveedor.removeAllItems();
+		tfDescripcion.setText("");
+		comboBoxTipoProducto.setSelectedItem(0);
+		comboBoxMaterialProducto.setSelectedItem(0);
+		comboBoxProveedor.setSelectedItem(0);
 	}
 
 	// TODO?: Necesitamos getters y setters en las vistas??
