@@ -5,9 +5,7 @@ import modelo.DAO.UsuarioDAO;
 import modelo.VO.UsuarioVO;
 
 public class UsuarioLogica {
-    private static UsuarioLogica miUsuarioLogica;
     private UsuarioDAO usuarioDAO;
-
 
     public UsuarioLogica() {
         this.usuarioDAO = UsuarioDAO.getInstance();

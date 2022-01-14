@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.security.CodeSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Conexion {
     private static Conexion miConexion;
@@ -108,7 +109,7 @@ public class Conexion {
                 return true;
             } else {
                 System.out.println("No se ha podido restaurar la BBDD");
-                
+
                 System.out.println(
                         "Fallo al ejecutar el comando: " + comandoRestaurar + " con los siguientes errores:");
                 try (final BufferedReader b = new BufferedReader(new InputStreamReader(

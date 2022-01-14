@@ -10,7 +10,6 @@ import org.junit.Test;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import globals.enums.TipoUsuario;
-import modelo.DAO.ProductoDAO;
 import modelo.DAO.ProveedorDAO;
 import modelo.DAO.UsuarioDAO;
 import modelo.DAO.VentaDAO;

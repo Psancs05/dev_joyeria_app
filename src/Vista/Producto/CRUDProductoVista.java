@@ -243,7 +243,7 @@ public class CRUDProductoVista extends JDialog {
 		lbTipoProducto.setBounds(10, 233, 200, 35);
 		getContentPane().add(lbTipoProducto);
 
-		comboBoxTipoProducto = new JComboBox();
+		comboBoxTipoProducto = new JComboBox<String>();
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 230, 378, 38);
 		getContentPane().add(comboBoxTipoProducto);

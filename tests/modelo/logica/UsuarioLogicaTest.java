@@ -1,8 +1,7 @@
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.*;
+import org.junit.Test;
 
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;

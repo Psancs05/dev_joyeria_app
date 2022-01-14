@@ -1,44 +1,19 @@
 package helpers;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.DecimalFormat;
-import java.util.Date;
 
-import com.itextpdf.awt.geom.Rectangle;
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
-import com.itextpdf.text.TabStop;
-import com.itextpdf.text.TabStop.Alignment;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.GrayColor;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfFormXObject;
-import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import com.mysql.cj.exceptions.DeadlockTimeoutRollbackMarker;
-import com.itextpdf.text.pdf.PdfPTable;
 
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;
@@ -50,7 +25,8 @@ public class PDFHelper {
     private static Font fuenteNegrita = new Font(Font.FontFamily.UNDEFINED, 12,
             Font.BOLD);
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    //TODO: Buscar una forma de como pollas usar la imagen solo con la ubicacion relativa
+    // TODO: Buscar una forma de como pollas usar la imagen solo con la ubicacion
+    // relativa
     private static String Imagen_logo = "/home/napuh/Desktop/dev_joyeria_app/assets/logo.jpg";
 
     public Document generarPDFEtiqueta(ProductoVO producto) {
@@ -164,22 +140,22 @@ public class PDFHelper {
         tablaProds.addCell(getCell(String.valueOf(df.format(venta.getPrecioTotal())), PdfPCell.ALIGN_RIGHT));
 
         document.add(tablaProds);
-        //TODO: Hasta que no podamos usar la imagen nada
+        // TODO: Hasta que no podamos usar la imagen nada
         // try {
-        //     Image image = Image.getInstance(Imagen_logo);
-        //     Paragraph p = new Paragraph();
-        //     p.add(image);
-        //     float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-        //             - document.rightMargin()) / image.getWidth()) * 30;
+        // Image image = Image.getInstance(Imagen_logo);
+        // Paragraph p = new Paragraph();
+        // p.add(image);
+        // float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
+        // - document.rightMargin()) / image.getWidth()) * 30;
 
-        //     image.scalePercent(scaler);
-        //     image.setAlignment(Element.ALIGN_CENTER);
-        //     p.setAlignment(Element.ALIGN_CENTER);
-        //     document.add(p);
+        // image.scalePercent(scaler);
+        // image.setAlignment(Element.ALIGN_CENTER);
+        // p.setAlignment(Element.ALIGN_CENTER);
+        // document.add(p);
         // } catch (MalformedURLException e) {
-        //     throw new MalformedURLException(); 
+        // throw new MalformedURLException();
         // } catch (IOException e) {
-        //     throw new IOException();
+        // throw new IOException();
         // }
     }
 

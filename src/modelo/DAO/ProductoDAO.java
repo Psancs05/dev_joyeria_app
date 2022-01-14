@@ -1,12 +1,16 @@
 package modelo.DAO;
 
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.*;
 
-import globals.enums.*;
+import globals.enums.TipoMaterial;
+import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
 import modelo.conexion.Conexion;

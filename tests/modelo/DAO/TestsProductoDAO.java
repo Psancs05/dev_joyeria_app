@@ -12,7 +12,6 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import LogicaNegocio.ProductoControlador;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import globals.enums.TipoUsuario;

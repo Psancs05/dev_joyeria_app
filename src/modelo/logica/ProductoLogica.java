@@ -19,18 +19,10 @@ import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
 
 public class ProductoLogica {
-    private static ProductoLogica instance;
     private ProductoDAO productoDAO;
 
-    private ProductoLogica() {
+    public ProductoLogica() {
         this.productoDAO = ProductoDAO.getInstance();
-    }
-
-    public static ProductoLogica getInstance() {
-        if (instance == null) {
-            instance = new ProductoLogica();
-        }
-        return instance;
     }
 
     public void imprimirEtiquetaProdcuto(ProductoVO producto, String ubicacion) {

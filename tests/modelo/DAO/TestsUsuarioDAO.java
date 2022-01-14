@@ -7,10 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
-import org.junit.*;
-import org.w3c.dom.UserDataHandler;
-
-import java.sql.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
@@ -125,7 +123,7 @@ public class TestsUsuarioDAO {
     }
 
     @Test
-    public void testGetUsuarioPorDNI(){
+    public void testGetUsuarioPorDNI() {
         userDAO.create(usuario1);
         UsuarioVO dniNap = (UsuarioVO) userDAO.getUsuarioPorDNI("12345678N");
         assertTrue(dniNap.equals(usuario1));

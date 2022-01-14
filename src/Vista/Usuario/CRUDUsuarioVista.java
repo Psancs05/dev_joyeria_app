@@ -6,16 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import LogicaNegocio.UsuarioControlador;
 import globals.enums.TipoUsuario;
@@ -33,7 +30,7 @@ public class CRUDUsuarioVista extends JDialog {
 	JTextField tfNombre;
 	JTextField tfEmail;
 	JTextField tfPassword;
-	JComboBox cbTipoUsuario;
+	JComboBox<String> cbTipoUsuario;
 
 	public void pulsarBotonAniadir() {
 
@@ -88,7 +85,7 @@ public class CRUDUsuarioVista extends JDialog {
 		lbTipoUsuario.setBounds(10, 233, 200, 35);
 		getContentPane().add(lbTipoUsuario);
 
-		cbTipoUsuario = new JComboBox();
+		cbTipoUsuario = new JComboBox<String>();
 		cbTipoUsuario.setBounds(316, 230, 94, 38);
 		cbTipoUsuario.addItem("default");
 		cbTipoUsuario.addItem("Administrador");
@@ -182,7 +179,7 @@ public class CRUDUsuarioVista extends JDialog {
 		lbTipoUsuario.setBounds(10, 233, 200, 35);
 		getContentPane().add(lbTipoUsuario);
 
-		cbTipoUsuario = new JComboBox();
+		cbTipoUsuario = new JComboBox<String>();
 		cbTipoUsuario.setBounds(316, 230, 94, 38);
 		cbTipoUsuario.addItem("default");
 		cbTipoUsuario.addItem("Administrador");
@@ -197,7 +194,7 @@ public class CRUDUsuarioVista extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		//Comprobacion de que furrula hasta que tengamos el resto hecho
+		// Comprobacion de que furrula hasta que tengamos el resto hecho
 
 		String DNI = usuario.getDNI();
 		String nombre = usuario.getNombre();
@@ -210,10 +207,10 @@ public class CRUDUsuarioVista extends JDialog {
 		tfEmail.setText(email);
 		tfPassword.setText(password);
 		int index = 0;
-		if(tipoUsuario.toString() == "ADMINISTRADOR"){
+		if (tipoUsuario.toString() == "ADMINISTRADOR") {
 			index = 1;
 		} else {
-			 index = 2;
+			index = 2;
 		}
 		cbTipoUsuario.setSelectedIndex(index);
 
@@ -240,7 +237,6 @@ public class CRUDUsuarioVista extends JDialog {
 			}
 		});
 
-		
 	}
 
 	public void pulsarBotonEliminar() {
@@ -258,29 +254,30 @@ public class CRUDUsuarioVista extends JDialog {
 
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {
-		tipoUsuario = TipoUsuario.ADMINISTRADOR;
+			tipoUsuario = TipoUsuario.ADMINISTRADOR;
 		} else {
-		tipoUsuario = TipoUsuario.CAJERO;
+			tipoUsuario = TipoUsuario.CAJERO;
 		}
 		controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
 				tipoUsuario);
 		limpiarCampos();
 	}
 
-	public void modificarUsuario(UsuarioVO usuario){
+	public void modificarUsuario(UsuarioVO usuario) {
 		String DNI = tfDNI.getText();
 		String nombre = tfNombre.getText();
 		String email = tfEmail.getText();
 		String password = tfPassword.getText();
 		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
 
-		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb + " el usuario antiguo era " + usuario.toString());
+		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb
+				+ " el usuario antiguo era " + usuario.toString());
 
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {
-		tipoUsuario = TipoUsuario.ADMINISTRADOR;
+			tipoUsuario = TipoUsuario.ADMINISTRADOR;
 		} else {
-		tipoUsuario = TipoUsuario.CAJERO;
+			tipoUsuario = TipoUsuario.CAJERO;
 		}
 		controladorUsuario.modificarUsuario(usuario, DNI, nombre, email, password,
 				tipoUsuario);
