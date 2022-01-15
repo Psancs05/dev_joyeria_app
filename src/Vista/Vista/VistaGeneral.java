@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +17,6 @@ import javax.swing.JMenuItem;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.UsuarioControlador;
 import Vista.Catalogo.CatalogoVista;
-import modelo.VO.ProductoVO;
 
 public class VistaGeneral {
 
@@ -29,6 +27,10 @@ public class VistaGeneral {
 	 */
 	public VistaGeneral() {
 		initialize();
+	}
+
+	public void setVisible(boolean b) {
+		frame.setVisible(b);
 	}
 
 	/**

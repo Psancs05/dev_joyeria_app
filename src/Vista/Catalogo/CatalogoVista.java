@@ -1,32 +1,28 @@
 package Vista.Catalogo;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 import LogicaNegocio.ProductoControlador;
+import Vista.Vista.VistaGeneral;
 import modelo.VO.ProductoVO;
-import javax.swing.JList;
-import javax.swing.JLabel;
 
 public class CatalogoVista extends JFrame {
 
 	private JPanel contentPane;
-	private JList list;
-	private DefaultListModel<ProductoTile> model;
+	private JList<ProductoVO> list;
+	private DefaultListModel<ProductoVO> model;
 
 	private ArrayList<ProductoVO> productos;
 	private ProductoControlador controladorProducto;
@@ -44,7 +40,14 @@ public class CatalogoVista extends JFrame {
 	private void initialize() {
 		contentPane = new JPanel();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new java.awt.event.WindowAdapter() {
+			public void windowClosing(java.awt.event.WindowEvent e) {
+				setVisible(false);
+				VistaGeneral vistaGeneral = new VistaGeneral();
+				vistaGeneral.setVisible(true);
+			}
+		});
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,48 +62,37 @@ public class CatalogoVista extends JFrame {
 	private void getProductos() {
 		controladorProducto = ProductoControlador.getInstance();
 		productos = controladorProducto.getProductos();
-		// for (ProductoVO producto : productos) {
-		// System.out.println(producto.toString());
-		// }
 		System.out.println("Productos: " + productos.size());
 	}
 
 	private void mostrarProductosEnLista() {
 		// crea una lista con los productos
-		model = new DefaultListModel<ProductoTile>();
+		model = new DefaultListModel<ProductoVO>();
 		for (ProductoVO producto : productos) {
-			model.addElement(new ProductoTile(producto));
+			model.addElement(producto);
 		}
-		list = new JList<ProductoTile>(model);
-		// list.setCellRenderer(new ProductoTileRenderer());
-		contentPane.add(list, BorderLayout.CENTER);
 
-		for (ProductoVO producto : productos) {
-			System.out.println("Producto: " + producto.toString());
-			// ProductoTile tile = new ProductoTile(producto);
-			// this.list.add(tile);
-			this.model.addElement(new ProductoTile(producto));
-		}
-		this.list.setVisibleRowCount(5);
-		JScrollPane laminaDesplazamiento = new JScrollPane(this.list);
-		this.contentPane.add(laminaDesplazamiento, BorderLayout.CENTER);
-	}
+		list = new JList<ProductoVO>(model);
+		add(new JScrollPane(list));
+		list.setCellRenderer(new ProductoRenderer());
 
-	public BufferedImage getProductoImagen(Blob productoImagen) {
-		try {
-			java.io.InputStream in = productoImagen.getBinaryStream();
-			BufferedImage image;
-			image = ImageIO.read(in);
-			return image;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		// Listener para abrir la especificacion de producto cuando se haga click en uno
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList theList = (JList) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 1) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					if (index >= 0) {
+						Object o = theList.getModel().getElementAt(index);
+						System.out.println("Click on: " + o.toString());
+						EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);
+						especificacion.setVisible(true);
+					}
+				}
+			}
+		};
+		list.addMouseListener(mouseListener);
+
 	}
 
 }
