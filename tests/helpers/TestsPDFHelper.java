@@ -28,7 +28,8 @@ public class TestsPDFHelper {
         private VentaVO venta;
         private ArrayList<ProductoVO> arrayProductos;
         private PDFHelper pdfh = new PDFHelper();
-        private static String ubicacion = new File("PDFPrueba.pdf").getAbsolutePath();
+        private static String ubicacionFactura = new File("PDFPruebaFactura.pdf").getAbsolutePath();
+        private static String ubicacionEtiqueta = new File("PDFPruebaEtiquetas.pdf").getAbsolutePath();
 
         @Before
         public void setUp() {
@@ -69,8 +70,15 @@ public class TestsPDFHelper {
 
         @Test
         public void testGenerarPDF() {
-                System.out.println("Busca el PDF en: " + ubicacion);
-                pdfh.generarPDFVenta(venta, ubicacion);
+                System.out.println("Busca el PDF en: " + ubicacionFactura);
+                pdfh.generarPDFVenta(venta, ubicacionFactura);
+        }
+
+        @Test
+        public void testGenerarEtiquetas(){
+                System.out.println("Busca el pdf en: " + ubicacionEtiqueta);
+                System.out.println(arrayProductos.toString());
+                pdfh.generarPDFEtiqueta(arrayProductos, ubicacionEtiqueta);
         }
 
         @After
