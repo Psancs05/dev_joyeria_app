@@ -69,7 +69,7 @@ public class PDFHelper {
 
     }
 
-    public boolean generarPDFVenta(VentaVO venta, String ubicacion) {
+    public static boolean generarPDFVenta(VentaVO venta, String ubicacion) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(ubicacion));
