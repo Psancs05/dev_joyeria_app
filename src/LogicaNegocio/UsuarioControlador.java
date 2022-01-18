@@ -27,7 +27,7 @@ public class UsuarioControlador {
 
 	public boolean comprobarUsuario(String dni, String password) {
 		UsuarioVO usuarioActivo = logicaUsuario.comprobarUsuario(dni, password);
-		if(usuarioActivo == null){
+		if (usuarioActivo == null) {
 			return false;
 		} else {
 			usuarioActual = usuarioActivo;
@@ -52,7 +52,8 @@ public class UsuarioControlador {
 		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
 		// TipoUsuario tipoUsuarioI;
 		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
-		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan", "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
+		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan",
+		// "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
 		vistaCRUDUsuario.pulsarBotonModificar(usuarioActual);
 	}
 
@@ -60,7 +61,8 @@ public class UsuarioControlador {
 		this.logicaUsuario.registrarUsuario(DNI, nombre, correo, password, tipo);
 	}
 
-	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
+	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password,
+			TipoUsuario tipo) {
 		// TODO
 	}
 

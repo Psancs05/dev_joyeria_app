@@ -2,6 +2,7 @@ package modelo.logica;
 
 import java.util.ArrayList;
 
+import LogicaNegocio.UsuarioControlador;
 import modelo.DAO.VentaDAO;
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;
@@ -33,11 +34,12 @@ public class VentaLogica {
      */
     public int registrarVenta(ArrayList<ProductoVO> productos) {
         double precioVenta = obtenerPrecioVenta(productos);
-        // String DNI = UsuarioControlador.getInstance().getUsuarioActual().getDNI();
+        // String dni = UsuarioControlador.getInstance().getUsuarioActual().getDNI();
+        String dni = "12345678C";
         int cantidadArticulos = productos.size();
         java.util.Date date = new java.util.Date();
 
-        VentaVO nuevaVenta = new VentaVO(date, cantidadArticulos, precioVenta, productos, "12345678C", "Mi casa");
+        VentaVO nuevaVenta = new VentaVO(date, cantidadArticulos, precioVenta, productos, dni, "C\\ Burgo Nuevo, 56");
         this.ventaDAO.create(nuevaVenta);
         return nuevaVenta.getID();
     }
@@ -54,4 +56,5 @@ public class VentaLogica {
     public void copiaFactura(VentaVO venta) {
         // TODO: implement
     }
+
 }

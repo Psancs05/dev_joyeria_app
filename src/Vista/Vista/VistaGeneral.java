@@ -209,7 +209,9 @@ public class VistaGeneral {
 		botonVenta.setBackground(new Color(30, 177, 0));
 		botonVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("jsfdahsjkfdhsa");
+				System.out.println("Abrir venta seleccionado");
+				CatalogoVista catalogoVista = new CatalogoVista(true);
+				frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonVenta);
@@ -222,7 +224,7 @@ public class VistaGeneral {
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
-				CatalogoVista catalogoVista = new CatalogoVista();
+				CatalogoVista catalogoVista = new CatalogoVista(false);
 				frame.setVisible(false);
 			}
 		});
