@@ -18,11 +18,12 @@ import modelo.VO.ProductoVO;
 
 public class ProductoRenderer extends JLabel implements ListCellRenderer<ProductoVO> {
 
+
 	public BufferedImage getProductoImagen(Blob productoImagen) {
 		try {
 			java.io.InputStream in = productoImagen.getBinaryStream();
 			BufferedImage image;
-			image = ImageIO.read(in);
+			image = ImageIO.read(in); 
 			return image;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -52,6 +53,14 @@ public class ProductoRenderer extends JLabel implements ListCellRenderer<Product
 		setIcon(imageIcon);
 		setText(nombre);
 		setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+		if (isSelected) {
+			setBackground(new java.awt.Color(0, 0, 0));
+			setForeground(new java.awt.Color(205, 232, 255)); // Color de producto seleccionado
+		} else {
+			setBackground(new java.awt.Color(255, 255, 255));
+			setForeground(new java.awt.Color(0, 0, 0));
+		}
 
 		return this;
 	}
