@@ -61,10 +61,12 @@ public class LoginVista extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				String dni = textField.getText();
 				String password = textField_1.getText();
-				if(controladorUsuario.comprobarUsuario(dni, password) == false){
+				if(dni.equals("") || password.equals("")){
 					JFrame error = new JFrame();
-					JOptionPane.showMessageDialog(error, "Usuario o contrasenia incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-
+					JOptionPane.showMessageDialog(error, "Introduzca DNI y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+				} else if(controladorUsuario.comprobarUsuario(dni, password) == false){
+					JFrame error = new JFrame();
+					JOptionPane.showMessageDialog(error, "Usuario o contrasenia incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					VistaGeneral window = new VistaGeneral();
 					setVisible(false);
