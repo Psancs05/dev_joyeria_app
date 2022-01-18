@@ -1,3 +1,4 @@
+package modelo.logica;
 
 import static org.junit.Assert.assertTrue;
 

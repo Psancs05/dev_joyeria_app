@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
+import LogicaNegocio.CatalogoControlador;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import globals.enums.TipoMaterial;
@@ -22,9 +23,9 @@ import modelo.VO.ProveedorVO;
 
 public class FiltrarVista extends JDialog{
 
-
-    public void FiltrarVista(){
-        this.controladorProducto = controladorProducto;
+    public FiltrarVista(){
+        this.controladorProducto = ProductoControlador.getInstance();
+		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.proveedores = controladorProveedor.getProveedores();
     }
@@ -102,10 +103,10 @@ public class FiltrarVista extends JDialog{
 		getContentPane().add(comboBoxProveedor);
 		// comboBoxProveedor.setColumns(10);
 
-		JLabel lbDescripcion = new JLabel("Descripcion");
-		lbDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lbDescripcion.setBounds(10, 359, 107, 33);
-		getContentPane().add(lbDescripcion);
+		JLabel lbVenta = new JLabel("ID Venta");
+		lbVenta.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbVenta.setBounds(10, 359, 107, 33);
+		getContentPane().add(lbVenta);
 
 		tfDescripcion = new JTextField();
 		tfDescripcion.setBounds(316, 359, 378, 93);
@@ -137,9 +138,74 @@ public class FiltrarVista extends JDialog{
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				CatalogoControlador controladorCatalogo = CatalogoControlador.getInstance();
+				String nombre = tfNombre.getText();
+				if(nombre.equals("")){
+					nombre = null;
+				}
+				
+				double precio;
+				try {
+					precio = Double.parseDouble(tfPrecio.getText());
+				}catch(Exception e) {
+					precio = -1.0;
+				}
 
+				TipoProducto tipoProducto;
+				if (comboBoxTipoProducto.getSelectedItem().toString() == "Anillo") {
+					tipoProducto = TipoProducto.ANILLO;
+				} else if (comboBoxTipoProducto.getSelectedItem().toString() == "Colgante") {
+					tipoProducto = TipoProducto.COLGANTE;
+				} else if (comboBoxTipoProducto.getSelectedItem().toString() == "Gafas") {
+					tipoProducto = TipoProducto.GAFAS;
+				} else if (comboBoxTipoProducto.getSelectedItem().toString() == "Pendiente") {
+					tipoProducto = TipoProducto.PENDIENTE;
+				} else if(comboBoxTipoProducto.getSelectedItem().toString() == "Pulsera"){
+					tipoProducto = TipoProducto.PULSERA;
+				} else {
+					tipoProducto = null;
+				}
+		
+				TipoMaterial tipoMaterial;
+				if (comboBoxMaterialProducto.getSelectedItem().toString() == "Oro") {
+					tipoMaterial = TipoMaterial.ORO;
+				} else if (comboBoxMaterialProducto.getSelectedItem().toString() == "Plata") {
+					tipoMaterial = TipoMaterial.PLATA;
+				} else if(comboBoxMaterialProducto.getSelectedItem().toString() == "Oro + Plata"){
+					tipoMaterial = TipoMaterial.OROPLATA;
+				} else {
+					tipoMaterial = null;
+				}
+
+				int numeroCuaderno;
+				try {
+					numeroCuaderno = Integer.parseInt(tfNumC.getText());
+				}catch(Exception e) {
+					numeroCuaderno = -1;
+				}
+
+				int idVenta;
+				try {
+					idVenta = Integer.parseInt(lbVenta.getText());
+				}catch(Exception e) {
+					idVenta = -1;
+				}
+				
+				ProveedorVO proveedor;
+				String proveedorText = comboBoxProveedor.getSelectedItem().toString();
+				if(proveedorText == "default"){
+					proveedor = null;
+				} else {
+					proveedor = controladorProveedor.getProveedorPorNombre(proveedorText);
+				}
+				 
+				ProductoVO parametro = new ProductoVO(nombre,numeroCuaderno,tipoProducto,precio,null,tipoMaterial,proveedor,idVenta,null);
+				
+				ArrayList<ProductoVO> listaFiltrada = controladorCatalogo.getListadaFiltrada(parametro);
+				CatalogoVista catalogoVista = new CatalogoVista();
+				catalogoVista.mostrarCatalogo(listaFiltrada);
+				catalogoVista.setFiltrado();
 				setVisible(false);
-
 			}
 		});
 

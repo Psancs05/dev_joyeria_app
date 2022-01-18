@@ -77,4 +77,8 @@ public class UsuarioControlador {
 		return miUsuarioControlador;
 
 	}
+
+	public UsuarioVO getUsuarioActual(){
+		return usuarioActual;
+	}
 }

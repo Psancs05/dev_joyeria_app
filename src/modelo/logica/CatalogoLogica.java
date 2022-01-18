@@ -18,6 +18,8 @@ public class CatalogoLogica {
         ArrayList<ProductoVO> listaCompleta = productoDAO.getListaProductos();
         ArrayList<ProductoVO> listaFiltrada = new ArrayList<>();
 
+        String nombre = parametros.getNombre();
+        int numeroCuaderno = parametros.getNumCuaderno();
         TipoProducto tipo = parametros.getTipoProducto();
         double precio = parametros.getPrecio();
         TipoMaterial material = parametros.getMaterial();
@@ -31,6 +33,16 @@ public class CatalogoLogica {
 
         for(ProductoVO producto: listaCompleta){
             boolean aniadir = true;
+            if(numeroCuaderno != -1){
+                if(numeroCuaderno != producto.getNumCuaderno()){
+                    aniadir = false;
+                }
+            } 
+            if(nombre != null){
+                if(!(nombre.equals(producto.getNombre()))){
+                    aniadir = false;
+                }
+            } 
             if(tipo != null){
                 if(!(tipo.equals(producto.getTipoProducto()))){
                     aniadir = false;

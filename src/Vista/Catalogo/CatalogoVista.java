@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -14,8 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import LogicaNegocio.CatalogoControlador;
 import LogicaNegocio.ProductoControlador;
 import Vista.Vista.VistaGeneral;
+import javafx.event.ActionEvent;
 import modelo.VO.ProductoVO;
 
 public class CatalogoVista extends JFrame {
@@ -23,20 +26,36 @@ public class CatalogoVista extends JFrame {
 	private JPanel contentPane;
 	private JList<ProductoVO> list;
 	private DefaultListModel<ProductoVO> model;
-
+	
 	private ArrayList<ProductoVO> productos;
 	private ProductoControlador controladorProducto;
-
+	private CatalogoControlador controladorCatalogo;
+	private int filtrado;
 	public CatalogoVista() {
-		initialize();
+		controladorCatalogo = CatalogoControlador.getInstance();
+		controladorProducto = ProductoControlador.getInstance();
 		this.setVisible(true);
+		initialize();
 		getProductos();
 		mostrarProductosEnLista();
+	}
+
+	private void setProductos(ArrayList<ProductoVO> productos){
+		this.productos = productos;
+	}
+
+	public void setFiltrado(){
+		this.filtrado = 1;
 	}
 
 	/**
 	 * Create the frame.
 	 */
+	public void mostrarCatalogo(ArrayList<ProductoVO> productos){
+		setProductos(productos);
+		mostrarProductosEnLista();
+	}
+	
 	private void initialize() {
 		contentPane = new JPanel();
 
@@ -44,8 +63,10 @@ public class CatalogoVista extends JFrame {
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				setVisible(false);
-				VistaGeneral vistaGeneral = new VistaGeneral();
-				vistaGeneral.setVisible(true);
+				if(filtrado != 1){
+					VistaGeneral vistaGeneral = new VistaGeneral();
+					vistaGeneral.setVisible(true);
+				}
 			}
 		});
 		setBounds(100, 100, 450, 300);
@@ -57,6 +78,18 @@ public class CatalogoVista extends JFrame {
 		JLabel lblCatalogo = new JLabel("Catalogo");
 		contentPane.add(lblCatalogo, BorderLayout.NORTH);
 
+		// Create a button in the bottom of the window
+		if(filtrado != 1){
+			JButton filtrarProductos = new JButton("Filtrar Productos");
+			contentPane.add(filtrarProductos, BorderLayout.SOUTH);
+			filtrarProductos.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					controladorCatalogo.mostrarCatalogoFiltar();
+				}
+			});
+		}
+	
 	}
 
 	private void getProductos() {
@@ -92,7 +125,8 @@ public class CatalogoVista extends JFrame {
 			}
 		};
 		list.addMouseListener(mouseListener);
-
 	}
+
+	
 
 }

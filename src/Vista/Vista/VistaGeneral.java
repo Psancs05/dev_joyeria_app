@@ -17,15 +17,18 @@ import javax.swing.JMenuItem;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.UsuarioControlador;
 import Vista.Catalogo.CatalogoVista;
+import globals.enums.TipoUsuario;
 
 public class VistaGeneral {
 
 	private JFrame frame;
+	private UsuarioControlador controlador;
 
 	/**
 	 * Create the application.
 	 */
 	public VistaGeneral() {
+		controlador = UsuarioControlador.getInstance();
 		initialize();
 	}
 
@@ -62,6 +65,9 @@ public class VistaGeneral {
 
 		JMenu UsuarioMenuItem = new JMenu("    Usuario    ");
 		UsuarioMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+			UsuarioMenuItem.setEnabled(false);
+		}
 		UsuarioMenuItem.setBackground(blanco);
 		UsuarioMenuItem.setForeground(negro);
 		menuBar.add(UsuarioMenuItem);
@@ -96,6 +102,9 @@ public class VistaGeneral {
 
 		JMenu ProveedorMenuItem = new JMenu("  Proveedor  ");
 		ProveedorMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+			ProveedorMenuItem.setEnabled(false);
+		}
 		ProveedorMenuItem.setBackground(blanco);
 		ProveedorMenuItem.setForeground(negro);
 		menuBar.add(ProveedorMenuItem);
@@ -160,6 +169,9 @@ public class VistaGeneral {
 
 		JMenu BackupMenuItem = new JMenu("  Backup  ");
 		BackupMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+			BackupMenuItem.setEnabled(false);
+		}
 		BackupMenuItem.setBackground(blanco);
 		BackupMenuItem.setForeground(negro);
 		menuBar.add(BackupMenuItem);
