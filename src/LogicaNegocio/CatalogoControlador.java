@@ -37,6 +37,7 @@ public class CatalogoControlador {
 	}
 
 	public void mostrarCatalogoFiltar() {
+		filtrar = new FiltrarVista();
 		filtrar.mostrarVistaFiltrado();
 	}
 
