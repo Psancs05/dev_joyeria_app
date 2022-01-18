@@ -293,7 +293,7 @@ public class CRUDProductoVista extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Aniadir boton pulsado");
+				System.out.println("Modificar pulsado");
 				limpiarCampos();
 				setVisible(false);
 

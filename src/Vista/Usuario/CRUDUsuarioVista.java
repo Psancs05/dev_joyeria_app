@@ -364,8 +364,20 @@ public class CRUDUsuarioVista extends JDialog {
 		} else {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
-		controladorUsuario.modificarUsuario(usuario, DNI, nombre, email, password,
+
+		if(DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if(DNI.length() != 9){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);			
+		} else if(!(email.contains("@"))){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	
+		} else {
+			controladorUsuario.modificarUsuario(usuario, DNI, nombre, email, password,
 				tipoUsuario);
+		}
 	}
 
 	public void limpiarCampos() {
