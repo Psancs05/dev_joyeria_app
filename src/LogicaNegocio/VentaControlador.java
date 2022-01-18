@@ -3,7 +3,9 @@ package LogicaNegocio;
 import java.util.ArrayList;
 
 import modelo.VO.ProductoVO;
+import modelo.VO.VentaVO;
 import modelo.logica.VentaLogica;
+import Vista.Facturas.ListadoFacturasVista;
 import Vista.Venta.VentaVista;
 
 public class VentaControlador {
@@ -12,6 +14,7 @@ public class VentaControlador {
 
 	private VentaLogica logicaVenta;
 	private VentaVista vistaVenta;
+	private ListadoFacturasVista listado;
 	private ArrayList<ProductoVO> productosVenta;
 
 	public static VentaControlador getInstance() {
@@ -24,12 +27,22 @@ public class VentaControlador {
 	private VentaControlador() {
 		this.productosVenta = new ArrayList<ProductoVO>();
 		this.logicaVenta = new VentaLogica();
+		this.listado = new ListadoFacturasVista();
 
 	}
 
 	public void registrarVenta(ArrayList<ProductoVO> productos) {
 		logicaVenta.registrarVenta(productos);
 	}
+
+	public void mostrarListado() {
+		listado.initialize();
+	}
+
+	public ArrayList<VentaVO> getListadoVentas() {
+		return logicaVenta.mostrarListadoFacturas();
+	}
+
 
 	public VentaLogica getLogicaVenta() {
 		return logicaVenta;

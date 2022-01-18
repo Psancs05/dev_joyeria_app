@@ -20,6 +20,7 @@ import LogicaNegocio.BackupControlador;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
+import LogicaNegocio.VentaControlador;
 import Vista.Catalogo.CatalogoVista;
 import globals.enums.TipoUsuario;
 
@@ -27,6 +28,7 @@ public class VistaGeneral {
 
 	private JFrame frame;
 	private UsuarioControlador controlador;
+	private VentaControlador controladorVenta;
 
 	/**
 	 * Create the application.
@@ -196,6 +198,18 @@ public class VistaGeneral {
 		FacturaMenuItem.setBackground(blanco);
 		FacturaMenuItem.setForeground(negro);
 		menuBar.add(FacturaMenuItem);
+
+		JMenuItem listado = new JMenuItem("Listado");
+		listado.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		listado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentaControlador.getInstance().mostrarListado();
+				frame.setVisible(false);
+			}
+		});
+		listado.setForeground(negro);
+		listado.setBackground(blanco);
+		FacturaMenuItem.add(listado);
 
 		JMenu BackupMenuItem = new JMenu("  Backup  ");
 		BackupMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
