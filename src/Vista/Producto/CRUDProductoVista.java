@@ -338,8 +338,8 @@ public class CRUDProductoVista extends JDialog {
 
 	public void crearProducto() {
 		String nombre = tfNombre.getText();
-		int numCuaderno = Integer.parseInt(tfNumC.getText());
-		double precio = Double.parseDouble(tfPrecio.getText());
+		int numCuaderno;
+		double precio;
 		String imagen = imagenPath;
 		String descripcion = tfDescripcion.getText();
 		String proveedor = comboBoxProveedor.getSelectedItem().toString();
@@ -370,13 +370,27 @@ public class CRUDProductoVista extends JDialog {
 			tipoMaterial = TipoMaterial.OROPLATA;
 		}
 
+		System.out.println(comboTipo.toString() + comboMaterial.toString());
+		if(nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null || descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")||comboMaterial.toString().equals(" ")){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			try {
+				precio = Double.parseDouble(tfPrecio.getText());
+				numCuaderno = Integer.parseInt(tfNumC.getText());
+				controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio, imagen,
+				descripcion);
+			} catch (Exception e) {
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "El precio y el numero de cuaderno deben ser un numero valido.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+
 		// TODO: Aniadir numero cuaderno
 
 		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
 		// gestionar errores
 
-		controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio, imagen,
-				descripcion);
 		limpiarCampos();
 	}
 

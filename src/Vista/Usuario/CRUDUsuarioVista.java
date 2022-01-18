@@ -316,6 +316,7 @@ public class CRUDUsuarioVista extends JDialog {
 		
 
 	public void crearUsuario() {
+		
 		String DNI = tfDNI.getText();
 		String nombre = tfNombre.getText();
 		String email = tfEmail.getText();
@@ -323,15 +324,27 @@ public class CRUDUsuarioVista extends JDialog {
 		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
 
 		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb);
-
+		System.out.println(DNI == "");
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {
 			tipoUsuario = TipoUsuario.ADMINISTRADOR;
 		} else {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
-		controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
-				tipoUsuario);
+		
+		if(DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if(DNI.length() != 9){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);			
+		} else if(!(email.contains("@"))){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	
+		} else {
+			controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
+			tipoUsuario);
+		}
 		limpiarCampos();
 	}
 

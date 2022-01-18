@@ -238,12 +238,15 @@ public class CRUDProveedorVista extends JDialog {
 		list.addMouseListener(mouseListener);
 	}
 		
-	
-
 	public void crearProveedor() {
 		String CIF = tfCIF.getText();
 		String nombre = tfNombre.getText();
-
+		if(CIF.equals("") || nombre.equals("") ){
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			controladorProveedor.aniadirProveedor(CIF, nombre);
+		}
 		System.out.println(CIF + " " + nombre);
 		limpiarCampos();
 	}
