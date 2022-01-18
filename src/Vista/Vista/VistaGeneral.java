@@ -8,12 +8,15 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
+import LogicaNegocio.BackupControlador;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.UsuarioControlador;
 import Vista.Catalogo.CatalogoVista;
@@ -181,12 +184,42 @@ public class VistaGeneral {
 		crearBackup.setForeground(negro);
 		crearBackup.setBackground(blanco);
 		BackupMenuItem.add(crearBackup);
+		crearBackup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int option = fileChooser.showOpenDialog(frame);
+				if (option == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					System.out.println("Seleccionado: " + file.getAbsolutePath());
+					BackupControlador.getInstance().generarBackup(file.getAbsolutePath());
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al seleccionar directorio", "Error al crear backup",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JMenuItem restaurarBackup = new JMenuItem("Restaurar");
 		restaurarBackup.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		restaurarBackup.setForeground(negro);
 		restaurarBackup.setBackground(blanco);
 		BackupMenuItem.add(restaurarBackup);
+		restaurarBackup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int option = fileChooser.showOpenDialog(frame);
+				if (option == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					System.out.println("Seleccionado: " + file.getAbsolutePath());
+					BackupControlador.getInstance().restaurarBackup(file.getAbsolutePath());
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al seleccionar archivo", "Error al restaurar backup",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 
 		JMenu LogOutMenuItem = new JMenu("  Cerrar Sesion  ");
 		LogOutMenuItem.setForeground(Color.BLACK);
@@ -221,7 +254,9 @@ public class VistaGeneral {
 		botonVenta.setBackground(new Color(30, 177, 0));
 		botonVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("jsfdahsjkfdhsa");
+				System.out.println("Abrir venta seleccionado");
+				CatalogoVista catalogoVista = new CatalogoVista(true);
+				frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonVenta);
@@ -234,7 +269,7 @@ public class VistaGeneral {
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
-				CatalogoVista catalogoVista = new CatalogoVista();
+				CatalogoVista catalogoVista = new CatalogoVista(false);
 				frame.setVisible(false);
 			}
 		});

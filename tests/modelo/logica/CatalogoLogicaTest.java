@@ -1,9 +1,8 @@
 package modelo.logica;
 
+
 import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 

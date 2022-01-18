@@ -1,13 +1,8 @@
 package Vista.Catalogo;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import helpers.ImagenHelper;
 
-import javax.imageio.ImageIO;
+import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,40 +13,25 @@ import modelo.VO.ProductoVO;
 
 public class ProductoRenderer extends JLabel implements ListCellRenderer<ProductoVO> {
 
-	public BufferedImage getProductoImagen(Blob productoImagen) {
-		try {
-			java.io.InputStream in = productoImagen.getBinaryStream();
-			BufferedImage image;
-			image = ImageIO.read(in);
-			return image;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public ImageIcon resizeImagen(ImageIcon imagen) {
-		Image image = imagen.getImage();
-		Image nuevaImagen = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
-		return new ImageIcon(nuevaImagen);
-	}
-
 	@Override
 	public Component getListCellRendererComponent(JList<? extends ProductoVO> list, ProductoVO producto, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
 		String nombre = producto.getNombre();
-		ImageIcon imageIcon = new ImageIcon(getProductoImagen(producto.getImagen()));
-		imageIcon = resizeImagen(imageIcon);
+		ImageIcon imageIcon = new ImageIcon(ImagenHelper.getProductoImagen(producto.getImagen()));
+		imageIcon = ImagenHelper.resizeImagen(imageIcon);
 
 		setIcon(imageIcon);
 		setText(nombre);
 		setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+		if (isSelected) {
+			setBackground(new java.awt.Color(0, 0, 0));
+			setForeground(new java.awt.Color(205, 232, 255)); // Color de producto seleccionado
+		} else {
+			setBackground(new java.awt.Color(255, 255, 255));
+			setForeground(new java.awt.Color(0, 0, 0));
+		}
 
 		return this;
 	}

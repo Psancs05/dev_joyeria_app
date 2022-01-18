@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import LogicaNegocio.CatalogoControlador;
 import LogicaNegocio.ProductoControlador;
+import LogicaNegocio.VentaControlador;
 import Vista.Vista.VistaGeneral;
 import modelo.VO.ProductoVO;
 
@@ -30,10 +31,17 @@ public class CatalogoVista extends JFrame {
 	private ProductoControlador controladorProducto;
 	private CatalogoControlador controladorCatalogo;
 	private int filtrado;
+	private VentaControlador controladorVenta;
+	private boolean isVenta; // Define si el catalogo se abre en la vista de venta o catalogo
 
-	public CatalogoVista() {
+	public CatalogoVista(boolean isVenta) {
+		this.isVenta = isVenta;
 		controladorCatalogo = CatalogoControlador.getInstance();
 		controladorProducto = ProductoControlador.getInstance();
+
+		if (isVenta)
+			this.controladorVenta = VentaControlador.getInstance();
+		initialize();
 		this.setVisible(true);
 		initialize();
 		getProductos();
@@ -48,9 +56,6 @@ public class CatalogoVista extends JFrame {
 		this.filtrado = 1;
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public void mostrarCatalogo(ArrayList<ProductoVO> productos) {
 		setProductos(productos);
 		mostrarProductosEnLista();
@@ -89,11 +94,22 @@ public class CatalogoVista extends JFrame {
 				}
 			});
 		}
+		if (isVenta) {
+			// Create a button in the bottom of the window
+			JButton btnVenta = new JButton("Inciar venta");
+
+			contentPane.add(btnVenta, BorderLayout.SOUTH);
+			btnVenta.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					System.out.println("Iniciar venta");
+					controladorVenta.mostrarVenta();
+				}
+			});
+		}
 
 	}
 
 	private void getProductos() {
-		controladorProducto = ProductoControlador.getInstance();
 		productos = controladorProducto.getProductos();
 		System.out.println("Productos: " + productos.size());
 	}
@@ -115,11 +131,18 @@ public class CatalogoVista extends JFrame {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 1) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
+
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
 						System.out.println("Click on: " + o.toString());
-						EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);
-						especificacion.setVisible(true);
+						if (isVenta) {
+							// TODO: Arreglar UI productos seleccionados
+							controladorVenta.seleccionProducto((ProductoVO) o);
+							// System.out.println("Producto seleccionado para la venta");
+						} else {
+							EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);
+							especificacion.setVisible(true);
+						}
 					}
 				}
 			}

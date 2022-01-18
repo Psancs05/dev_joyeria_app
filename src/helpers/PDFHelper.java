@@ -3,7 +3,7 @@ package helpers;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-
+import java.util.ArrayList;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -24,14 +24,49 @@ public class PDFHelper {
             Font.BOLD);
     private static Font fuenteNegrita = new Font(Font.FontFamily.UNDEFINED, 12,
             Font.BOLD);
+    private static Font fuenteChiquita = new Font(Font.FontFamily.UNDEFINED, 7,
+            Font.NORMAL);
     private static final DecimalFormat df = new DecimalFormat("0.00");
     // TODO: Buscar una forma de como pollas usar la imagen solo con la ubicacion
     // relativa
     private static String Imagen_logo = "/home/napuh/Desktop/dev_joyeria_app/assets/logo.jpg";
 
-    public Document generarPDFEtiqueta(ProductoVO producto) {
-        throw new UnsupportedOperationException();
-        // TODO: implement
+    public boolean generarPDFEtiqueta(ArrayList<ProductoVO> productos, String ubicacion) {
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(ubicacion));
+            document.open();
+            addMetadatosPDF(document);
+            rellenarEtiquetas(document, productos);
+            document.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Excepcion en generarPDF etiqueta");
+            return false;
+        }
+    }
+
+    private void rellenarEtiquetas(Document document, ArrayList<ProductoVO> productos)
+            throws DocumentException, IOException {
+        Paragraph preface = new Paragraph();
+        preface.add(new Paragraph("Etiquetas de producto", fuenteTitulo));
+
+        addEmptyLine(preface, 1);
+        document.add(preface);
+
+        PdfPTable tablaProductos = new PdfPTable(new float[] { 1, 1, 1, 1 });
+
+        tablaProductos.setWidthPercentage(100);
+        int repeticiones = 4 - (productos.size() % 4);
+
+        for (ProductoVO prod : productos) {
+            tablaProductos.addCell(getCellProducto(prod));
+        }
+        for (int i = 0; i < repeticiones; i++) {
+            tablaProductos.addCell(getCell("", PdfPCell.ALIGN_CENTER));
+        }
+        document.add(tablaProductos);
+
     }
 
     public boolean generarPDFVenta(VentaVO venta, String ubicacion) {
@@ -39,7 +74,7 @@ public class PDFHelper {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(ubicacion));
             document.open();
-            addMetadatos(document, venta);
+            addMetadatosFactura(document, venta);
             rellenarInfoVenta(document, venta);
             document.close();
             return true;
@@ -49,9 +84,14 @@ public class PDFHelper {
         }
     }
 
-    private static void addMetadatos(Document document, VentaVO venta) {
+    private static void addMetadatosFactura(Document document, VentaVO venta) {
         document.addTitle("Factura " + venta.getID());
         document.addSubject("Factura " + venta.getID() + " Claudio Joyas");
+        document.addAuthor("Claudio Joyas");
+        document.addCreator("Claudio Joyas");
+    }
+
+    private static void addMetadatosPDF(Document document) {
         document.addAuthor("Claudio Joyas");
         document.addCreator("Claudio Joyas");
     }
@@ -165,7 +205,7 @@ public class PDFHelper {
         }
     }
 
-    public static PdfPCell getCell(String text, int alignment) {
+    private static PdfPCell getCell(String text, int alignment) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(2);
         cell.setHorizontalAlignment(alignment);
@@ -174,13 +214,27 @@ public class PDFHelper {
 
     }
 
-    public static PdfPCell getCellBold(String text, int alignment) {
+    private static PdfPCell getCellBold(String text, int alignment) {
         PdfPCell cell = new PdfPCell(new Phrase(text, fuenteNegrita));
         cell.setPadding(2);
         cell.setHorizontalAlignment(alignment);
         cell.setBorder(PdfPCell.NO_BORDER);
         return cell;
 
+    }
+
+    private static PdfPCell getCellProducto(ProductoVO producto) {
+        PdfPCell cell = new PdfPCell();
+        Phrase contenido = new Phrase();
+        contenido.setFont(fuenteChiquita);
+        contenido.add("Proveedor: " + producto.getProveedor().getNombre() + "\n");
+        contenido.add("Tipo de pieza: " + String.valueOf(producto.getTipoProducto()) + "\n");
+        contenido.add("Numero de cuaderno: " + String.valueOf(producto.getNumCuaderno()) + "\n");
+        contenido.add(String.valueOf(producto.getPrecio()) + "€");
+        cell.setPhrase(contenido);
+        cell.setPadding(2);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        return cell;
     }
 
 }
