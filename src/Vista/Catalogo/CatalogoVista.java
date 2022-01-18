@@ -26,6 +26,7 @@ public class CatalogoVista extends JFrame {
 	private JPanel contentPane;
 	private JList<ProductoVO> list;
 	private DefaultListModel<ProductoVO> model;
+	private JButton filtrarProductos;
 
 	private ArrayList<ProductoVO> productos;
 	private ProductoControlador controladorProducto;
@@ -50,10 +51,12 @@ public class CatalogoVista extends JFrame {
 
 	private void setProductos(ArrayList<ProductoVO> productos) {
 		this.productos = productos;
+
 	}
 
 	public void setFiltrado() {
 		this.filtrado = 1;
+		filtrarProductos.setVisible(false);
 	}
 
 	public void mostrarCatalogo(ArrayList<ProductoVO> productos) {
@@ -85,7 +88,7 @@ public class CatalogoVista extends JFrame {
 
 		// Create a button in the bottom of the window
 		if (filtrado != 1) {
-			JButton filtrarProductos = new JButton("Filtrar Productos");
+			filtrarProductos = new JButton("Filtrar Productos");
 			contentPane.add(filtrarProductos, BorderLayout.SOUTH);
 			filtrarProductos.addMouseListener(new MouseAdapter() {
 				@Override
