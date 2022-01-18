@@ -31,8 +31,8 @@ public class ProveedorControlador {
 		this.logicaProveedor.registrarProveedorVO(CIF, nombre);
 	}
 
-	public void modificarProveedor(ProveedorVO proveedorAntiguo, String CIF, String nombre) {
-		// TODO
+	public void modificarProveedor(ProveedorVO proveedor, String CIF, String nombre) {
+		this.logicaProveedor.actualizarProveedorVO(proveedor, CIF, nombre);
 	}
 
 	public void eliminarProveedor(ProveedorVO proveedor) {
@@ -59,13 +59,11 @@ public class ProveedorControlador {
 	}
 
 	public void mostrarModificar() {
-		// * Propongo aqui mostrar una lista con los proveedores
-		proveedorActual = new ProveedorVO("12345678A", "Nahamahan");
-		vistaCRUDProveedor.pulsarBotonModificar(proveedorActual);
+		vistaCRUDProveedor.mostrarListadoDeProveedores(false);
 	}
 
 	public void mostrarEliminar() {
-		this.vistaCRUDProveedor.pulsarBotonEliminar();
+		vistaCRUDProveedor.mostrarListadoDeProveedores(true);
 	}
 
 	// * Getters y setters

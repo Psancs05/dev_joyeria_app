@@ -37,6 +37,7 @@ import modelo.VO.UsuarioVO;
 public class CRUDUsuarioVista extends JDialog {
 
 	private UsuarioControlador controladorUsuario;
+	private UsuarioVO usuarioSeleccionado;
 
 	public CRUDUsuarioVista(UsuarioControlador usuarioControlador) {
 		this.controladorUsuario = usuarioControlador;
@@ -104,7 +105,7 @@ public class CRUDUsuarioVista extends JDialog {
 
 		cbTipoUsuario = new JComboBox<String>();
 		cbTipoUsuario.setBounds(316, 230, 94, 38);
-		cbTipoUsuario.addItem("default");
+		cbTipoUsuario.addItem(" ");
 		cbTipoUsuario.addItem("Administrador");
 		cbTipoUsuario.addItem("Cajero");
 		getContentPane().add(cbTipoUsuario);
@@ -145,71 +146,73 @@ public class CRUDUsuarioVista extends JDialog {
 
 	public void pulsarBotonModificar(UsuarioVO usuario) {
 
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setBounds(100, 100, 526, 382);
-		setTitle("Modificar Usuario");
-		getContentPane().setLayout(null);
+		JDialog dialogModificar = new JDialog();
+
+		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialogModificar.setVisible(true);
+		dialogModificar.setBounds(100, 100, 526, 382);
+		dialogModificar.setTitle("Modificar Usuario");
+		dialogModificar.getContentPane().setLayout(null);
 
 		JLabel lbDNI = new JLabel("DNI");
 		lbDNI.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbDNI.setBounds(10, 34, 113, 33);
-		getContentPane().add(lbDNI);
+		dialogModificar.getContentPane().add(lbDNI);
 
 		tfDNI = new JTextField();
 		tfDNI.setColumns(10);
-		getContentPane().add(tfDNI);
+		dialogModificar.getContentPane().add(tfDNI);
 		tfDNI.setBounds(316, 34, 94, 38);
 
 		JLabel lbNombre = new JLabel("Nombre");
 		lbNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbNombre.setBounds(10, 88, 77, 33);
-		getContentPane().add(lbNombre);
+		dialogModificar.getContentPane().add(lbNombre);
 
 		tfNombre = new JTextField();
 		tfNombre.setColumns(10);
-		getContentPane().add(tfNombre);
+		dialogModificar.getContentPane().add(tfNombre);
 		tfNombre.setBounds(316, 83, 94, 38);
 
 		JLabel lbEmail = new JLabel("Email");
 		lbEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbEmail.setBounds(10, 137, 77, 33);
-		getContentPane().add(lbEmail);
+		dialogModificar.getContentPane().add(lbEmail);
 
 		tfEmail = new JTextField();
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(316, 132, 94, 38);
-		getContentPane().add(tfEmail);
+		dialogModificar.getContentPane().add(tfEmail);
 
 		JLabel lbPassword = new JLabel("Password");
 		lbPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbPassword.setBounds(10, 186, 77, 33);
-		getContentPane().add(lbPassword);
+		dialogModificar.getContentPane().add(lbPassword);
 
 		tfPassword = new JTextField();
 		tfPassword.setBounds(316, 181, 94, 38);
-		getContentPane().add(tfPassword);
+		dialogModificar.getContentPane().add(tfPassword);
 		tfPassword.setColumns(10);
 
 		JLabel lbTipoUsuario = new JLabel("Tipo de Usuario");
 		lbTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoUsuario.setBounds(10, 233, 200, 35);
-		getContentPane().add(lbTipoUsuario);
+		dialogModificar.getContentPane().add(lbTipoUsuario);
 
 		cbTipoUsuario = new JComboBox<String>();
 		cbTipoUsuario.setBounds(316, 230, 94, 38);
-		cbTipoUsuario.addItem("default");
+		cbTipoUsuario.addItem(" ");
 		cbTipoUsuario.addItem("Administrador");
 		cbTipoUsuario.addItem("Cajero");
-		getContentPane().add(cbTipoUsuario);
+		dialogModificar.getContentPane().add(cbTipoUsuario);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(0, 310, 510, 33);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane);
+		dialogModificar.getContentPane().add(buttonPane);
 
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		dialogModificar.getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		// Comprobacion de que furrula hasta que tengamos el resto hecho
 
@@ -234,11 +237,11 @@ public class CRUDUsuarioVista extends JDialog {
 		JButton okButton = new JButton("Modificar");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
+		dialogModificar.getRootPane().setDefaultButton(okButton);
 		okButton.setForeground(Color.BLACK);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dialogModificar.setVisible(false);
 				modificarUsuario(usuario);
 				limpiarCampos();
 			}
@@ -250,18 +253,28 @@ public class CRUDUsuarioVista extends JDialog {
 		cancelButton.setForeground(Color.BLACK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dialogModificar.setVisible(false);
 			}
 		});
-		repaint();
+		dialogModificar.repaint();
 	}
 
-	public void pulsarBotonEliminar() {
+	public void pulsarBotonEliminar(UsuarioVO usuario) {
+
+		JFrame adv = new JFrame();
+		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(result == 0){
+			controladorUsuario.eliminarUsuario(usuario);
+			listaDeUsuarios.remove(usuario);
+			System.out.println("Se ha eliminado el usuario " + usuario.toString());
+		}
+	}
+
+	public void mostrarListadoDeUsuarios(boolean seleccionar){
 
 		listaDeUsuarios = new ArrayList<UsuarioVO>();
 		listaDeUsuarios = controladorUsuario.getInstance().getUsuarios();
 		System.out.println(listaDeUsuarios.toString());
-
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -286,20 +299,21 @@ public class CRUDUsuarioVista extends JDialog {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
-					int index = theList.locationToIndex(mouseEvent.getPoint());
-					JFrame adv = new JFrame();
-					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(result == 0){
-						controladorUsuario.eliminarUsuario(listaDeUsuarios.get(index));
-						listaDeUsuarios.remove(index);
-						System.out.println("Se ha eliminado el usuario " + listaDeUsuarios.get(index));
+						int index = theList.locationToIndex(mouseEvent.getPoint());
+						usuarioSeleccionado =  listaDeUsuarios.get(index);
+						
+						if(seleccionar == true){
+							pulsarBotonEliminar(usuarioSeleccionado);
+						} else {
+							pulsarBotonModificar(usuarioSeleccionado);
+						}
 					}
 					
 				}
-			}
 		};
 		list.addMouseListener(mouseListener);
 	}
+		
 
 	public void crearUsuario() {
 		String DNI = tfDNI.getText();

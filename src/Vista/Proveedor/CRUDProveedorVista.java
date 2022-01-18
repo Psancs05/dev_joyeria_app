@@ -28,6 +28,7 @@ import modelo.VO.ProveedorVO;
 public class CRUDProveedorVista extends JDialog {
 
 	private ProveedorControlador controladorProveedor;
+	private ProveedorVO proveedorSeleccionado;
 
 	// * Constructor
 	public CRUDProveedorVista(ProveedorControlador controladorProveedor) {
@@ -112,39 +113,41 @@ public class CRUDProveedorVista extends JDialog {
 
 	public void pulsarBotonModificar(ProveedorVO proveedor) {
 
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setBounds(100, 100, 526, 382);
-		setTitle("Modificar proveedor");
-		getContentPane().setLayout(null);
+		JDialog dialogModificar = new JDialog();
+		
+		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialogModificar.setVisible(true);
+		dialogModificar.setBounds(100, 100, 526, 382);
+		dialogModificar.setTitle("Modificar proveedor");
+		dialogModificar.getContentPane().setLayout(null);
 
 		JLabel lbCIF = new JLabel("CIF");
 		lbCIF.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbCIF.setBounds(80, 104, 113, 33);
-		getContentPane().add(lbCIF);
+		dialogModificar.getContentPane().add(lbCIF);
 
 		tfCIF = new JTextField();
 		tfCIF.setColumns(10);
-		getContentPane().add(tfCIF);
+		dialogModificar.getContentPane().add(tfCIF);
 		tfCIF.setBounds(316, 104, 94, 38);
 
 		JLabel lbNombre = new JLabel("Nombre");
 		lbNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbNombre.setBounds(80, 158, 77, 33);
-		getContentPane().add(lbNombre);
+		dialogModificar.getContentPane().add(lbNombre);
 
 		tfNombre = new JTextField();
 		tfNombre.setColumns(10);
-		getContentPane().add(tfNombre);
+		dialogModificar.getContentPane().add(tfNombre);
 		tfNombre.setBounds(316, 158, 94, 38);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(0, 310, 510, 33);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane);
+		dialogModificar.getContentPane().add(buttonPane);
 
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		dialogModificar.getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		// Comprobacion de que furrula hasta que tengamos el resto hecho
 
@@ -157,11 +160,11 @@ public class CRUDProveedorVista extends JDialog {
 		JButton okButton = new JButton("Modificar");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
+		dialogModificar.getRootPane().setDefaultButton(okButton);
 		okButton.setForeground(Color.BLACK);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dialogModificar.setVisible(false);
 				modificarProveedor(proveedor);
 				limpiarCampos();
 			}
@@ -173,13 +176,25 @@ public class CRUDProveedorVista extends JDialog {
 		cancelButton.setForeground(Color.BLACK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dialogModificar.setVisible(false);
 			}
 		});
 
 	}
 
-	public void pulsarBotonEliminar() {
+	public void pulsarBotonEliminar(ProveedorVO proveedor) {
+
+		JFrame adv = new JFrame();
+		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(result == 0){
+			controladorProveedor.eliminarProveedor(proveedor);
+			listaDeProveedores.remove(proveedor);
+			System.out.println("Se ha eliminado el Proveedor " + proveedor.toString());
+		}
+	}
+
+	public void mostrarListadoDeProveedores(boolean seleccionar){
+
 		listaDeProveedores = new ArrayList<ProveedorVO>();
 		listaDeProveedores = controladorProveedor.getInstance().getProveedores();
 		System.out.println(listaDeProveedores.toString());
@@ -209,19 +224,21 @@ public class CRUDProveedorVista extends JDialog {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
-					JFrame adv = new JFrame();
-					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(result == 0){
-						controladorProveedor.eliminarProveedor(listaDeProveedores.get(index));
-						listaDeProveedores.remove(index);
-						System.out.println("Se ha eliminado el Proveedor " + listaDeProveedores.get(index));
+					proveedorSeleccionado = listaDeProveedores.get(index);
+
+					if(seleccionar == true){
+						pulsarBotonEliminar(proveedorSeleccionado);
+					} else {
+						pulsarBotonModificar(proveedorSeleccionado);
 					}
-					
 				}
+					
 			}
 		};
 		list.addMouseListener(mouseListener);
 	}
+		
+	
 
 	public void crearProveedor() {
 		String CIF = tfCIF.getText();

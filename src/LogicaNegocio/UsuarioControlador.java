@@ -51,7 +51,7 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarEliminar() {
-		vistaCRUDUsuario.pulsarBotonEliminar();
+		vistaCRUDUsuario.mostrarListadoDeUsuarios(true);
 	}
 
 	public ArrayList<UsuarioVO> getUsuarios() {
@@ -59,12 +59,7 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarModificar() {
-		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
-		// TipoUsuario tipoUsuarioI;
-		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
-		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan",
-		// "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
-		vistaCRUDUsuario.pulsarBotonModificar(usuarioActual);
+		vistaCRUDUsuario.mostrarListadoDeUsuarios(false);
 	}
 
 	public void aniadirUsuario(String DNI, String nombre, String correo, String password, TipoUsuario tipo) {

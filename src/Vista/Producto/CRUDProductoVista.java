@@ -165,7 +165,7 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 261, 378, 38);
 		getContentPane().add(comboBoxTipoProducto);
-		comboBoxTipoProducto.addItem("default");
+		comboBoxTipoProducto.addItem(" ");
 		comboBoxTipoProducto.addItem("Pendiente");
 		comboBoxTipoProducto.addItem("Anillo");
 		comboBoxTipoProducto.addItem("Pulsera");
@@ -181,7 +181,7 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
 		comboBoxMaterialProducto.setBounds(316, 310, 378, 38);
 		getContentPane().add(comboBoxMaterialProducto);
-		comboBoxMaterialProducto.addItem("default");
+		comboBoxMaterialProducto.addItem(" ");
 		comboBoxMaterialProducto.addItem("Oro");
 		comboBoxMaterialProducto.addItem("Plata");
 		comboBoxMaterialProducto.addItem("Oro + Plata");
@@ -265,7 +265,7 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 230, 378, 38);
 		getContentPane().add(comboBoxTipoProducto);
-		comboBoxTipoProducto.addItem("default");
+		comboBoxTipoProducto.addItem(" ");
 		comboBoxTipoProducto.addItem("Pendiente");
 		comboBoxTipoProducto.addItem("Anillo");
 		comboBoxTipoProducto.addItem("Pulsera");
@@ -281,7 +281,7 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
 		comboBoxMaterialProducto.setBounds(316, 279, 378, 38);
 		getContentPane().add(comboBoxMaterialProducto);
-		comboBoxMaterialProducto.addItem("default");
+		comboBoxMaterialProducto.addItem(" ");
 		comboBoxMaterialProducto.addItem("Oro");
 		comboBoxMaterialProducto.addItem("Plata");
 		comboBoxMaterialProducto.addItem("Oro + Plata");
