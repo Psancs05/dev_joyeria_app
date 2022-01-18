@@ -313,7 +313,7 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar() {
-		CatalogoVista catalogo = new CatalogoVista();
+		CatalogoVista catalogo = new CatalogoVista(false);
 		JList<ProductoVO> list = catalogo.getJList();
 		ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 
