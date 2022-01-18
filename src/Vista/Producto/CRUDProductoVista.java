@@ -6,15 +6,23 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
+import Vista.Catalogo.CatalogoVista;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
@@ -305,7 +313,27 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar() {
+		CatalogoVista catalogo = new CatalogoVista();
+		JList<ProductoVO> list = catalogo.getJList();
+		ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList theList = (JList) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					JFrame adv = new JFrame();
+					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(result == 0){
+						controladorProducto.eliminarProducto(listaDeProductos.get(index));
+						listaDeProductos.remove(index);
+						System.out.println("Se ha eliminado el Producto " + listaDeProductos.get(index));
+					}
+					
+				}
+			}
+		};
+		list.addMouseListener(mouseListener);
 	}
 
 	public void crearProducto() {

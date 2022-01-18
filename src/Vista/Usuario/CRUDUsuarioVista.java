@@ -6,13 +6,29 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.itextpdf.awt.geom.Dimension;
+import com.itextpdf.text.pdf.parser.Vector;
 
 import LogicaNegocio.UsuarioControlador;
 import globals.enums.TipoUsuario;
@@ -31,9 +47,10 @@ public class CRUDUsuarioVista extends JDialog {
 	JTextField tfEmail;
 	JTextField tfPassword;
 	JComboBox<String> cbTipoUsuario;
+	ArrayList<UsuarioVO> listaDeUsuarios;
 
 	public void pulsarBotonAniadir() {
-
+		repaint();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 526, 382);
@@ -123,7 +140,7 @@ public class CRUDUsuarioVista extends JDialog {
 				setVisible(false);
 			}
 		});
-
+		repaint();
 	}
 
 	public void pulsarBotonModificar(UsuarioVO usuario) {
@@ -236,11 +253,52 @@ public class CRUDUsuarioVista extends JDialog {
 				setVisible(false);
 			}
 		});
-
+		repaint();
 	}
 
 	public void pulsarBotonEliminar() {
 
+		listaDeUsuarios = new ArrayList<UsuarioVO>();
+		listaDeUsuarios = controladorUsuario.getInstance().getUsuarios();
+		System.out.println(listaDeUsuarios.toString());
+
+
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setVisible(true);
+		setBounds(100, 100, 1042, 428);
+		setTitle("Eliminar Usuario");
+		getContentPane().setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 1038, 389);
+		getContentPane().add(scrollPane);
+		DefaultListModel<String> model;
+		model = new DefaultListModel<String>();
+		for (UsuarioVO userVo : listaDeUsuarios) {
+			model.addElement(userVo.toStringListado());
+		}
+		JList list = new JList(model);
+		list.setFont(new Font("Tahoma", Font.BOLD, 17));
+		scrollPane.setViewportView(list);
+		list.setFixedCellHeight(80);
+
+		// Listener para abrir la especificacion de producto cuando se haga click en uno
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList theList = (JList) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					JFrame adv = new JFrame();
+					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(result == 0){
+						controladorUsuario.eliminarUsuario(listaDeUsuarios.get(index));
+						listaDeUsuarios.remove(index);
+						System.out.println("Se ha eliminado el usuario " + listaDeUsuarios.get(index));
+					}
+					
+				}
+			}
+		};
+		list.addMouseListener(mouseListener);
 	}
 
 	public void crearUsuario() {

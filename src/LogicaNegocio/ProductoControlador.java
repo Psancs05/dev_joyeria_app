@@ -35,6 +35,10 @@ public class ProductoControlador {
 		vistaCRUDProducto.pulsarBotonModificar(productoActual);
 	}
 
+	public void mostrarEliminar() {
+		vistaCRUDProducto.pulsarBotonEliminar();
+	}
+
 	public void aniadirProducto(String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
 			TipoMaterial material,
 			double precio,
@@ -60,7 +64,7 @@ public class ProductoControlador {
 	}
 
 	public void eliminarProducto(ProductoVO producto) {
-		// TODO
+		this.logicaProducto.retirarProducto(producto);
 	}
 
 	public ProductoLogica getLogicaProducto() {

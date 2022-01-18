@@ -6,11 +6,20 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import LogicaNegocio.ProveedorControlador;
@@ -39,6 +48,7 @@ public class CRUDProveedorVista extends JDialog {
 
 	JTextField tfCIF;
 	JTextField tfNombre;
+	ArrayList<ProveedorVO> listaDeProveedores;
 
 	public void pulsarBotonAniadir() {
 
@@ -170,7 +180,47 @@ public class CRUDProveedorVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar() {
+		listaDeProveedores = new ArrayList<ProveedorVO>();
+		listaDeProveedores = controladorProveedor.getInstance().getProveedores();
+		System.out.println(listaDeProveedores.toString());
 
+
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setVisible(true);
+		setBounds(100, 100, 1042, 428);
+		setTitle("Eliminar Proveedor");
+		getContentPane().setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 1038, 389);
+		getContentPane().add(scrollPane);
+		DefaultListModel<String> model;
+		model = new DefaultListModel<String>();
+		for (ProveedorVO provVo : listaDeProveedores) {
+			model.addElement(provVo.toStringListado());
+		}
+		JList list = new JList(model);
+		list.setFont(new Font("Tahoma", Font.BOLD, 17));
+		scrollPane.setViewportView(list);
+		list.setFixedCellHeight(80);
+
+		// Listener para abrir la especificacion de producto cuando se haga click en uno
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList theList = (JList) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					JFrame adv = new JFrame();
+					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(result == 0){
+						controladorProveedor.eliminarProveedor(listaDeProveedores.get(index));
+						listaDeProveedores.remove(index);
+						System.out.println("Se ha eliminado el Proveedor " + listaDeProveedores.get(index));
+					}
+					
+				}
+			}
+		};
+		list.addMouseListener(mouseListener);
 	}
 
 	public void crearProveedor() {

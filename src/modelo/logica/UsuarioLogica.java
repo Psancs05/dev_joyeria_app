@@ -1,5 +1,7 @@
 package modelo.logica;
 
+import java.util.ArrayList;
+
 import globals.enums.TipoUsuario;
 import modelo.DAO.UsuarioDAO;
 import modelo.VO.UsuarioVO;
@@ -47,6 +49,10 @@ public class UsuarioLogica {
     public boolean retirarUsuario(UsuarioVO usuario) {
         boolean response = this.usuarioDAO.delete(usuario);
         return response;
+    }
+
+    public ArrayList<UsuarioVO> solicitarUsuarios() {
+        return this.usuarioDAO.getListaUsuarios();
     }
 
 }

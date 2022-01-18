@@ -62,4 +62,8 @@ public class ProveedorLogica {
         System.out.println("Proveedor encontrado: " + proveedor.toString());
         return proveedor;
     }
+
+    public ArrayList<ProveedorVO> solicitarProveedores() {
+        return this.proveedorDAO.getListaProveedores();
+    }
 }

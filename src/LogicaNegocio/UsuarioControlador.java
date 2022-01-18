@@ -1,5 +1,7 @@
 package LogicaNegocio;
 
+import java.util.ArrayList;
+
 import Vista.Usuario.CRUDUsuarioVista;
 import Vista.Usuario.LoginVista;
 import globals.enums.TipoUsuario;
@@ -48,6 +50,14 @@ public class UsuarioControlador {
 		vistaCRUDUsuario.pulsarBotonAniadir();
 	}
 
+	public void mostrarEliminar() {
+		vistaCRUDUsuario.pulsarBotonEliminar();
+	}
+
+	public ArrayList<UsuarioVO> getUsuarios() {
+		return this.logicaUsuario.solicitarUsuarios();
+	}
+
 	public void mostrarModificar() {
 		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
 		// TipoUsuario tipoUsuarioI;
@@ -66,8 +76,8 @@ public class UsuarioControlador {
 		// TODO
 	}
 
-	public void eliminarUsuario(UsuarioVO usuarioAntiguo) {
-		// TODO
+	public void eliminarUsuario(UsuarioVO usuario) {
+		this.logicaUsuario.retirarUsuario(usuario);
 	}
 
 	public static UsuarioControlador getInstance() {

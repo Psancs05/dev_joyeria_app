@@ -1,6 +1,8 @@
 package modelo.DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
 import modelo.conexion.Conexion;
@@ -255,6 +257,39 @@ public class UsuarioDAO implements DAO {
     public Object getUsuarioPorDNI(String dni) {
         UsuarioVO placeholder = new UsuarioVO(dni, "nombre", "email", "password", TipoUsuario.CAJERO);
         return search(placeholder);
+    }
+
+    public ArrayList<UsuarioVO> getListaUsuarios() {
+        try {
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
+            String query = "SELECT * FROM usuario";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<UsuarioVO> listaUsuarios = new ArrayList<UsuarioVO>();
+            ProveedorDAO provDAO = ProveedorDAO.getInstance();
+            while (rs.next()) {
+                // Obtenemos los datos del producto de la db
+                String DNI = rs.getString("DNI");
+                String nombre = rs.getString("Nombre");
+                String email = rs.getString("Email");
+                String password = rs.getString("Password");
+                TipoUsuario tUsuario = TipoUsuario.valueOf(rs.getString("TipoUsuario"));
+
+
+                // Creamos el producto con los datos obtenidos
+                UsuarioVO usuario = new UsuarioVO(DNI, nombre, email, password, tUsuario);
+                // usuario.setIDProducto(usuario);
+
+                // Añadimos el producto a la lista
+                listaUsuarios.add(usuario);
+            }
+            // con.close();
+            return listaUsuarios;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 
 import LogicaNegocio.BackupControlador;
 import LogicaNegocio.ProductoControlador;
+import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
 import Vista.Catalogo.CatalogoVista;
 import globals.enums.TipoUsuario;
@@ -99,6 +100,11 @@ public class VistaGeneral {
 
 		JMenuItem eliminarUsuario = new JMenuItem("Eliminar");
 		eliminarUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		eliminarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioControlador.getInstance().mostrarEliminar();
+			}
+		});
 		eliminarUsuario.setBackground(blanco);
 		eliminarUsuario.setForeground(negro);
 		UsuarioMenuItem.add(eliminarUsuario);
@@ -114,18 +120,33 @@ public class VistaGeneral {
 
 		JMenuItem aniadirProveedor = new JMenuItem("Aniadir");
 		aniadirProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		aniadirProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProveedorControlador.getInstance().mostrarAniadir();
+			}
+		});
 		aniadirProveedor.setForeground(negro);
 		aniadirProveedor.setBackground(blanco);
 		ProveedorMenuItem.add(aniadirProveedor);
 
 		JMenuItem modificarProveedor = new JMenuItem("Modificar");
 		modificarProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		modificarProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProveedorControlador.getInstance().mostrarModificar();
+			}
+		});
 		modificarProveedor.setForeground(negro);
 		modificarProveedor.setBackground(blanco);
 		ProveedorMenuItem.add(modificarProveedor);
 
 		JMenuItem eliminarProveedor = new JMenuItem("Eliminar");
 		eliminarProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		eliminarProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProveedorControlador.getInstance().mostrarEliminar();
+			}
+		});
 		eliminarProveedor.setForeground(negro);
 		eliminarProveedor.setBackground(blanco);
 		ProveedorMenuItem.add(eliminarProveedor);
@@ -160,6 +181,12 @@ public class VistaGeneral {
 
 		JMenuItem eliminarProducto = new JMenuItem("Eliminar");
 		eliminarProducto.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		eliminarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProductoControlador.getInstance().mostrarEliminar();
+			}
+		});
+		ProductoMenuItem.add(modificarProducto);
 		eliminarProducto.setForeground(negro);
 		eliminarProducto.setBackground(blanco);
 		ProductoMenuItem.add(eliminarProducto);

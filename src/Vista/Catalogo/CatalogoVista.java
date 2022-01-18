@@ -150,4 +150,12 @@ public class CatalogoVista extends JFrame {
 		list.addMouseListener(mouseListener);
 	}
 
+	public JList<ProductoVO> getJList(){
+		return list;
+	}
+
+	public ArrayList<ProductoVO> getListaProductos(){
+		return productos;
+	}
+
 }

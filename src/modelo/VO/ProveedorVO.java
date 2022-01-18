@@ -34,6 +34,10 @@ public class ProveedorVO {
         return "ProveedorVO [CIF=" + CIF + ", nombre=" + nombre + "]";
     }
 
+    public String toStringListado() {
+        return nombre + "          " + CIF;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

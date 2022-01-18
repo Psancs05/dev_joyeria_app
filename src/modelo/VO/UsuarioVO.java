@@ -64,6 +64,14 @@ public class UsuarioVO {
                 + ", tipoUsuario=" + tipoUsuario + "]";
     }
 
+    public String toStringListado() {
+        if(tipoUsuario == TipoUsuario.ADMINISTRADOR){
+            return nombre + "      Administrador";
+        } else {
+            return nombre + "    Cajero";
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
