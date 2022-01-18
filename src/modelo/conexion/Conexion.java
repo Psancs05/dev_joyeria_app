@@ -91,14 +91,15 @@ public class Conexion {
 
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", bdUsuario, bdPassword);
             Statement stmt = conn.createStatement();
-            String sqlBorrarBBDD = "DROP DATABASE bdJoyeria";
+            String sqlBorrarBBDD = "DROP DATABASE " + bdNombre;
             stmt.executeUpdate(sqlBorrarBBDD);
             // System.out.println("Database DELETED successfully...");
-            String sqlCrearBBDD = "CREATE DATABASE bdJoyeria";
+            String sqlCrearBBDD = "CREATE DATABASE " + bdNombre;
             stmt.executeUpdate(sqlCrearBBDD);
             // System.out.println("Database CREATED successfully...");
 
-            String[] comandoRestaurar = new String[] { "mysql", "--user=" + bdUsuario, "--password=" + bdPassword, "-e",
+            String[] comandoRestaurar = new String[] { "mysql", "--user=" + bdUsuario, "--password=" + bdPassword,
+                    "--database=" + bdNombre, "-e",
                     "source " + ubicacion };
 
             Process runtimeProcess = Runtime.getRuntime().exec(comandoRestaurar);
