@@ -21,17 +21,16 @@ import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
 
-public class FiltrarVista extends JDialog{
+public class FiltrarVista extends JDialog {
 
-    public FiltrarVista(){
-        this.controladorProducto = ProductoControlador.getInstance();
+	public FiltrarVista() {
+		this.controladorProducto = ProductoControlador.getInstance();
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.proveedores = controladorProveedor.getProveedores();
-    }
+	}
 
-
-    JTextField tfNombre;
+	JTextField tfNombre;
 	JTextField tfPrecio;
 	String imagenPath;
 	JTextField tfDescripcion;
@@ -40,14 +39,12 @@ public class FiltrarVista extends JDialog{
 	JComboBox<String> comboBoxMaterialProducto;
 	JTextField tfNumC;
 
-    private ProductoControlador controladorProducto;
+	private ProductoControlador controladorProducto;
 	private ProveedorControlador controladorProveedor;
 	private ArrayList<ProveedorVO> proveedores;
 
-
-
-    public void mostrarVistaFiltrado(){
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public void mostrarVistaFiltrado() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 720, 559);
 		setTitle("Aniadir Producto");
@@ -140,14 +137,14 @@ public class FiltrarVista extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				CatalogoControlador controladorCatalogo = CatalogoControlador.getInstance();
 				String nombre = tfNombre.getText();
-				if(nombre.equals("")){
+				if (nombre.equals("")) {
 					nombre = null;
 				}
-				
+
 				double precio;
 				try {
 					precio = Double.parseDouble(tfPrecio.getText());
-				}catch(Exception e) {
+				} catch (Exception e) {
 					precio = -1.0;
 				}
 
@@ -160,18 +157,18 @@ public class FiltrarVista extends JDialog{
 					tipoProducto = TipoProducto.GAFAS;
 				} else if (comboBoxTipoProducto.getSelectedItem().toString() == "Pendiente") {
 					tipoProducto = TipoProducto.PENDIENTE;
-				} else if(comboBoxTipoProducto.getSelectedItem().toString() == "Pulsera"){
+				} else if (comboBoxTipoProducto.getSelectedItem().toString() == "Pulsera") {
 					tipoProducto = TipoProducto.PULSERA;
 				} else {
 					tipoProducto = null;
 				}
-		
+
 				TipoMaterial tipoMaterial;
 				if (comboBoxMaterialProducto.getSelectedItem().toString() == "Oro") {
 					tipoMaterial = TipoMaterial.ORO;
 				} else if (comboBoxMaterialProducto.getSelectedItem().toString() == "Plata") {
 					tipoMaterial = TipoMaterial.PLATA;
-				} else if(comboBoxMaterialProducto.getSelectedItem().toString() == "Oro + Plata"){
+				} else if (comboBoxMaterialProducto.getSelectedItem().toString() == "Oro + Plata") {
 					tipoMaterial = TipoMaterial.OROPLATA;
 				} else {
 					tipoMaterial = null;
@@ -180,29 +177,30 @@ public class FiltrarVista extends JDialog{
 				int numeroCuaderno;
 				try {
 					numeroCuaderno = Integer.parseInt(tfNumC.getText());
-				}catch(Exception e) {
+				} catch (Exception e) {
 					numeroCuaderno = -1;
 				}
 
 				int idVenta;
 				try {
 					idVenta = Integer.parseInt(lbVenta.getText());
-				}catch(Exception e) {
+				} catch (Exception e) {
 					idVenta = -1;
 				}
-				
+
 				ProveedorVO proveedor;
 				String proveedorText = comboBoxProveedor.getSelectedItem().toString();
-				if(proveedorText == "default"){
+				if (proveedorText == "default") {
 					proveedor = null;
 				} else {
 					proveedor = controladorProveedor.getProveedorPorNombre(proveedorText);
 				}
-				 
-				ProductoVO parametro = new ProductoVO(nombre,numeroCuaderno,tipoProducto,precio,null,tipoMaterial,proveedor,idVenta,null);
-				
+
+				ProductoVO parametro = new ProductoVO(nombre, numeroCuaderno, tipoProducto, precio, null, tipoMaterial,
+						proveedor, idVenta, null);
+
 				ArrayList<ProductoVO> listaFiltrada = controladorCatalogo.getListadaFiltrada(parametro);
-				CatalogoVista catalogoVista = new CatalogoVista();
+				CatalogoVista catalogoVista = new CatalogoVista(false);
 				catalogoVista.mostrarCatalogo(listaFiltrada);
 				catalogoVista.setFiltrado();
 				setVisible(false);
@@ -243,6 +241,6 @@ public class FiltrarVista extends JDialog{
 		comboBoxMaterialProducto.addItem("Oro");
 		comboBoxMaterialProducto.addItem("Plata");
 		comboBoxMaterialProducto.addItem("Oro + Plata");
-    }
+	}
 
 }
