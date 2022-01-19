@@ -31,12 +31,14 @@ public class ProductoLogica {
 
     public ArrayList<ProductoVO> solicitarProductos() {
         ArrayList<ProductoVO> productos = this.productoDAO.getListaProductos();
+        ArrayList<ProductoVO> productosInventario = new ArrayList<ProductoVO>();
+
         for (ProductoVO producto : productos) {
             if (producto.getIDVenta() != -1)
-                productos.remove(producto);
+                productosInventario.add(producto);
 
         }
-        return productos;
+        return productosInventario;
 
     }
 

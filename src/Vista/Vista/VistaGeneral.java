@@ -312,7 +312,7 @@ public class VistaGeneral {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
 				CatalogoVista catalogoVista = new CatalogoVista(TipoCatalogo.FILTRAR);
-				frame.setVisible(false);
+				//frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonCatalogo);
