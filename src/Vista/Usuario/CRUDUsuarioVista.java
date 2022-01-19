@@ -244,6 +244,7 @@ public class CRUDUsuarioVista extends JDialog {
 				dialogModificar.setVisible(false);
 				modificarUsuario(usuario);
 				limpiarCampos();
+				tfDNI.setEditable(false);
 				controladorUsuario.mostrarModificar();
 				setVisible(false);
 			}
@@ -266,7 +267,11 @@ public class CRUDUsuarioVista extends JDialog {
 		JFrame adv = new JFrame();
 		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(result == 0){
-			controladorUsuario.eliminarUsuario(usuario);
+			boolean eliminar = controladorUsuario.eliminarUsuario(usuario);
+			if(!eliminar){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "El DNI del usuario a eliminar esta relacionado con una o mas ventas.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 			listaDeUsuarios.remove(usuario);
 			System.out.println("Se ha eliminado el usuario " + usuario.toString());
 		}
@@ -345,8 +350,12 @@ public class CRUDUsuarioVista extends JDialog {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	
 		} else {
-			controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
+			boolean aniadido = controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
 			tipoUsuario);
+			if(!aniadido){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "Ya existe un usuario con este DNI.", "Error", JOptionPane.ERROR_MESSAGE);	
+			}
 		}
 		limpiarCampos();
 	}
@@ -368,12 +377,9 @@ public class CRUDUsuarioVista extends JDialog {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
 
-		if(DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
+		if(nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
 			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if(DNI.length() != 9){
-			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);			
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);		
 		} else if(!(email.contains("@"))){
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	

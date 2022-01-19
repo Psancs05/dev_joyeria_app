@@ -23,14 +23,14 @@ public class UsuarioLogica {
         // TODO: implement
     }
 
-    public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
+    public boolean registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
         boolean response = this.usuarioDAO.create(nuevoUsuario); // no vale para nada
-        return nuevoUsuario;
+        return response;
     }
 
-    public void actualizarUsuario(UsuarioVO usarioAntiguo, String nombre, String email, String password,
+    public boolean actualizarUsuario(UsuarioVO usarioAntiguo, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         // Modificamos todos los campos menos el dni que es la PK de Usuario en la bd
         usarioAntiguo.setNombre(nombre);
@@ -38,7 +38,7 @@ public class UsuarioLogica {
         usarioAntiguo.setPassword(password);
         usarioAntiguo.setTipoUsuario(tipoUsuario);
 
-        this.usuarioDAO.update(usarioAntiguo);
+        return this.usuarioDAO.update(usarioAntiguo);
 
     }
 

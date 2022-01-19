@@ -138,7 +138,6 @@ public class UsuarioDAO implements DAO {
             } catch (Exception e) {
                 return false;
             }
-
         }
         if (!emailMod.equals(emailBD)) {
             // modificamos email

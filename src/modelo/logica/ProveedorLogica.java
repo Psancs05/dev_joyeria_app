@@ -30,32 +30,34 @@ public class ProveedorLogica {
         return lista;
     }
 
-    public ProveedorVO registrarProveedorVO(String CIF, String nombre) {
+    public boolean registrarProveedorVO(String CIF, String nombre) {
         ProveedorVO nuevoProveedor = new ProveedorVO(CIF, nombre);
         boolean response = this.proveedorDAO.create(nuevoProveedor);
 
         System.out.println("Proveedor registrado: " + nuevoProveedor.toString());
 
-        return nuevoProveedor;
+        return response;
     }
 
     // TODO!: checkear que parametros se le pasa a este metodo
-    public void actualizarProveedorVO(ProveedorVO proveedor, String CIF, String nombre) {
+    public boolean actualizarProveedorVO(ProveedorVO proveedor, String CIF, String nombre) {
 
         ProveedorVO proveedorActual = new ProveedorVO(CIF, nombre);
         boolean response = this.proveedorDAO.update(proveedorActual);
 
         System.out.println("Proveedor actualizado: " + proveedor.toString());
+        return response;
     }
 
     // TODO: No se que hace este metodo
     public void generarProveedorActualizado() {
     }
 
-    public void retirarProveedorVO(ProveedorVO proveedor) {
+    public boolean retirarProveedorVO(ProveedorVO proveedor) {
         boolean response = this.proveedorDAO.delete(proveedor);
 
         System.out.println("Proveedor retirado: " + proveedor.toString());
+        return response;
     }
 
     public ProveedorVO getProveedorPorNombre(String nombre) {

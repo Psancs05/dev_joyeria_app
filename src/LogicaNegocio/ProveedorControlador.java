@@ -27,17 +27,17 @@ public class ProveedorControlador {
 	}
 
 	// * Metodos de la logica
-	public void aniadirProveedor(String CIF, String nombre) {
+	public boolean aniadirProveedor(String CIF, String nombre) {
 		
-		this.logicaProveedor.registrarProveedorVO(CIF, nombre);
+		return this.logicaProveedor.registrarProveedorVO(CIF, nombre);
 	}
 
-	public void modificarProveedor(ProveedorVO proveedor, String CIF, String nombre) {
-		this.logicaProveedor.actualizarProveedorVO(proveedor, CIF, nombre);
+	public boolean modificarProveedor(ProveedorVO proveedor, String CIF, String nombre) {
+		return this.logicaProveedor.actualizarProveedorVO(proveedor, CIF, nombre);
 	}
 
-	public void eliminarProveedor(ProveedorVO proveedor) {
-		this.logicaProveedor.retirarProveedorVO(proveedor);
+	public boolean eliminarProveedor(ProveedorVO proveedor) {
+		return this.logicaProveedor.retirarProveedorVO(proveedor);
 	}
 
 	public ProveedorVO getProveedorPorNombre(String nombre) {

@@ -189,7 +189,11 @@ public class CRUDProveedorVista extends JDialog {
 		JFrame adv = new JFrame();
 		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(result == 0){
-			controladorProveedor.eliminarProveedor(proveedor);
+			boolean eliminar = controladorProveedor.eliminarProveedor(proveedor);
+			if(!eliminar){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "Hay uno o más productos con de este proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 			listaDeProveedores.remove(proveedor);
 			System.out.println("Se ha eliminado el Proveedor " + proveedor.toString());
 		}
@@ -249,7 +253,11 @@ public class CRUDProveedorVista extends JDialog {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
-			controladorProveedor.aniadirProveedor(CIF, nombre);
+			boolean aniadido = controladorProveedor.aniadirProveedor(CIF, nombre);
+			if(!aniadido){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "Ya hay un proveedor con este CIF.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		System.out.println(CIF + " " + nombre);
 		limpiarCampos();
@@ -258,7 +266,7 @@ public class CRUDProveedorVista extends JDialog {
 	public void modificarProveedor(ProveedorVO Proveedor) {
 		String CIF = tfCIF.getText();
 		String nombre = tfNombre.getText();
-		if(CIF.equals("") || nombre.equals("") ){
+		if(nombre.equals("") ){
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
