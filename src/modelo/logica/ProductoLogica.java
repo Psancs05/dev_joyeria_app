@@ -30,7 +30,14 @@ public class ProductoLogica {
     }
 
     public ArrayList<ProductoVO> solicitarProductos() {
-        return this.productoDAO.getListaProductos();
+        ArrayList<ProductoVO> productos = this.productoDAO.getListaProductos();
+        for (ProductoVO producto : productos) {
+            if (producto.getIDVenta() != -1)
+                productos.remove(producto);
+
+        }
+        return productos;
+
     }
 
     public boolean registrarProducto(String nombre, int numCuaderno, TipoProducto tipoDeProducto, double precio,
