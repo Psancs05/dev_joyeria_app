@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -78,6 +80,9 @@ public class VentaVista extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorVenta.aceptarVenta();
+				// Crear ventana exito
+				JFrame success = new JFrame();
+				JOptionPane.showMessageDialog(success, "Venta creada correctamente", "Extio", JOptionPane.OK_OPTION);
 				dispose();
 			}
 		});
