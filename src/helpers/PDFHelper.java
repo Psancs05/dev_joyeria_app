@@ -31,7 +31,7 @@ public class PDFHelper {
     // relativa
     private static String Imagen_logo = "/home/napuh/Desktop/dev_joyeria_app/assets/logo.jpg";
 
-    public boolean generarPDFEtiqueta(ArrayList<ProductoVO> productos, String ubicacion) {
+    public static boolean generarPDFEtiqueta(ArrayList<ProductoVO> productos, String ubicacion) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(ubicacion));
@@ -46,7 +46,7 @@ public class PDFHelper {
         }
     }
 
-    private void rellenarEtiquetas(Document document, ArrayList<ProductoVO> productos)
+    private static void rellenarEtiquetas(Document document, ArrayList<ProductoVO> productos)
             throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
         preface.add(new Paragraph("Etiquetas de producto", fuenteTitulo));
