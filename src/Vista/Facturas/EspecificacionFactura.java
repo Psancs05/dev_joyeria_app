@@ -2,27 +2,23 @@ package Vista.Facturas;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import helpers.PDFHelper;
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.awt.event.ActionEvent;
 
 public class EspecificacionFactura extends JDialog {
 

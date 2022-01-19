@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import Vista.Catalogo.CatalogoVista;
+import globals.enums.TipoCatalogo;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
@@ -313,7 +314,7 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar() {
-		CatalogoVista catalogo = new CatalogoVista(false);
+		CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
 		JList<ProductoVO> list = catalogo.getJList();
 		ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 
@@ -323,13 +324,15 @@ public class CRUDProductoVista extends JDialog {
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					JFrame adv = new JFrame();
-					int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if(result == 0){
+					int result = JOptionPane.showConfirmDialog(null,
+							"Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar",
+							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (result == 0) {
 						controladorProducto.eliminarProducto(listaDeProductos.get(index));
 						listaDeProductos.remove(index);
 						System.out.println("Se ha eliminado el Producto " + listaDeProductos.get(index));
 					}
-					
+
 				}
 			}
 		};
@@ -371,22 +374,24 @@ public class CRUDProductoVista extends JDialog {
 		}
 
 		System.out.println(comboTipo.toString() + comboMaterial.toString());
-		if(nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null || descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")||comboMaterial.toString().equals(" ")){
+		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
+				|| descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")
+				|| comboMaterial.toString().equals(" ")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			try {
 				precio = Double.parseDouble(tfPrecio.getText());
 				numCuaderno = Integer.parseInt(tfNumC.getText());
-				controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio, imagen,
-				descripcion);
+				controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio,
+						imagen,
+						descripcion);
 			} catch (Exception e) {
 				JFrame error = new JFrame();
-				JOptionPane.showMessageDialog(error, "El precio y el numero de cuaderno deben ser un numero valido.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(error, "El precio y el numero de cuaderno deben ser un numero valido.",
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
-		// TODO: Aniadir numero cuaderno
 
 		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
 		// gestionar errores

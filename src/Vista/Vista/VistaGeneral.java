@@ -22,6 +22,7 @@ import LogicaNegocio.ProveedorControlador;
 import LogicaNegocio.UsuarioControlador;
 import LogicaNegocio.VentaControlador;
 import Vista.Catalogo.CatalogoVista;
+import globals.enums.TipoCatalogo;
 import globals.enums.TipoUsuario;
 
 public class VistaGeneral {
@@ -71,7 +72,7 @@ public class VistaGeneral {
 
 		JMenu UsuarioMenuItem = new JMenu("    Usuario    ");
 		UsuarioMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+		if (controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO) {
 			UsuarioMenuItem.setEnabled(false);
 		}
 		UsuarioMenuItem.setBackground(blanco);
@@ -113,7 +114,7 @@ public class VistaGeneral {
 
 		JMenu ProveedorMenuItem = new JMenu("  Proveedor  ");
 		ProveedorMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+		if (controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO) {
 			ProveedorMenuItem.setEnabled(false);
 		}
 		ProveedorMenuItem.setBackground(blanco);
@@ -213,7 +214,7 @@ public class VistaGeneral {
 
 		JMenu BackupMenuItem = new JMenu("  Backup  ");
 		BackupMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		if(controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO){
+		if (controlador.getUsuarioActual().getTipoUsuario() == TipoUsuario.CAJERO) {
 			BackupMenuItem.setEnabled(false);
 		}
 		BackupMenuItem.setBackground(blanco);
@@ -296,7 +297,7 @@ public class VistaGeneral {
 		botonVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Abrir venta seleccionado");
-				CatalogoVista catalogoVista = new CatalogoVista(true);
+				CatalogoVista catalogoVista = new CatalogoVista(TipoCatalogo.VENDER);
 				frame.setVisible(false);
 			}
 		});
@@ -310,7 +311,7 @@ public class VistaGeneral {
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
-				CatalogoVista catalogoVista = new CatalogoVista(false);
+				CatalogoVista catalogoVista = new CatalogoVista(TipoCatalogo.FILTRAR);
 				frame.setVisible(false);
 			}
 		});

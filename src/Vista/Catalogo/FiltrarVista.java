@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import LogicaNegocio.CatalogoControlador;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
+import globals.enums.TipoCatalogo;
 import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
@@ -200,9 +201,9 @@ public class FiltrarVista extends JDialog {
 						proveedor, idVenta, null);
 
 				ArrayList<ProductoVO> listaFiltrada = controladorCatalogo.getListadaFiltrada(parametro);
-				CatalogoVista catalogoVista = new CatalogoVista(false);
+				CatalogoVista catalogoVista = new CatalogoVista(TipoCatalogo.FILTRAR);
 				catalogoVista.mostrarCatalogo(listaFiltrada);
-				catalogoVista.setFiltrado();
+				catalogoVista.setFiltrado(TipoCatalogo.FILTRAR);
 				setVisible(false);
 			}
 		});

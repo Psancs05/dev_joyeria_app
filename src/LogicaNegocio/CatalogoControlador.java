@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Vista.Catalogo.CatalogoVista;
 import Vista.Catalogo.FiltrarVista;
+import globals.enums.TipoCatalogo;
 import modelo.VO.ProductoVO;
 import modelo.logica.CatalogoLogica;
 
@@ -13,7 +14,6 @@ public class CatalogoControlador {
 	private CatalogoLogica logicaCatalogo;
 	private FiltrarVista filtrar;
 	private CatalogoVista catalogo;
-	
 
 	private CatalogoControlador() {
 		this.logicaCatalogo = new CatalogoLogica();
@@ -27,11 +27,14 @@ public class CatalogoControlador {
 		return controlador;
 	}
 
-	
-	public void gestionarAccionCatalogo() {
-		//TODO
+	public void actualizar(TipoCatalogo estado) {
+		this.catalogo = new CatalogoVista(estado);
 	}
-	
+
+	public void gestionarAccionCatalogo() {
+		// TODO
+	}
+
 	public void mostrarCatalogo(ArrayList<ProductoVO> productos) {
 		catalogo.mostrarCatalogo(productos);
 	}
@@ -45,7 +48,7 @@ public class CatalogoControlador {
 		return logicaCatalogo;
 	}
 
-	public ArrayList<ProductoVO> getListadaFiltrada(ProductoVO parametros){
+	public ArrayList<ProductoVO> getListadaFiltrada(ProductoVO parametros) {
 		return logicaCatalogo.filtrarCatalogo(parametros);
 	}
 
