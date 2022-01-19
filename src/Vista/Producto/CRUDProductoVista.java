@@ -326,26 +326,26 @@ public class CRUDProductoVista extends JDialog {
 
 	public void mostrarListaProductos(boolean seleccionar) {
 		System.out.println(seleccionar);
-		CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
-		JList<ProductoVO> list = catalogo.getJList();
-		ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
+		if(seleccionar == false){
+			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
+		} else {
+			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.MODIFICAR);
+			JList<ProductoVO> list = catalogo.getJList();
+			ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 
-		MouseListener mouseListener = new MouseAdapter() {
+			MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
-					// if(!seleccionar){
-					// pulsarBotonEliminar(listaDeProductos.get(index));
-					// listaDeProductos.remove(index);
-					// } else {
-					// pulsarBotonModificar(listaDeProductos.get(index));
-					// }
 					pulsarBotonModificar(listaDeProductos.get(index));
 				}
 			}
-		};
-		list.addMouseListener(mouseListener);
+			};
+			list.addMouseListener(mouseListener);
+		}
+
+		
 	}
 
 	public void crearProducto() {
