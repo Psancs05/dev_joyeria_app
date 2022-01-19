@@ -189,48 +189,49 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void pulsarBotonModificar(ProductoVO producto) {
+		JDialog dialog = new JDialog();
 
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setBounds(100, 100, 720, 524);
-		setTitle("Modificar Producto");
-		getContentPane().setLayout(null);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+		dialog.setBounds(100, 100, 720, 524);
+		dialog.setTitle("Modificar Producto");
+		dialog.getContentPane().setLayout(null);
 
 		JLabel lbID = new JLabel("Num cuaderno");
 		lbID.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbID.setBounds(10, 34, 113, 33);
-		getContentPane().add(lbID);
+		dialog.getContentPane().add(lbID);
 
 		tfNumC = new JTextField(producto.getNumCuaderno() + "");
 		tfNumC.setBounds(316, 34, 378, 38);
-		getContentPane().add(tfNumC);
+		dialog.getContentPane().add(tfNumC);
 		tfNumC.setBounds(316, 34, 131, 38);
 
 		JLabel lbPrecio = new JLabel("Precio");
 		lbPrecio.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbPrecio.setBounds(10, 88, 77, 33);
-		getContentPane().add(lbPrecio);
+		dialog.getContentPane().add(lbPrecio);
 
 		tfPrecio = new JTextField(producto.getPrecio() + "");
 		tfPrecio.setBounds(316, 83, 165, 38);
-		getContentPane().add(tfPrecio);
+		dialog.getContentPane().add(tfPrecio);
 		tfPrecio.setBounds(316, 83, 131, 38);
 
 		JLabel lbImagen = new JLabel("Imagen");
 		lbImagen.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbImagen.setBounds(10, 137, 77, 33);
-		getContentPane().add(lbImagen);
+		dialog.getContentPane().add(lbImagen);
 
 		JLabel lbProveedor = new JLabel("Proveedor");
 		lbProveedor.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbProveedor.setBounds(10, 186, 77, 33);
-		getContentPane().add(lbProveedor);
+		dialog.getContentPane().add(lbProveedor);
 
 		comboBoxProveedor = new JComboBox<String>();
 		comboBoxProveedor.setSelectedItem(producto.getProveedor());
 		comboBoxProveedor.setToolTipText("Selecciona\r\n");
 		comboBoxProveedor.setBounds(316, 181, 378, 38);
-		getContentPane().add(comboBoxProveedor);
+		dialog.getContentPane().add(comboBoxProveedor);
 		ArrayList<ProveedorVO> proveedores = this.controladorProveedor.getProveedores();
 		for (ProveedorVO proveedor : proveedores) {
 			comboBoxProveedor.addItem(proveedor.getNombre());
@@ -239,16 +240,16 @@ public class CRUDProductoVista extends JDialog {
 		JLabel lbDescripcion = new JLabel("Descripcion");
 		lbDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbDescripcion.setBounds(10, 328, 107, 33);
-		getContentPane().add(lbDescripcion);
+		dialog.getContentPane().add(lbDescripcion);
 
 		tfDescripcion = new JTextField(producto.getDescripcion());
 		tfDescripcion.setBounds(316, 328, 378, 93);
-		getContentPane().add(tfDescripcion);
+		dialog.getContentPane().add(tfDescripcion);
 		tfDescripcion.setColumns(10);
 
 		JButton btnSeleccionIm = new JButton("Selecciona una imagen");
 		btnSeleccionIm.setBounds(316, 132, 154, 38);
-		getContentPane().add(btnSeleccionIm);
+		dialog.getContentPane().add(btnSeleccionIm);
 		btnSeleccionIm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser selectorImagen = new JFileChooser();
@@ -261,13 +262,13 @@ public class CRUDProductoVista extends JDialog {
 		JLabel lbTipoProducto = new JLabel("Tipo de Producto");
 		lbTipoProducto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoProducto.setBounds(10, 233, 200, 35);
-		getContentPane().add(lbTipoProducto);
+		dialog.getContentPane().add(lbTipoProducto);
 
 		comboBoxTipoProducto = new JComboBox<String>();
 		comboBoxTipoProducto.setSelectedItem(producto.getTipoProducto());
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 230, 378, 38);
-		getContentPane().add(comboBoxTipoProducto);
+		dialog.getContentPane().add(comboBoxTipoProducto);
 		comboBoxTipoProducto.addItem(" ");
 		comboBoxTipoProducto.addItem("Pendiente");
 		comboBoxTipoProducto.addItem("Anillo");
@@ -278,13 +279,13 @@ public class CRUDProductoVista extends JDialog {
 		JLabel lbTipoMaterial = new JLabel("Tipo de Material");
 		lbTipoMaterial.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoMaterial.setBounds(10, 282, 200, 35);
-		getContentPane().add(lbTipoMaterial);
+		dialog.getContentPane().add(lbTipoMaterial);
 		comboBoxMaterialProducto = new JComboBox<String>();
 		comboBoxMaterialProducto.setSelectedItem(producto.getMaterial());
 		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
 
 		comboBoxMaterialProducto.setBounds(316, 279, 378, 38);
-		getContentPane().add(comboBoxMaterialProducto);
+		dialog.getContentPane().add(comboBoxMaterialProducto);
 		comboBoxMaterialProducto.addItem(" ");
 		comboBoxMaterialProducto.addItem("Oro");
 		comboBoxMaterialProducto.addItem("Plata");
@@ -292,25 +293,25 @@ public class CRUDProductoVista extends JDialog {
 
 		JButton okButton = new JButton("Modificar");
 		okButton.setActionCommand("OK");
-		getContentPane().add(okButton);
+		dialog.getContentPane().add(okButton);
 		okButton.setBounds(506, 454, 89, 23);
-		getRootPane().setDefaultButton(okButton);
+		dialog.getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Modificar pulsado");
 				// limpiarCampos();
 				modificarProducto(producto);
-				setVisible(false);
+				dialog.setVisible(false);
 			}
 		});
 
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setBounds(605, 454, 89, 23);
-		getContentPane().add(cancelButton);
+		dialog.getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dialog.setVisible(false);
 			}
 		});
 
