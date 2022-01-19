@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -80,9 +79,9 @@ public class VentaVista extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorVenta.aceptarVenta();
-				// Crear ventana exito
-				JFrame success = new JFrame();
-				JOptionPane.showMessageDialog(success, "Venta creada correctamente", "Extio", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(null, "Venta creada correctamente", "Exito",
+						JOptionPane.INFORMATION_MESSAGE);
+				// TODO: abrir catalogo
 				dispose();
 			}
 		});
