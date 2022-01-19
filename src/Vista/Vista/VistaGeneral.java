@@ -410,7 +410,7 @@ public class VistaGeneral {
 				// ayuda facturas
 				JOptionPane.showMessageDialog(
 						null,
-						"<html><body style='text-align: center'>En este menu se ecuentra la opcion de visualizar el listado de facturas. <br/>La opción \"listado\" muestra todas las facturas y permite selecionar cada una para mostrar más información.</html>",
+						"<html><body style='text-align: center'>En este menu se ecuentra la opcion de visualizar el listado de facturas. <br/>La opción \"listado\" muestra todas las facturas y permite selecionar cada una para mostrar más información.<br/>Para guerdar un pdf con una factura hay que indicar el nombre del archivo y la ubicacion</html>",
 						"Ayuda factura",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
