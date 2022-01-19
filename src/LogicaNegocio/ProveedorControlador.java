@@ -28,6 +28,7 @@ public class ProveedorControlador {
 
 	// * Metodos de la logica
 	public void aniadirProveedor(String CIF, String nombre) {
+		
 		this.logicaProveedor.registrarProveedorVO(CIF, nombre);
 	}
 
@@ -55,14 +56,17 @@ public class ProveedorControlador {
 
 	// * Metodos de la vista
 	public void mostrarAniadir() {
+		this.vistaCRUDProveedor = new CRUDProveedorVista(this);
 		vistaCRUDProveedor.pulsarBotonAniadir();
 	}
 
 	public void mostrarModificar() {
+		this.vistaCRUDProveedor = new CRUDProveedorVista(this);
 		vistaCRUDProveedor.mostrarListadoDeProveedores(false);
 	}
 
 	public void mostrarEliminar() {
+		this.vistaCRUDProveedor = new CRUDProveedorVista(this);
 		vistaCRUDProveedor.mostrarListadoDeProveedores(true);
 	}
 

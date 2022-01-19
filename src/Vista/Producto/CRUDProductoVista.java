@@ -296,8 +296,8 @@ public class CRUDProductoVista extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Modificar pulsado");
 				limpiarCampos();
+				modificarProducto(producto);
 				setVisible(false);
-
 			}
 		});
 
@@ -313,7 +313,19 @@ public class CRUDProductoVista extends JDialog {
 
 	}
 
-	public void pulsarBotonEliminar() {
+	public void pulsarBotonEliminar(ProductoVO producto) {
+		JFrame adv = new JFrame();
+		int result = JOptionPane.showConfirmDialog(null,
+				"Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar",
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (result == 0) {
+			controladorProducto.eliminarProducto(producto);
+			System.out.println("Se ha eliminado el Producto " + producto.toString());
+		}
+	}
+
+	public void mostrarListaProductos(boolean seleccionar) {
+		System.out.println(seleccionar);
 		CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
 		JList<ProductoVO> list = catalogo.getJList();
 		ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
@@ -323,16 +335,13 @@ public class CRUDProductoVista extends JDialog {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
-					JFrame adv = new JFrame();
-					int result = JOptionPane.showConfirmDialog(null,
-							"Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar",
-							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					if (result == 0) {
-						controladorProducto.eliminarProducto(listaDeProductos.get(index));
-						listaDeProductos.remove(index);
-						System.out.println("Se ha eliminado el Producto " + listaDeProductos.get(index));
-					}
-
+					// if(!seleccionar){
+					// 	pulsarBotonEliminar(listaDeProductos.get(index));
+					// 	listaDeProductos.remove(index);
+					// } else {
+					// 	pulsarBotonModificar(listaDeProductos.get(index));
+					// }
+					pulsarBotonModificar(listaDeProductos.get(index));
 				}
 			}
 		};
@@ -384,6 +393,66 @@ public class CRUDProductoVista extends JDialog {
 				precio = Double.parseDouble(tfPrecio.getText());
 				numCuaderno = Integer.parseInt(tfNumC.getText());
 				controladorProducto.aniadirProducto(nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio,
+						imagen,
+						descripcion);
+			} catch (Exception e) {
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "El precio y el numero de cuaderno deben ser un numero valido.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+
+		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
+		// gestionar errores
+
+		limpiarCampos();
+	}
+
+	public void modificarProducto(ProductoVO productoAntiguo) {
+		String nombre = tfNombre.getText();
+		int numCuaderno;
+		double precio;
+		String imagen = imagenPath;
+		String descripcion = tfDescripcion.getText();
+		String proveedor = comboBoxProveedor.getSelectedItem().toString();
+
+		Object comboTipo = comboBoxTipoProducto.getSelectedItem();
+		Object comboMaterial = comboBoxTipoProducto.getSelectedItem();
+
+		TipoProducto tipoProducto;
+		TipoMaterial tipoMaterial;
+
+		if (comboTipo.toString() == "Anillo") {
+			tipoProducto = TipoProducto.ANILLO;
+		} else if (comboTipo.toString() == "Colgante") {
+			tipoProducto = TipoProducto.COLGANTE;
+		} else if (comboTipo.toString() == "Gafas") {
+			tipoProducto = TipoProducto.GAFAS;
+		} else if (comboTipo.toString() == "Pendiente") {
+			tipoProducto = TipoProducto.PENDIENTE;
+		} else {
+			tipoProducto = TipoProducto.PULSERA;
+		}
+
+		if (comboMaterial.toString() == "Oro") {
+			tipoMaterial = TipoMaterial.ORO;
+		} else if (comboMaterial.toString() == "Plata") {
+			tipoMaterial = TipoMaterial.PLATA;
+		} else {
+			tipoMaterial = TipoMaterial.OROPLATA;
+		}
+
+		System.out.println(comboTipo.toString() + comboMaterial.toString());
+		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
+				|| descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")
+				|| comboMaterial.toString().equals(" ")) {
+			JFrame error = new JFrame();
+			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			try {
+				precio = Double.parseDouble(tfPrecio.getText());
+				numCuaderno = Integer.parseInt(tfNumC.getText());
+				controladorProducto.modificarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio,
 						imagen,
 						descripcion);
 			} catch (Exception e) {

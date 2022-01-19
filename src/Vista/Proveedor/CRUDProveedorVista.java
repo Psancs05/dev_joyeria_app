@@ -167,6 +167,8 @@ public class CRUDProveedorVista extends JDialog {
 				dialogModificar.setVisible(false);
 				modificarProveedor(proveedor);
 				limpiarCampos();
+				controladorProveedor.mostrarModificar();
+				setVisible(false);
 			}
 		});
 
@@ -191,6 +193,8 @@ public class CRUDProveedorVista extends JDialog {
 			listaDeProveedores.remove(proveedor);
 			System.out.println("Se ha eliminado el Proveedor " + proveedor.toString());
 		}
+		controladorProveedor.mostrarEliminar();
+		setVisible(false);
 	}
 
 	public void mostrarListadoDeProveedores(boolean seleccionar){

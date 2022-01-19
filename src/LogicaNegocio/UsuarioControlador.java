@@ -43,14 +43,17 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarLogin() {
+		this.vistaLogin = new LoginVista(this);
 		vistaLogin.botonAutentificar();
 	}
 
 	public void mostrarAniadir() {
+		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
 		vistaCRUDUsuario.pulsarBotonAniadir();
 	}
 
 	public void mostrarEliminar() {
+		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
 		vistaCRUDUsuario.mostrarListadoDeUsuarios(true);
 	}
 
@@ -59,6 +62,7 @@ public class UsuarioControlador {
 	}
 
 	public void mostrarModificar() {
+		this.vistaCRUDUsuario = new CRUDUsuarioVista(this);
 		vistaCRUDUsuario.mostrarListadoDeUsuarios(false);
 	}
 
@@ -68,7 +72,7 @@ public class UsuarioControlador {
 
 	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password,
 			TipoUsuario tipo) {
-		// TODO
+		this.logicaUsuario.actualizarUsuario(usuarioAntiguo, nombre, correo, password, tipo);
 	}
 
 	public void eliminarUsuario(UsuarioVO usuario) {

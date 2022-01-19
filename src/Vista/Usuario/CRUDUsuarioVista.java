@@ -244,6 +244,8 @@ public class CRUDUsuarioVista extends JDialog {
 				dialogModificar.setVisible(false);
 				modificarUsuario(usuario);
 				limpiarCampos();
+				controladorUsuario.mostrarModificar();
+				setVisible(false);
 			}
 		});
 
@@ -268,6 +270,8 @@ public class CRUDUsuarioVista extends JDialog {
 			listaDeUsuarios.remove(usuario);
 			System.out.println("Se ha eliminado el usuario " + usuario.toString());
 		}
+		setVisible(false);
+		controladorUsuario.mostrarEliminar();
 	}
 
 	public void mostrarListadoDeUsuarios(boolean seleccionar){
@@ -279,7 +283,7 @@ public class CRUDUsuarioVista extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 1042, 428);
-		setTitle("Eliminar Usuario");
+		setTitle("Listado de usuarios");
 		getContentPane().setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 1038, 389);
@@ -301,7 +305,6 @@ public class CRUDUsuarioVista extends JDialog {
 				if (mouseEvent.getClickCount() == 2) {
 						int index = theList.locationToIndex(mouseEvent.getPoint());
 						usuarioSeleccionado =  listaDeUsuarios.get(index);
-						
 						if(seleccionar == true){
 							pulsarBotonEliminar(usuarioSeleccionado);
 						} else {

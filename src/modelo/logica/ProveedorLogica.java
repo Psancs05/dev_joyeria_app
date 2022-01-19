@@ -42,7 +42,8 @@ public class ProveedorLogica {
     // TODO!: checkear que parametros se le pasa a este metodo
     public void actualizarProveedorVO(ProveedorVO proveedor, String CIF, String nombre) {
 
-        boolean response = this.proveedorDAO.update(proveedor);
+        ProveedorVO proveedorActual = new ProveedorVO(CIF, nombre);
+        boolean response = this.proveedorDAO.update(proveedorActual);
 
         System.out.println("Proveedor actualizado: " + proveedor.toString());
     }

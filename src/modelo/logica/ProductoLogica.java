@@ -64,15 +64,24 @@ public class ProductoLogica {
         }
     }
 
-    public void actualizarProducto(ProductoVO productoAntiguo, TipoProducto producto, double precio, Blob imagen,
-            TipoMaterial material,
-            ProveedorVO proveedor) {
-        productoAntiguo.setTipoProducto(producto);
+    public void actualizarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto, ProveedorVO proveedor,
+	TipoMaterial material,
+	double precio,
+	String imagen, String descripcion) throws FileNotFoundException, IOException {
+        productoAntiguo.setTipoProducto(tipoProducto);
+        productoAntiguo.setNumCuaderno(numCuaderno);
         productoAntiguo.setPrecio(precio);
-        productoAntiguo.setImagen(imagen);
+        java.awt.image.BufferedImage img;
+        img = ImageIO.read(new FileInputStream(imagen));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", baos);
+        byte[] bytes = baos.toByteArray();
+        // java.sql.Blob blob = new SerialBlob(blob);  //!ESTA LINEA DA EROR
+        // productoAntiguo.setImagen(blob);
         productoAntiguo.setMaterial(material);
         productoAntiguo.setProveedor(proveedor);
-
+        productoAntiguo.setDescripcion(descripcion);
+        productoAntiguo.setNombre(nombre);
         productoDAO.update(productoAntiguo);
     }
 

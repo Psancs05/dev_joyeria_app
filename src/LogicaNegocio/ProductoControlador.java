@@ -1,5 +1,7 @@
 package LogicaNegocio;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -8,6 +10,7 @@ import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
+import modelo.VO.UsuarioVO;
 import modelo.logica.ProductoLogica;
 
 public class ProductoControlador {
@@ -23,20 +26,18 @@ public class ProductoControlador {
 	}
 
 	public void mostrarAniadir() {
+		this.vistaCRUDProducto = new CRUDProductoVista(this);
 		vistaCRUDProducto.pulsarBotonAniadir();
 	}
 
 	public void mostrarModificar() {
-		// !SI QUEREIS PROBAR EL MODIFICAR DESCOMENTAD ESTO
-		// TipoUsuario tipoUsuarioI;
-		// tipoUsuarioI = TipoUsuario.ADMINISTRADOR;
-		// usuarioActual = new UsuarioVO("12345678A", "Nahamahan",
-		// "enreyesmandanga@gmail.com", "bombear", tipoUsuarioI);
-		vistaCRUDProducto.pulsarBotonModificar(productoActual);
+		this.vistaCRUDProducto = new CRUDProductoVista(this);
+		vistaCRUDProducto.mostrarListaProductos(true);
 	}
 
 	public void mostrarEliminar() {
-		vistaCRUDProducto.pulsarBotonEliminar();
+		this.vistaCRUDProducto = new CRUDProductoVista(this);
+		vistaCRUDProducto.mostrarListaProductos(false);
 	}
 
 	public void aniadirProducto(String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
@@ -58,9 +59,14 @@ public class ProductoControlador {
 		return this.logicaProducto.solicitarProductos();
 	}
 
-	public void modificarProducto(ProductoVO productoAntiguo, String taller, String tipo, String material,
-			int numCuaderno, int ID) {
-		// TODO
+	public void modificarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
+	TipoMaterial material,
+	double precio,
+	String imagen, String descripcion) throws FileNotFoundException, IOException {
+		ProveedorVO proveedor = ProveedorControlador.getInstance().getProveedorPorNombre(nombreProveedor);
+		this.logicaProducto.actualizarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor, material, precio,
+		imagen,
+		descripcion);
 	}
 
 	public void eliminarProducto(ProductoVO producto) {
