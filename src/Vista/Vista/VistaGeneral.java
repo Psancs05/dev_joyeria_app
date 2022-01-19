@@ -177,7 +177,9 @@ public class VistaGeneral {
 		modificarProducto.setBackground(blanco);
 		modificarProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ProductoControlador.getInstance().mostrarModificar();
+				// ProductoControlador.getInstance().mostrarModificar();
+				// TODO
+				CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.MODIFICAR);
 			}
 		});
 		ProductoMenuItem.add(modificarProducto);
@@ -522,7 +524,7 @@ public class VistaGeneral {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Boton Abrir Catalogo seleccionado");
 				CatalogoVista catalogoVista = new CatalogoVista(TipoCatalogo.FILTRAR);
-				//frame.setVisible(false);
+				// frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonCatalogo);

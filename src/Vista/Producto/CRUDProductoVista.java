@@ -196,27 +196,22 @@ public class CRUDProductoVista extends JDialog {
 		setTitle("Modificar Producto");
 		getContentPane().setLayout(null);
 
-		JTextField tfID;
-		JTextField tfPrecio;
-		JTextField tfProveedor;
-		JTextField tfDescripcion;
-
-		JLabel lbID = new JLabel("ID");
+		JLabel lbID = new JLabel("Num cuaderno");
 		lbID.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbID.setBounds(10, 34, 113, 33);
 		getContentPane().add(lbID);
 
-		tfID = new JTextField();
-		tfID.setBounds(316, 34, 378, 38);
-		getContentPane().add(tfID);
-		tfID.setBounds(316, 34, 131, 38);
+		tfNumC = new JTextField(producto.getNumCuaderno() + "");
+		tfNumC.setBounds(316, 34, 378, 38);
+		getContentPane().add(tfNumC);
+		tfNumC.setBounds(316, 34, 131, 38);
 
 		JLabel lbPrecio = new JLabel("Precio");
 		lbPrecio.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbPrecio.setBounds(10, 88, 77, 33);
 		getContentPane().add(lbPrecio);
 
-		tfPrecio = new JTextField();
+		tfPrecio = new JTextField(producto.getPrecio() + "");
 		tfPrecio.setBounds(316, 83, 165, 38);
 		getContentPane().add(tfPrecio);
 		tfPrecio.setBounds(316, 83, 131, 38);
@@ -231,17 +226,22 @@ public class CRUDProductoVista extends JDialog {
 		lbProveedor.setBounds(10, 186, 77, 33);
 		getContentPane().add(lbProveedor);
 
-		tfProveedor = new JTextField();
-		tfProveedor.setBounds(316, 181, 378, 38);
-		getContentPane().add(tfProveedor);
-		tfProveedor.setColumns(10);
+		comboBoxProveedor = new JComboBox<String>();
+		comboBoxProveedor.setSelectedItem(producto.getProveedor());
+		comboBoxProveedor.setToolTipText("Selecciona\r\n");
+		comboBoxProveedor.setBounds(316, 181, 378, 38);
+		getContentPane().add(comboBoxProveedor);
+		ArrayList<ProveedorVO> proveedores = this.controladorProveedor.getProveedores();
+		for (ProveedorVO proveedor : proveedores) {
+			comboBoxProveedor.addItem(proveedor.getNombre());
+		}
 
 		JLabel lbDescripcion = new JLabel("Descripcion");
 		lbDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbDescripcion.setBounds(10, 328, 107, 33);
 		getContentPane().add(lbDescripcion);
 
-		tfDescripcion = new JTextField();
+		tfDescripcion = new JTextField(producto.getDescripcion());
 		tfDescripcion.setBounds(316, 328, 378, 93);
 		getContentPane().add(tfDescripcion);
 		tfDescripcion.setColumns(10);
@@ -254,6 +254,7 @@ public class CRUDProductoVista extends JDialog {
 				JFileChooser selectorImagen = new JFileChooser();
 				selectorImagen.showDialog(null, "Selecciona una imagen");
 				selectorImagen.setCurrentDirectory(new File("."));
+				imagenPath = selectorImagen.getSelectedFile().getAbsolutePath();
 			}
 		});
 
@@ -263,6 +264,7 @@ public class CRUDProductoVista extends JDialog {
 		getContentPane().add(lbTipoProducto);
 
 		comboBoxTipoProducto = new JComboBox<String>();
+		comboBoxTipoProducto.setSelectedItem(producto.getTipoProducto());
 		comboBoxTipoProducto.setToolTipText("Selecciona\r\n");
 		comboBoxTipoProducto.setBounds(316, 230, 378, 38);
 		getContentPane().add(comboBoxTipoProducto);
@@ -277,9 +279,10 @@ public class CRUDProductoVista extends JDialog {
 		lbTipoMaterial.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lbTipoMaterial.setBounds(10, 282, 200, 35);
 		getContentPane().add(lbTipoMaterial);
-
 		comboBoxMaterialProducto = new JComboBox<String>();
+		comboBoxMaterialProducto.setSelectedItem(producto.getMaterial());
 		comboBoxMaterialProducto.setToolTipText("Selecciona\r\n");
+
 		comboBoxMaterialProducto.setBounds(316, 279, 378, 38);
 		getContentPane().add(comboBoxMaterialProducto);
 		comboBoxMaterialProducto.addItem(" ");
@@ -295,7 +298,7 @@ public class CRUDProductoVista extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Modificar pulsado");
-				limpiarCampos();
+				// limpiarCampos();
 				modificarProducto(producto);
 				setVisible(false);
 			}
@@ -326,26 +329,25 @@ public class CRUDProductoVista extends JDialog {
 
 	public void mostrarListaProductos(boolean seleccionar) {
 		System.out.println(seleccionar);
-		if(seleccionar == false){
+		if (seleccionar == false) {
 			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
 		} else {
 			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.MODIFICAR);
-			JList<ProductoVO> list = catalogo.getJList();
-			ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
+			// JList<ProductoVO> list = catalogo.getJList();
+			// ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 
-			MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent mouseEvent) {
-				JList theList = (JList) mouseEvent.getSource();
-				if (mouseEvent.getClickCount() == 2) {
-					int index = theList.locationToIndex(mouseEvent.getPoint());
-					pulsarBotonModificar(listaDeProductos.get(index));
-				}
-			}
-			};
-			list.addMouseListener(mouseListener);
+			// MouseListener mouseListener = new MouseAdapter() {
+			// public void mouseClicked(MouseEvent mouseEvent) {
+			// JList theList = (JList) mouseEvent.getSource();
+			// if (mouseEvent.getClickCount() == 2) {
+			// int index = theList.locationToIndex(mouseEvent.getPoint());
+			// pulsarBotonModificar(listaDeProductos.get(index));
+			// }
+			// }
+			// };
+			// list.addMouseListener(mouseListener);
 		}
 
-		
 	}
 
 	public void crearProducto() {
@@ -409,7 +411,7 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void modificarProducto(ProductoVO productoAntiguo) {
-		String nombre = tfNombre.getText();
+		String nombre = productoAntiguo.getNombre();
 		int numCuaderno;
 		double precio;
 		String imagen = imagenPath;
@@ -466,7 +468,7 @@ public class CRUDProductoVista extends JDialog {
 		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
 		// gestionar errores
 
-		limpiarCampos();
+		// limpiarCampos();
 	}
 
 	public void limpiarCampos() {

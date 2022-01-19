@@ -30,9 +30,10 @@ public class ProductoControlador {
 		vistaCRUDProducto.pulsarBotonAniadir();
 	}
 
-	public void mostrarModificar() {
-		this.vistaCRUDProducto = new CRUDProductoVista(this);
-		vistaCRUDProducto.mostrarListaProductos(true);
+	public void mostrarModificar(ProductoVO producto) {
+		// this.vistaCRUDProducto = new CRUDProductoVista(this);
+		// vistaCRUDProducto.mostrarListaProductos(true);
+		vistaCRUDProducto.pulsarBotonModificar(producto);
 	}
 
 	public void mostrarEliminar() {
@@ -59,14 +60,16 @@ public class ProductoControlador {
 		return this.logicaProducto.solicitarProductos();
 	}
 
-	public void modificarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
-	TipoMaterial material,
-	double precio,
-	String imagen, String descripcion) throws FileNotFoundException, IOException {
+	public void modificarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto,
+			String nombreProveedor,
+			TipoMaterial material,
+			double precio,
+			String imagen, String descripcion) throws FileNotFoundException, IOException {
 		ProveedorVO proveedor = ProveedorControlador.getInstance().getProveedorPorNombre(nombreProveedor);
-		this.logicaProducto.actualizarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor, material, precio,
-		imagen,
-		descripcion);
+		this.logicaProducto.actualizarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor, material,
+				precio,
+				imagen,
+				descripcion);
 	}
 
 	public void eliminarProducto(ProductoVO producto) {
