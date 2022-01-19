@@ -167,6 +167,8 @@ public class CatalogoVista extends JFrame {
 								controladorCatalogo.actualizar(TipoCatalogo.ELIMINAR);
 								System.out.println("Se ha eliminado el Producto " + o.toString());
 							}
+						} else if (estado == TipoCatalogo.MODIFICAR) {
+							controladorProducto.mostrarModificar((ProductoVO) o);
 						} else if (estado == TipoCatalogo.VENDER) {
 							controladorVenta.seleccionProducto((ProductoVO) o);
 						}
