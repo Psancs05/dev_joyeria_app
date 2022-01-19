@@ -1,27 +1,20 @@
 package Vista.Venta;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import LogicaNegocio.VentaControlador;
-
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.JList;
-
-import LogicaNegocio.VentaControlador;
 import modelo.VO.ProductoVO;
-import javax.swing.JTable;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VentaVista extends JDialog {
 
@@ -56,15 +49,6 @@ public class VentaVista extends JDialog {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(12, 39, 220, 2);
 		getContentPane().add(separator);
-
-		// DefaultListModel<String> model = new DefaultListModel<String>();
-		// for (ProductoVO producto : productosVenta) {
-		// model.addElement(producto.getNombre());
-		// }
-		// JList<String> list = new JList<String>(model);
-		// JScrollPane scrollPane = new JScrollPane(list);
-		// scrollPane.setBounds(22, 58, 1, 1);
-		// getContentPane().add(scrollPane);
 
 		int size = this.productosVenta.size();
 		String column[] = { "Nombre", "Precio" };
