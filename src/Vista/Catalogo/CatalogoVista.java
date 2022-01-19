@@ -170,6 +170,7 @@ public class CatalogoVista extends JFrame {
 						} else if (estado == TipoCatalogo.MODIFICAR) {
 							controladorProducto.mostrarModificar((ProductoVO) o);
 						} else if (estado == TipoCatalogo.VENDER) {
+							// TODO: Abrir ventana principal
 							controladorVenta.seleccionProducto((ProductoVO) o);
 						}
 					}
