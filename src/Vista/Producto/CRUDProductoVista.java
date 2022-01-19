@@ -101,7 +101,7 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxProveedor = new JComboBox<String>();
 		comboBoxProveedor.setBounds(316, 212, 378, 38);
 		comboBoxProveedor.setToolTipText("Selecciona\r\n");
-		comboBoxProveedor.addItem("default");
+		comboBoxProveedor.addItem("");
 		for (ProveedorVO proveedor : this.proveedores) {
 			comboBoxProveedor.addItem(proveedor.getNombre());
 
@@ -336,10 +336,10 @@ public class CRUDProductoVista extends JDialog {
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					// if(!seleccionar){
-					// 	pulsarBotonEliminar(listaDeProductos.get(index));
-					// 	listaDeProductos.remove(index);
+					// pulsarBotonEliminar(listaDeProductos.get(index));
+					// listaDeProductos.remove(index);
 					// } else {
-					// 	pulsarBotonModificar(listaDeProductos.get(index));
+					// pulsarBotonModificar(listaDeProductos.get(index));
 					// }
 					pulsarBotonModificar(listaDeProductos.get(index));
 				}
@@ -452,7 +452,8 @@ public class CRUDProductoVista extends JDialog {
 			try {
 				precio = Double.parseDouble(tfPrecio.getText());
 				numCuaderno = Integer.parseInt(tfNumC.getText());
-				controladorProducto.modificarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor, tipoMaterial, precio,
+				controladorProducto.modificarProducto(productoAntiguo, nombre, numCuaderno, tipoProducto, proveedor,
+						tipoMaterial, precio,
 						imagen,
 						descripcion);
 			} catch (Exception e) {
