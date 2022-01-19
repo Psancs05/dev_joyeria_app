@@ -287,6 +287,216 @@ public class VistaGeneral {
 		AyudaMenuItem.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		AyudaMenuItem.setBackground(blanco);
 		AyudaMenuItem.setForeground(negro);
+
+		JMenuItem ayudaUsuario = new JMenuItem("Usuario");
+		ayudaUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaUsuario.setForeground(negro);
+		ayudaUsuario.setBackground(blanco);
+		ayudaUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//ayuda usuario
+				String[] botones = { "Ayuda añadir", "Ayuda modificar", "Ayuda eliminar" };
+				int ventana = JOptionPane.showOptionDialog(null,
+						"<html><body style='text-align: center'>En este menú se encuentran las opciones para <br/>gestionar los usuarios de la aplicación.</html>",
+						"Ayuda proveedor",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null,
+						botones, botones[0]);
+				if (ventana == 0) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una ventana con un formulario a rellenar <br/>con la información necesaria para añadir un usuario en la base de datos.</html>",
+							"Ayuda añadir",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una lista con los usuarios resgitrados <br/>y permite seleccionar uno para modificar sus atributos.</html>",
+							"Ayuda modificar",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 2) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una ventana para eliminar usuarios.</html>",
+							"Ayuda eliminar",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		AyudaMenuItem.add(ayudaUsuario);
+
+		JMenuItem ayudaProveedor = new JMenuItem("Proveedor");
+		ayudaProveedor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaProveedor.setForeground(negro);
+		ayudaProveedor.setBackground(blanco);
+		ayudaProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda proveedor
+				String[] botones = { "Ayuda añadir", "Ayuda modificar", "Ayuda eliminar"};
+				int ventana = JOptionPane.showOptionDialog(null,
+						"<html><body style='text-align: center'>En este menú se encuentran las opciones para <br/>gestionar los proveedores disponibles para los productos</html>",
+						"Ayuda proveedor",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null,
+						botones, botones[0]);
+				if (ventana == 0) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una ventana con un formulario a rellenar con la <br/>información necesaria para registrar a un proveedor en una base de datos.</html>",
+							"Ayuda añadir",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una lista con los proveedores registrados <br/>y permite seleccionar uno para modificar sus atributos.</html>",
+							"Ayuda modificar",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 2) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una ventana para eliminar proveedores.</html>",
+							"Ayuda eliminar",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		AyudaMenuItem.add(ayudaProveedor);
+
+		JMenuItem ayudaProducto = new JMenuItem("Producto");
+		ayudaProducto.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaProducto.setForeground(negro);
+		ayudaProducto.setBackground(blanco);
+		ayudaProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda producto
+				String[] botones = { "Ayuda aniadir", "Ayuda modificar", "Ayuda eliminar" };
+				int ventana = JOptionPane.showOptionDialog(null,
+						"<html><body style='text-align: center'>En este menu se encuentran las opciones necesarias <br/>para gestionar los productos de la base de datos.</html>",
+						"Ayuda proveedor",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null,
+						botones, botones[0]);
+				if (ventana == 0) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una ventana con un formulario a rellenar con la informacion <br/>necesaria para registrar un producto en la base de datos.</html>",
+							"Ayuda añadir",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una lista con los productos registrados y <br/>permite seleccionar uno para modificar sus atributos</html>",
+							"Ayuda modificar",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 2) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Despliega una lista con los productos <br/>registrados para seleccionar uno y eliminarlo</html>",
+							"Ayuda eliminar",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		AyudaMenuItem.add(ayudaProducto);
+
+		JMenuItem ayudaFacturas = new JMenuItem("Facturas");
+		ayudaFacturas.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaFacturas.setForeground(negro);
+		ayudaFacturas.setBackground(blanco);
+		ayudaFacturas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda facturas
+				JOptionPane.showMessageDialog(
+						null,
+						"<html><body style='text-align: center'>En este menu se ecuentra la opcion de visualizar el listado de facturas. <br/>La opción \"listado\" muestra todas las facturas y permite selecionar cada una para mostrar más información.</html>",
+						"Ayuda factura",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		AyudaMenuItem.add(ayudaFacturas);
+
+		JMenuItem ayudaBackup = new JMenuItem("Backup");
+		ayudaBackup.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaBackup.setForeground(negro);
+		ayudaBackup.setBackground(blanco);
+		ayudaBackup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//ayuda backup
+				String[] botones = { "Ayuda crear backup", "Ayuda restaurar backup" };
+				int ventana = JOptionPane.showOptionDialog(null,
+						"<html><body style='text-align: center'>En este menú se encuentran las opciones necesarias para crear y restaurar <br/>copias de seguridad de la base de datos de la tienda.</html>",
+						"Ayuda backup",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null,
+						botones, botones[0]);
+				if (ventana == 0) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Elegir dónde guardar una copia de seguridad de la base de datos <br/>de la tienda y realizar la copia de seguridad en esa ubicación.</html>",
+							"Ayuda crear backup",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else if (ventana == 1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"<html><body style='text-align: center'>Elegir donde se encuentra la copia de seguridad <br/>del sistema para restaurar la base de datos a ese estado.</html>",
+							"Ayuda restaurar backup",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		AyudaMenuItem.add(ayudaBackup);
+
+		JMenuItem ayudaCerrarSesion = new JMenuItem("Cerrar sesión");
+		ayudaCerrarSesion.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaCerrarSesion.setForeground(negro);
+		ayudaCerrarSesion.setBackground(blanco);
+		ayudaCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda cerrar sesion
+				JOptionPane.showMessageDialog(
+						null,
+						"Menú destinado a cerrar la sesión del usuario.",
+						"Ayuda cerrar sesión",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		AyudaMenuItem.add(ayudaCerrarSesion);
+
+		JMenuItem ayudaVenta = new JMenuItem("Venta");
+		ayudaVenta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaVenta.setForeground(negro);
+		ayudaVenta.setBackground(blanco);
+		ayudaVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda venta
+				JOptionPane.showMessageDialog(
+						null,
+						"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>seleccionar uno o más productos para realizar una venta. <br/>Se mostrará una previsualización de la venta con los productos seleccionados y el precio total</html>",
+						"Ayuda venta",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		AyudaMenuItem.add(ayudaVenta);
+
+		JMenuItem ayudaCatalogo = new JMenuItem("Catálogo");
+		ayudaCatalogo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		ayudaCatalogo.setForeground(negro);
+		ayudaCatalogo.setBackground(blanco);
+		ayudaCatalogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// ayuda catalogo
+				JOptionPane.showMessageDialog(
+						null,
+						new JLabel(
+								"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>selecionar un producto para visualizar su especificación. <br/>Además en la parte inferior se encuentra la opción de filtrar catálogo que permite <br/>introducir una serie de parametros para mostrar los productos que coincidan con ellos.</html>", JLabel.CENTER),
+						"Ayuda catálogo",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		AyudaMenuItem.add(ayudaCatalogo);
+
+		//etc
+
 		menuBar.add(AyudaMenuItem);
 
 		JButton botonVenta = new JButton("Venta");
