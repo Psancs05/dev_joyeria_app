@@ -73,11 +73,6 @@ public class CatalogoVista extends JFrame {
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				setVisible(false);
-
-				if (estado == TipoCatalogo.NORMAL || estado == TipoCatalogo.FILTRAR) {
-					VistaGeneral vistaGeneral = new VistaGeneral();
-					vistaGeneral.setVisible(true);
-				}
 			}
 		});
 		setBounds(100, 100, 450, 300);
