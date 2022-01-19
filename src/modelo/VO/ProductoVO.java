@@ -12,7 +12,7 @@ public class ProductoVO {
     java.sql.Blob imagen;
     TipoMaterial material;
     ProveedorVO proveedor;
-    int IDVenta;
+    Integer IDVenta;
     String descripcion;
 
     // iniciamos el IDProd a -1 eso quiere decir que AUN no esta en la BBDD
@@ -104,7 +104,10 @@ public class ProductoVO {
         this.proveedor = proveedor;
     }
 
-    public int getIDVenta() {
+    public Integer getIDVenta() {   
+        if(IDVenta == null || IDVenta == 0){
+            return -1;
+        }
         return IDVenta;
     }
 

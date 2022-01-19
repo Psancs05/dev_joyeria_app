@@ -34,8 +34,10 @@ public class ProductoLogica {
         ArrayList<ProductoVO> productosInventario = new ArrayList<ProductoVO>();
 
         for (ProductoVO producto : productos) {
-            if (producto.getIDVenta() != -1)
+            if (producto.getIDVenta().equals(-1))
                 productosInventario.add(producto);
+                System.out.println(producto.toString());
+                System.out.println(producto.getIDVenta());
 
         }
         return productosInventario;

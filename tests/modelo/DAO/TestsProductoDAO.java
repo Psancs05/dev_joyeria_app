@@ -130,7 +130,7 @@ public class TestsProductoDAO {
         VentaVO ventaPlaceholder = new VentaVO(Calendar.getInstance().getTime(), 1, 1, listaPlaceholder,
                 usuarioPlaceholder.getDNI(), "direccionTESTVENTADAO");
         ventDAO.create(ventaPlaceholder);
-        assertEquals(anillo.getIDVenta(), ventaPlaceholder.getID());
+        assertTrue(anillo.getIDVenta().equals(ventaPlaceholder.getID()));
         // ProductoVO anilloBD = (ProductoVO) prodDAO.search(anillo);
         // assertEquals(anillo.getIDProducto(), anilloBD.getIDProducto());
         // assertEquals(5555, anilloBD.getIDVenta());

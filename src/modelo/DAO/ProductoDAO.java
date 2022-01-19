@@ -400,7 +400,8 @@ public class ProductoDAO implements DAO {
                 TipoMaterial material = TipoMaterial.valueOf(rs.getString("Material"));
                 ProveedorVO proveedor = (ProveedorVO) provDAO
                         .search(new ProveedorVO(rs.getString("Proveedor"), "nombre"));
-                int iDVenta = rs.getInt("IDVenta");
+                Integer iDVenta = rs.getInt("IDVenta");
+                System.out.println("PEDAZO DE VACA ESTE ES ELK ID VENTA ZORRA" + iDVenta);
                 String descripcion = rs.getString("Descripcion");
 
                 // Creamos el producto con los datos obtenidos
