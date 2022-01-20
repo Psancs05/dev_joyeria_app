@@ -1,14 +1,12 @@
 package LogicaNegocio;
 
-import java.util.ArrayList;
-
 import Vista.Facturas.ListadoFacturasVista;
 
 public class FacturaControlador {
-	
+
 	private ListadoFacturasVista vistaListadoFacturas;
 	private FacturaControlador controladorFacturas;
-	
+
 	public FacturaControlador(ListadoFacturasVista vistaListadoFacturas, FacturaControlador controladorFacturas) {
 		this.vistaListadoFacturas = vistaListadoFacturas;
 		this.controladorFacturas = controladorFacturas;

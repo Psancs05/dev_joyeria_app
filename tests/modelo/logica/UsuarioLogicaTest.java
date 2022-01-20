@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import globals.enums.TipoUsuario;
 import modelo.VO.UsuarioVO;
-import modelo.logica.UsuarioLogica;
 
 public class UsuarioLogicaTest {
     private UsuarioLogica userLogic = new UsuarioLogica();

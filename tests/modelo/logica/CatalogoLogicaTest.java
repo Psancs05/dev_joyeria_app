@@ -1,8 +1,9 @@
 package modelo.logica;
 
-
 import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +13,6 @@ import modelo.DAO.ProductoDAO;
 import modelo.DAO.ProveedorDAO;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
-import modelo.logica.CatalogoLogica;
 
 public class CatalogoLogicaTest {
     private ProductoDAO prodDAO = ProductoDAO.getInstance();

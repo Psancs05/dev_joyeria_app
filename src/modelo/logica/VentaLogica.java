@@ -2,7 +2,6 @@ package modelo.logica;
 
 import java.util.ArrayList;
 
-import LogicaNegocio.UsuarioControlador;
 import modelo.DAO.VentaDAO;
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;

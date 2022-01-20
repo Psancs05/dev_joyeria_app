@@ -6,10 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -21,14 +21,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import com.itextpdf.awt.geom.Dimension;
-import com.itextpdf.text.pdf.parser.Vector;
 
 import LogicaNegocio.UsuarioControlador;
 import globals.enums.TipoUsuario;
@@ -269,8 +262,9 @@ public class CRUDUsuarioVista extends JDialog {
 	public void pulsarBotonEliminar(UsuarioVO usuario) {
 
 		JFrame adv = new JFrame();
-		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-		if(result == 0){
+		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?",
+				"Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (result == 0) {
 			controladorUsuario.eliminarUsuario(usuario);
 			listaDeUsuarios.remove(usuario);
 			System.out.println("Se ha eliminado el usuario " + usuario.toString());
@@ -279,7 +273,7 @@ public class CRUDUsuarioVista extends JDialog {
 		controladorUsuario.mostrarEliminar();
 	}
 
-	public void mostrarListadoDeUsuarios(boolean seleccionar){
+	public void mostrarListadoDeUsuarios(boolean seleccionar) {
 
 		listaDeUsuarios = new ArrayList<UsuarioVO>();
 		listaDeUsuarios = controladorUsuario.getInstance().getUsuarios();
@@ -308,23 +302,22 @@ public class CRUDUsuarioVista extends JDialog {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
-						int index = theList.locationToIndex(mouseEvent.getPoint());
-						usuarioSeleccionado =  listaDeUsuarios.get(index);
-						if(seleccionar == true){
-							pulsarBotonEliminar(usuarioSeleccionado);
-						} else {
-							pulsarBotonModificar(usuarioSeleccionado);
-						}
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					usuarioSeleccionado = listaDeUsuarios.get(index);
+					if (seleccionar == true) {
+						pulsarBotonEliminar(usuarioSeleccionado);
+					} else {
+						pulsarBotonModificar(usuarioSeleccionado);
 					}
-					
 				}
+
+			}
 		};
 		list.addMouseListener(mouseListener);
 	}
-		
 
 	public void crearUsuario() {
-		
+
 		String DNI = tfDNI.getText();
 		String nombre = tfNombre.getText();
 		String email = tfEmail.getText();
@@ -339,19 +332,20 @@ public class CRUDUsuarioVista extends JDialog {
 		} else {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
-		
-		if(DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
+
+		if (DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("")
+				|| tipoUsuariocb.toString().equals(" ")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if(DNI.length() != 9){
+		} else if (DNI.length() != 9) {
 			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);			
-		} else if(!(email.contains("@"))){
+			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (!(email.contains("@"))) {
 			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	
+			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
-			tipoUsuario);
+					tipoUsuario);
 		}
 		limpiarCampos();
 	}
@@ -373,18 +367,19 @@ public class CRUDUsuarioVista extends JDialog {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
 
-		if(DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("") || tipoUsuariocb.toString().equals(" ") ){
+		if (DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("")
+				|| tipoUsuariocb.toString().equals(" ")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if(DNI.length() != 9){
+		} else if (DNI.length() != 9) {
 			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);			
-		} else if(!(email.contains("@"))){
+			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (!(email.contains("@"))) {
 			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);	
+			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			controladorUsuario.modificarUsuario(usuario, DNI, nombre, email, password,
-				tipoUsuario);
+					tipoUsuario);
 		}
 	}
 

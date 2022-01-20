@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,8 +35,8 @@ public class ProductoLogica {
         for (ProductoVO producto : productos) {
             if (producto.getIDVenta().equals(-1))
                 productosInventario.add(producto);
-                System.out.println(producto.toString());
-                System.out.println(producto.getIDVenta());
+            System.out.println(producto.toString());
+            System.out.println(producto.getIDVenta());
 
         }
         return productosInventario;
@@ -68,10 +67,11 @@ public class ProductoLogica {
         }
     }
 
-    public void actualizarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto, ProveedorVO proveedor,
-	TipoMaterial material,
-	double precio,
-	String imagen, String descripcion) throws FileNotFoundException, IOException {
+    public void actualizarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno,
+            TipoProducto tipoProducto, ProveedorVO proveedor,
+            TipoMaterial material,
+            double precio,
+            String imagen, String descripcion) throws FileNotFoundException, IOException {
         productoAntiguo.setTipoProducto(tipoProducto);
         productoAntiguo.setNumCuaderno(numCuaderno);
         productoAntiguo.setPrecio(precio);
@@ -80,7 +80,7 @@ public class ProductoLogica {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(img, "jpg", baos);
         byte[] bytes = baos.toByteArray();
-        // java.sql.Blob blob = new SerialBlob(blob);  //!ESTA LINEA DA EROR
+        // java.sql.Blob blob = new SerialBlob(blob); //!ESTA LINEA DA EROR
         // productoAntiguo.setImagen(blob);
         productoAntiguo.setMaterial(material);
         productoAntiguo.setProveedor(proveedor);
