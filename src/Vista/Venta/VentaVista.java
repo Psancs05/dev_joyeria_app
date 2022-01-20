@@ -33,11 +33,11 @@ public class VentaVista extends JDialog {
 		this.controladorVenta = controladorVenta;
 		this.productosVenta = productos;
 		System.out.println("productosVenta: " + productosVenta.size());
-		initialite();
+		initialize();
 
 	}
 
-	public void initialite() {
+	public void initialize() {
 
 		Color gris = new Color(223, 223, 223);
 

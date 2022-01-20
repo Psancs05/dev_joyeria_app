@@ -76,7 +76,7 @@ public class LoginVista extends JDialog {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dni = dniField.getText();
-				String password = passwordField.getText();
+				String password = String.valueOf(passwordField.getPassword());
 				if (dni.equals("") || password.equals("")) {
 					JFrame error = new JFrame();
 					JOptionPane.showMessageDialog(error, "Introduzca DNI y contraseña.", "Error",

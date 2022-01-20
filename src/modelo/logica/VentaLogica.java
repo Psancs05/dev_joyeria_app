@@ -43,17 +43,9 @@ public class VentaLogica {
         return nuevaVenta.getID();
     }
 
-    public void realizarBackupFacturas(ArrayList<VentaVO> ventas, String ubicacion) {
-        // TODO: implement
-    }
-
     public ArrayList<VentaVO> mostrarListadoFacturas() {
         ArrayList<VentaVO> ventas = ventaDAO.getListadoVentas();
         return ventas;
-    }
-
-    public void copiaFactura(VentaVO venta) {
-        // TODO: implement
     }
 
 }

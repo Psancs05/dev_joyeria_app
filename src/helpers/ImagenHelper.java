@@ -2,6 +2,7 @@ package helpers;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -11,17 +12,21 @@ import javax.swing.ImageIcon;
 public class ImagenHelper {
 
     public static BufferedImage getProductoImagen(Blob productoImagen) {
+        
         try {
+            if (productoImagen == null) {
+                File img = new File("assets" + File.separator + "logo.jpg");
+                BufferedImage image = ImageIO.read(img);
+                return image;
+            }
             java.io.InputStream in = productoImagen.getBinaryStream();
             BufferedImage image;
             image = ImageIO.read(in);
             return image;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }

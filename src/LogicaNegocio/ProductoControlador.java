@@ -17,7 +17,7 @@ public class ProductoControlador {
 	private static ProductoControlador miProductoControlador;
 	private ProductoLogica logicaProducto;
 	private CRUDProductoVista vistaCRUDProducto;
-	ArrayList<ProductoVO> productosEtiqueta; // TODO? Mover a otro controlador?
+	ArrayList<ProductoVO> productosEtiqueta;
 
 	private ProductoControlador() {
 		this.productosEtiqueta = new ArrayList<ProductoVO>();
@@ -31,8 +31,6 @@ public class ProductoControlador {
 	}
 
 	public void mostrarModificar(ProductoVO producto) {
-		// this.vistaCRUDProducto = new CRUDProductoVista(this);
-		// vistaCRUDProducto.mostrarListaProductos(true);
 		vistaCRUDProducto.pulsarBotonModificar(producto);
 	}
 
@@ -51,7 +49,6 @@ public class ProductoControlador {
 					proveedor,
 					descripcion);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

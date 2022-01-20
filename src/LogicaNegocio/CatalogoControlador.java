@@ -31,10 +31,6 @@ public class CatalogoControlador {
 		this.catalogo = new CatalogoVista(estado);
 	}
 
-	public void gestionarAccionCatalogo() {
-		// TODO
-	}
-
 	public void mostrarCatalogo(ArrayList<ProductoVO> productos) {
 		catalogo.mostrarCatalogo(productos);
 	}

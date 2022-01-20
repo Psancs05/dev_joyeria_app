@@ -33,18 +33,6 @@ public class CRUDProveedorVista extends JDialog {
 	// * Constructor
 	public CRUDProveedorVista(ProveedorControlador controladorProveedor) {
 		this.controladorProveedor = controladorProveedor;
-
-		// TODO? Esto no puede ir así porque llamamos a la instancia de
-		// productoControlador
-		// y esta llama a proveedorControlador y se forma un bucle infinito
-
-		// // ? Provisional
-		// ArrayList<ProveedorVO> listaProveedores =
-		// this.controladorProveedor.getProveedores();
-		// System.out.println("Lista de proveedores");
-		// for (ProveedorVO prov : listaProveedores) {
-		// System.out.println(prov.toString());
-		// }
 	}
 
 	JTextField tfCIF;
@@ -231,6 +219,7 @@ public class CRUDProveedorVista extends JDialog {
 		// Listener para abrir la especificacion de producto cuando se haga click en uno
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("rawtypes")
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
@@ -278,12 +267,4 @@ public class CRUDProveedorVista extends JDialog {
 		tfNombre.setText("");
 	}
 
-	// TODO?: Necesitamos getters y setters en las vistas??
-	public ProveedorControlador getControladorProveedor() {
-		return controladorProveedor;
-	}
-
-	public void setControladorProveedor(ProveedorControlador controladorProveedor) {
-		this.controladorProveedor = controladorProveedor;
-	}
 }

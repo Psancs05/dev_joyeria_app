@@ -25,17 +25,17 @@ public class ListadoFacturasVista extends JFrame {
 
 	private VentaControlador controladorVenta;
 
-	public ListadoFacturasVista() {
-
+	public ListadoFacturasVista(VentaControlador controladorVenta) {
+		this.controladorVenta = controladorVenta;
+		initialize();
+		
 	}
 
 	public void initialize() {
 		this.setVisible(true);
-		controladorVenta = VentaControlador.getInstance();
 		ventas = controladorVenta.getListadoVentas();
 		contentPane = new JPanel();
 
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				VistaGeneral vistaGeneral = new VistaGeneral();
@@ -79,6 +79,7 @@ public class ListadoFacturasVista extends JFrame {
 		// Listener para abrir la especificacion de producto cuando se haga click en uno
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("rawtypes")
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 1) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());

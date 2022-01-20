@@ -23,10 +23,6 @@ public class UsuarioControlador {
 		this.usuarioActual = null;
 	}
 
-	public void gestionarAccionUsuario() {
-		// TODO
-	}
-
 	public boolean comprobarUsuario(String dni, String password) {
 		boolean response = logicaUsuario.comprobarUsuario(dni, password);
 		if (response) {

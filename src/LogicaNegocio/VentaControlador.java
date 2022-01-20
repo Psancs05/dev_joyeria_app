@@ -16,7 +16,6 @@ public class VentaControlador {
 
 	private VentaLogica logicaVenta;
 	private VentaVista vistaVenta;
-	private ListadoFacturasVista listado;
 	private ArrayList<ProductoVO> productosVenta;
 
 	public static VentaControlador getInstance() {
@@ -29,7 +28,6 @@ public class VentaControlador {
 	private VentaControlador() {
 		this.productosVenta = new ArrayList<ProductoVO>();
 		this.logicaVenta = new VentaLogica();
-		this.listado = new ListadoFacturasVista();
 
 	}
 
@@ -46,7 +44,7 @@ public class VentaControlador {
 	}
 
 	public void mostrarListado() {
-		listado.initialize();
+		new ListadoFacturasVista(this);
 	}
 
 	public ArrayList<VentaVO> getListadoVentas() {
@@ -62,14 +60,10 @@ public class VentaControlador {
 	}
 
 	public void mostrarVenta() {
-		// actualizarVentaVista();
 		this.vistaVenta = new VentaVista(this, productosVenta);
 		vistaVenta.setVisible(true);
 	}
 
-	// public void actualizarVentaVista() {
-	// vistaVenta.setProductos(productosVenta);
-	// }
 
 	public void seleccionProducto(ProductoVO producto) {
 		if (productosVenta.contains(producto)) {

@@ -298,6 +298,7 @@ public class CRUDUsuarioVista extends JDialog {
 		// Listener para abrir la especificacion de producto cuando se haga click en uno
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("rawtypes")
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
@@ -387,15 +388,6 @@ public class CRUDUsuarioVista extends JDialog {
 		tfEmail.setText("");
 		tfPassword.setText("");
 		cbTipoUsuario.setSelectedIndex(0);
-	}
-
-	// TODO?: Necesitamos getters y setters en las vistas??
-	public UsuarioControlador getControladorUsuario() {
-		return controladorUsuario;
-	}
-
-	public void setControladorUsuario(UsuarioControlador controladorUsuario) {
-		this.controladorUsuario = controladorUsuario;
 	}
 
 }

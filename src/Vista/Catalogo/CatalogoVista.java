@@ -51,7 +51,6 @@ public class CatalogoVista extends JFrame {
 			this.controladorVenta = VentaControlador.getInstance();
 		initialize();
 		this.setVisible(true);
-		initialize();
 		getProductos();
 		mostrarProductosEnLista();
 	}
@@ -75,8 +74,6 @@ public class CatalogoVista extends JFrame {
 		contentPane = new JPanel();
 
 		Color gris = new Color(223, 223, 223);
-
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				setVisible(false);
@@ -117,7 +114,6 @@ public class CatalogoVista extends JFrame {
 				}
 			});
 			imprimirEtiquetas = new JButton("Imprimir etiqueta");
-			// contentPane.add(imprimirEtiquetas, BorderLayout.SOUTH);
 			btnPnl.add(filtrarProductos);
 			btnPnl.add(imprimirEtiquetas);
 			contentPane.add(btnPnl, BorderLayout.SOUTH);
@@ -148,27 +144,6 @@ public class CatalogoVista extends JFrame {
 			});
 		}
 
-		// if (estado == TipoCatalogo.ELIMINAR) {
-		// // Create a button in the bottom of the window
-		// JButton btnEliminar = new JButton("Borrar producto");
-
-		// contentPane.add(btnEliminar, BorderLayout.SOUTH);
-		// btnEliminar.addMouseListener(new MouseAdapter() {
-		// public void mouseClicked(MouseEvent mouseEvent) {
-		// JList theList = (JList) mouseEvent.getSource();
-
-		// int index = theList.locationToIndex(mouseEvent.getPoint());
-
-		// if (index >= 0) {
-		// Object o = theList.getModel().getElementAt(index);
-		// System.out.println("Click on: " + o.toString());
-		// controladorProducto.eliminarProducto((ProductoVO) o);
-		// }
-
-		// }
-		// });
-		// }
-
 	}
 
 	private void getProductos() {
@@ -190,6 +165,7 @@ public class CatalogoVista extends JFrame {
 		// Listener para abrir la especificacion de producto cuando se haga click en uno
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("rawtypes")
 				JList theList = (JList) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 1) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
@@ -209,7 +185,6 @@ public class CatalogoVista extends JFrame {
 						} else if (estado == TipoCatalogo.MODIFICAR) {
 							controladorProducto.mostrarModificar((ProductoVO) o);
 						} else if (estado == TipoCatalogo.VENDER) {
-							// TODO: Abrir ventana principal
 							controladorVenta.seleccionProducto((ProductoVO) o);
 						} else if (estado == TipoCatalogo.FILTRAR) {
 							controladorProducto.seleccionProductoEtiqueta((ProductoVO) o);

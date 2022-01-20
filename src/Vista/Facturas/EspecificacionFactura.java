@@ -27,10 +27,10 @@ public class EspecificacionFactura extends JDialog {
 
 	public EspecificacionFactura(VentaVO venta) {
 		this.venta = venta;
-		initialite();
+		initialize();
 	}
 
-	public void initialite() {
+	public void initialize() {
 		setBounds(100, 100, 758, 517);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

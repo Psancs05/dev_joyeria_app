@@ -39,17 +39,12 @@ public class ProveedorLogica {
         return nuevoProveedor;
     }
 
-    // TODO!: checkear que parametros se le pasa a este metodo
     public void actualizarProveedorVO(ProveedorVO proveedor, String CIF, String nombre) {
 
         ProveedorVO proveedorActual = new ProveedorVO(CIF, nombre);
         boolean response = this.proveedorDAO.update(proveedorActual);
         if (response)
             System.out.println("Proveedor actualizado: " + proveedor.toString());
-    }
-
-    // TODO: No se que hace este metodo
-    public void generarProveedorActualizado() {
     }
 
     public void retirarProveedorVO(ProveedorVO proveedor) {

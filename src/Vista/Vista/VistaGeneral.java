@@ -30,9 +30,6 @@ public class VistaGeneral {
 	private JFrame frame;
 	private UsuarioControlador controlador;
 
-	/**
-	 * Create the application.
-	 */
 	public VistaGeneral() {
 		controlador = UsuarioControlador.getInstance();
 		initialize();
@@ -177,7 +174,6 @@ public class VistaGeneral {
 		modificarProducto.setBackground(blanco);
 		modificarProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// ProductoControlador.getInstance().mostrarModificar();
 				new CatalogoVista(TipoCatalogo.MODIFICAR);
 			}
 		});

@@ -339,19 +339,6 @@ public class CRUDProductoVista extends JDialog {
 			new CatalogoVista(TipoCatalogo.ELIMINAR);
 		} else {
 			new CatalogoVista(TipoCatalogo.MODIFICAR);
-			// JList<ProductoVO> list = catalogo.getJList();
-			// ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
-
-			// MouseListener mouseListener = new MouseAdapter() {
-			// public void mouseClicked(MouseEvent mouseEvent) {
-			// JList theList = (JList) mouseEvent.getSource();
-			// if (mouseEvent.getClickCount() == 2) {
-			// int index = theList.locationToIndex(mouseEvent.getPoint());
-			// pulsarBotonModificar(listaDeProductos.get(index));
-			// }
-			// }
-			// };
-			// list.addMouseListener(mouseListener);
 		}
 
 	}
@@ -410,9 +397,6 @@ public class CRUDProductoVista extends JDialog {
 			}
 		}
 
-		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
-		// gestionar errores
-
 		limpiarCampos();
 	}
 
@@ -470,11 +454,6 @@ public class CRUDProductoVista extends JDialog {
 						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
-		// TODO: Comprobar que los valores sean correctos (no campos vacios etc) y
-		// gestionar errores
-
-		// limpiarCampos();
 	}
 
 	public void limpiarCampos() {
@@ -485,15 +464,6 @@ public class CRUDProductoVista extends JDialog {
 		comboBoxTipoProducto.setSelectedItem(0);
 		comboBoxMaterialProducto.setSelectedItem(0);
 		comboBoxProveedor.setSelectedItem(0);
-	}
-
-	// TODO?: Necesitamos getters y setters en las vistas??
-	public ProductoControlador getControladorProducto() {
-		return controladorProducto;
-	}
-
-	public void setControladorProducto(ProductoControlador controladorProducto) {
-		this.controladorProducto = controladorProducto;
 	}
 
 }

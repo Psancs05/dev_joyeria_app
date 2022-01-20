@@ -22,9 +22,6 @@ public class UsuarioLogica {
         return (UsuarioVO) usuarioDAO.getUsuarioPorDNI(dni);
     }
 
-    public void cerrarSesion() {
-        // TODO: implement
-    }
 
     public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
@@ -45,10 +42,6 @@ public class UsuarioLogica {
 
         this.usuarioDAO.update(usarioAntiguo);
 
-    }
-
-    public void generarUsuarioActuializado() {
-        // TODO: implement
     }
 
     public boolean retirarUsuario(UsuarioVO usuario) {

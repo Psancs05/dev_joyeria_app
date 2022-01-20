@@ -24,10 +24,6 @@ public class ProductoLogica {
         this.productoDAO = ProductoDAO.getInstance();
     }
 
-    public void imprimirEtiquetaProdcuto(ProductoVO producto, String ubicacion) {
-        // TODO: implement
-    }
-
     public ArrayList<ProductoVO> solicitarProductos() {
         ArrayList<ProductoVO> productos = this.productoDAO.getListaProductos();
         ArrayList<ProductoVO> productosInventario = new ArrayList<ProductoVO>();
@@ -87,10 +83,6 @@ public class ProductoLogica {
         productoAntiguo.setDescripcion(descripcion);
         productoAntiguo.setNombre(nombre);
         productoDAO.update(productoAntiguo);
-    }
-
-    public void generarProductoActualizado() {
-        // TODO: implement
     }
 
     public boolean retirarProducto(ProductoVO producto) {
