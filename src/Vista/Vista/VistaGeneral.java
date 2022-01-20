@@ -382,13 +382,13 @@ public class VistaGeneral {
 				} else if (ventana == 1) {
 					JOptionPane.showMessageDialog(
 							null,
-							"<html><body style='text-align: center'>Despliega una lista con los productos registrados y <br/>permite seleccionar uno para modificar sus atributos</html>",
+							"<html><body style='text-align: center'>Despliega una lista con los productos registrados y <br/>permite seleccionar uno para modificar sus atributos<br/>Para seleccionar un producto se ha de hacer ctrl+click. </html>",
 							"Ayuda modificar",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else if (ventana == 2) {
 					JOptionPane.showMessageDialog(
 							null,
-							"<html><body style='text-align: center'>Despliega una lista con los productos <br/>registrados para seleccionar uno y eliminarlo</html>",
+							"<html><body style='text-align: center'>Despliega una lista con los productos <br/>registrados para seleccionar uno y eliminarlo<br/>Para seleccionar un producto se ha de hacer ctrl+click. </html>",
 							"Ayuda eliminar",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -468,7 +468,7 @@ public class VistaGeneral {
 				// ayuda venta
 				JOptionPane.showMessageDialog(
 						null,
-						"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>seleccionar uno o más productos para realizar una venta. <br/>Se mostrará una previsualización de la venta con los productos seleccionados y el precio total</html>",
+						"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>seleccionar uno o más productos para realizar una venta. <br/>Para seleccionar uno o varios productos se ha de hacer ctrl+click. <br/>Se mostrará una previsualización de la venta con los productos seleccionados y el precio total</html>",
 						"Ayuda venta",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -485,7 +485,7 @@ public class VistaGeneral {
 				JOptionPane.showMessageDialog(
 						null,
 						new JLabel(
-								"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>selecionar un producto para visualizar su especificación. <br/>Además en la parte inferior se encuentra la opción de filtrar catálogo que permite <br/>introducir una serie de parametros para mostrar los productos que coincidan con ellos.</html>",
+								"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>selecionar un producto para visualizar su especificación. <br/>Para seleccionar uno o varios productos se ha de hacer ctrl+click. <br/>Además en la parte inferior se encuentra la opción de filtrar catálogo que permite <br/>introducir una serie de parametros para mostrar los productos que coincidan con ellos.</html>",
 								JLabel.CENTER),
 						"Ayuda catálogo",
 						JOptionPane.INFORMATION_MESSAGE);
