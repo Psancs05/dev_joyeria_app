@@ -17,7 +17,6 @@ public class ProductoControlador {
 	private static ProductoControlador miProductoControlador;
 	private ProductoLogica logicaProducto;
 	private CRUDProductoVista vistaCRUDProducto;
-	private ProductoVO productoActual;
 	ArrayList<ProductoVO> productosEtiqueta; // TODO? Mover a otro controlador?
 
 	private ProductoControlador() {

@@ -1,6 +1,5 @@
 package Vista.Catalogo;
 
-import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import LogicaNegocio.CatalogoControlador;
-import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.ProveedorControlador;
 import globals.enums.TipoCatalogo;
 import globals.enums.TipoMaterial;
@@ -25,7 +24,6 @@ import modelo.VO.ProveedorVO;
 public class FiltrarVista extends JDialog {
 
 	public FiltrarVista() {
-		this.controladorProducto = ProductoControlador.getInstance();
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.proveedores = controladorProveedor.getProveedores();
@@ -40,7 +38,6 @@ public class FiltrarVista extends JDialog {
 	JComboBox<String> comboBoxMaterialProducto;
 	JTextField tfNumC;
 
-	private ProductoControlador controladorProducto;
 	private ProveedorControlador controladorProveedor;
 	private ArrayList<ProveedorVO> proveedores;
 

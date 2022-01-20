@@ -29,7 +29,6 @@ public class VistaGeneral {
 
 	private JFrame frame;
 	private UsuarioControlador controlador;
-	private VentaControlador controladorVenta;
 
 	/**
 	 * Create the application.
@@ -297,7 +296,7 @@ public class VistaGeneral {
 		ayudaUsuario.setBackground(blanco);
 		ayudaUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//ayuda usuario
+				// ayuda usuario
 				String[] botones = { "Ayuda añadir", "Ayuda modificar", "Ayuda eliminar" };
 				int ventana = JOptionPane.showOptionDialog(null,
 						"<html><body style='text-align: center'>En este menú se encuentran las opciones para <br/>gestionar los usuarios de la aplicación.</html>",
@@ -335,7 +334,7 @@ public class VistaGeneral {
 		ayudaProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// ayuda proveedor
-				String[] botones = { "Ayuda añadir", "Ayuda modificar", "Ayuda eliminar"};
+				String[] botones = { "Ayuda añadir", "Ayuda modificar", "Ayuda eliminar" };
 				int ventana = JOptionPane.showOptionDialog(null,
 						"<html><body style='text-align: center'>En este menú se encuentran las opciones para <br/>gestionar los proveedores disponibles para los productos</html>",
 						"Ayuda proveedor",
@@ -424,7 +423,7 @@ public class VistaGeneral {
 		ayudaBackup.setBackground(blanco);
 		ayudaBackup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//ayuda backup
+				// ayuda backup
 				String[] botones = { "Ayuda crear backup", "Ayuda restaurar backup" };
 				int ventana = JOptionPane.showOptionDialog(null,
 						"<html><body style='text-align: center'>En este menú se encuentran las opciones necesarias para crear y restaurar <br/>copias de seguridad de la base de datos de la tienda.</html>",
@@ -491,14 +490,15 @@ public class VistaGeneral {
 				JOptionPane.showMessageDialog(
 						null,
 						new JLabel(
-								"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>selecionar un producto para visualizar su especificación. <br/>Además en la parte inferior se encuentra la opción de filtrar catálogo que permite <br/>introducir una serie de parametros para mostrar los productos que coincidan con ellos.</html>", JLabel.CENTER),
+								"<html><body style='text-align: center'>Esta opción despliega el catálogo de productos y permite <br/>selecionar un producto para visualizar su especificación. <br/>Además en la parte inferior se encuentra la opción de filtrar catálogo que permite <br/>introducir una serie de parametros para mostrar los productos que coincidan con ellos.</html>",
+								JLabel.CENTER),
 						"Ayuda catálogo",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		AyudaMenuItem.add(ayudaCatalogo);
 
-		//etc
+		// etc
 
 		menuBar.add(AyudaMenuItem);
 

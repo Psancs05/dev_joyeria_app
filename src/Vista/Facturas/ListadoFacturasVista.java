@@ -21,8 +21,6 @@ import modelo.VO.VentaVO;
 
 public class ListadoFacturasVista extends JFrame {
 	private JPanel contentPane;
-	private JList<VentaVO> list;
-	private DefaultListModel<VentaVO> model;
 	private ArrayList<VentaVO> ventas;
 
 	private VentaControlador controladorVenta;

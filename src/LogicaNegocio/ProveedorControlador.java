@@ -10,7 +10,6 @@ public class ProveedorControlador {
 	// * Atributos
 	private static ProveedorControlador miProveedorControlador;
 	private CRUDProveedorVista vistaCRUDProveedor;
-	private ProveedorVO proveedorActual;
 	private ProveedorLogica logicaProveedor;
 
 	// * Constructor y Singleton
@@ -28,7 +27,7 @@ public class ProveedorControlador {
 
 	// * Metodos de la logica
 	public void aniadirProveedor(String CIF, String nombre) {
-		
+
 		this.logicaProveedor.registrarProveedorVO(CIF, nombre);
 	}
 
