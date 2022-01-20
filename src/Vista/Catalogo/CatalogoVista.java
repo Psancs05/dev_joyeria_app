@@ -1,6 +1,8 @@
 package Vista.Catalogo;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -115,50 +117,6 @@ public class CatalogoVista extends JFrame {
 			});
 			imprimirEtiquetas = new JButton("Imprimir etiqueta");
 			// contentPane.add(imprimirEtiquetas, BorderLayout.SOUTH);
-			productosSeleccionados = new ArrayList<ProductoVO>();
-
-			MouseListener mouseListener = new MouseAdapter() {
-				public void mouseClicked(MouseEvent mouseEvent) {
-					JList theList = (JList) mouseEvent.getSource();
-					if (mouseEvent.getClickCount() == 1) {
-						int index = theList.locationToIndex(mouseEvent.getPoint());
-						if (productosSeleccionados.contains(productos.get(index))) {
-							productosSeleccionados.remove(productos.get(index));
-							System.out.println("Se elimino el producto de las etiquetas");
-						} else {
-							productosSeleccionados.add(productos.get(index));
-							System.out.println("Se agrego el producto a las etiquetas");
-						}
-					}
-				}
-			};
-
-			imprimirEtiquetas.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// imprimir etiquetas de productos seleccionados
-					// necesito String ubicacion
-					// necesito arraylist de productosVO
-					System.out.println("PULSADO LA MERDA DE ETIQUETAS");
-					JFileChooser fileChooser = new JFileChooser();
-					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					int option = fileChooser.showOpenDialog(null);
-					if (option == JFileChooser.APPROVE_OPTION) {
-						File file = fileChooser.getSelectedFile();
-						String path = file.getAbsolutePath();
-						System.out.println("Seleccionado: " + path);
-						boolean exito = PDFHelper.generarPDFEtiqueta(productosSeleccionados, path);
-						if (exito)
-							JOptionPane.showMessageDialog(null, "PDF generado correctamente");
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Error al seleccionar directorio",
-								"Error al crear la factura",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			list.addMouseListener(mouseListener);
 			btnPnl.add(filtrarProductos);
 			btnPnl.add(imprimirEtiquetas);
 			contentPane.add(btnPnl, BorderLayout.SOUTH);
@@ -227,6 +185,45 @@ public class CatalogoVista extends JFrame {
 						} else if (estado == TipoCatalogo.VENDER) {
 							// TODO: Abrir ventana principal
 							controladorVenta.seleccionProducto((ProductoVO) o);
+						} else if (estado == TipoCatalogo.FILTRAR) {
+							productosSeleccionados = new ArrayList<ProductoVO>();
+
+							MouseListener mouseListenerFiltrar = new MouseAdapter() {
+								public void mouseClicked(MouseEvent mouseEvent) {
+									JList theList = (JList) mouseEvent.getSource();
+									if (mouseEvent.getClickCount() == 1) {
+										int index = theList.locationToIndex(mouseEvent.getPoint());
+										if (productosSeleccionados.contains(productos.get(index))) {
+											productosSeleccionados.remove(productos.get(index));
+											System.out.println(productosSeleccionados.toString());
+										} else {
+											productosSeleccionados.add(productos.get(index));
+											System.out.println(productosSeleccionados.toString());
+										}
+									}
+								}
+							};
+
+							imprimirEtiquetas.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									JFileChooser fileChooser = new JFileChooser();
+									fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+									int option = fileChooser.showOpenDialog(null);
+									if (option == JFileChooser.APPROVE_OPTION) {
+										File file = fileChooser.getSelectedFile();
+										String path = file.getAbsolutePath();
+										System.out.println("Seleccionado: " + path);
+										boolean exito = PDFHelper.generarPDFEtiqueta(productosSeleccionados, path);
+										if (exito)
+											JOptionPane.showMessageDialog(null, "PDF generado correctamente");
+					
+									} else {
+										JOptionPane.showMessageDialog(null, "Error al seleccionar directorio", "Error al crear la factura",
+												JOptionPane.ERROR_MESSAGE);
+									}
+								}
+							});
+							list.addMouseListener(mouseListenerFiltrar);
 						}
 					}
 				} else if (mouseEvent.getClickCount() == 2) {
@@ -234,6 +231,7 @@ public class CatalogoVista extends JFrame {
 
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
+
 						System.out.println("Click on: " + o.toString());
 
 						EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);
