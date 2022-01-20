@@ -1,14 +1,18 @@
 package Vista.Catalogo;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,8 +24,8 @@ import javax.swing.border.EmptyBorder;
 import LogicaNegocio.CatalogoControlador;
 import LogicaNegocio.ProductoControlador;
 import LogicaNegocio.VentaControlador;
-import Vista.Vista.VistaGeneral;
 import globals.enums.TipoCatalogo;
+import helpers.PDFHelper;
 import modelo.VO.ProductoVO;
 
 public class CatalogoVista extends JFrame {
@@ -30,6 +34,7 @@ public class CatalogoVista extends JFrame {
 	private JList<ProductoVO> list;
 	private DefaultListModel<ProductoVO> model;
 	private JButton filtrarProductos;
+	private JButton imprimirEtiquetas;
 
 	private ArrayList<ProductoVO> productos;
 	private ProductoControlador controladorProducto;
@@ -101,6 +106,7 @@ public class CatalogoVista extends JFrame {
 
 		// Create a button in the bottom of the window
 		if (estado == TipoCatalogo.FILTRAR) {
+			JPanel btnPnl = new JPanel();
 			filtrarProductos = new JButton("Filtrar Productos");
 			filtrarProductos.setBackground(gris);
 			contentPane.add(filtrarProductos, BorderLayout.SOUTH);
@@ -108,6 +114,36 @@ public class CatalogoVista extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					controladorCatalogo.mostrarCatalogoFiltar();
+				}
+			});
+			imprimirEtiquetas = new JButton("Imprimir etiqueta");
+			// contentPane.add(imprimirEtiquetas, BorderLayout.SOUTH);
+			btnPnl.add(filtrarProductos);
+			btnPnl.add(imprimirEtiquetas);
+			contentPane.add(btnPnl, BorderLayout.SOUTH);
+
+			imprimirEtiquetas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					int option = fileChooser.showOpenDialog(null);
+					if (option == JFileChooser.APPROVE_OPTION) {
+						File file = fileChooser.getSelectedFile();
+						String path = file.getAbsolutePath();
+						System.out.println("Seleccionado: " + path);
+						boolean exito = PDFHelper.generarPDFEtiqueta(controladorProducto.getProductosEtiqueta(), path);
+						if (exito) {
+							JOptionPane.showMessageDialog(null, "PDF generado correctamente");
+							// Se borra la lista de productos para que si se imprime otra vez no se repitan
+							controladorProducto.clearProductosEtiqueta();
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Error al seleccionar directorio",
+								"Error al crear la factura",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			});
 		}
@@ -175,6 +211,8 @@ public class CatalogoVista extends JFrame {
 						} else if (estado == TipoCatalogo.VENDER) {
 							// TODO: Abrir ventana principal
 							controladorVenta.seleccionProducto((ProductoVO) o);
+						} else if (estado == TipoCatalogo.FILTRAR) {
+							controladorProducto.seleccionProductoEtiqueta((ProductoVO) o);
 						}
 					}
 				} else if (mouseEvent.getClickCount() == 2) {
@@ -182,6 +220,7 @@ public class CatalogoVista extends JFrame {
 
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
+
 						System.out.println("Click on: " + o.toString());
 
 						EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);

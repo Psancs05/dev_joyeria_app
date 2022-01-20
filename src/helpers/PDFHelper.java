@@ -27,9 +27,6 @@ public class PDFHelper {
     private static Font fuenteChiquita = new Font(Font.FontFamily.UNDEFINED, 7,
             Font.NORMAL);
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    // TODO: Buscar una forma de como pollas usar la imagen solo con la ubicacion
-    // relativa
-    private static String Imagen_logo = "/home/napuh/Desktop/dev_joyeria_app/assets/logo.jpg";
 
     public static boolean generarPDFEtiqueta(ArrayList<ProductoVO> productos, String ubicacion) {
         try {
@@ -158,7 +155,6 @@ public class PDFHelper {
             tablaProds.addCell(getCell(prod.getMaterial().toString(), PdfPCell.ALIGN_MIDDLE));
             tablaProds.addCell(getCell(prod.getTipoProducto().toString(), PdfPCell.ALIGN_MIDDLE));
             // el precio se muestra sin iva.
-            // TODO:diferentes IVAS
             tablaProds.addCell(getCell(String.valueOf(df.format(prod.getPrecio() / 1.21)), PdfPCell.ALIGN_RIGHT));
             // espaciamos
             tablaProds.addCell(getCell(" ", PdfPCell.LEFT));
@@ -180,23 +176,6 @@ public class PDFHelper {
         tablaProds.addCell(getCell(String.valueOf(df.format(venta.getPrecioTotal())), PdfPCell.ALIGN_RIGHT));
 
         document.add(tablaProds);
-        // TODO: Hasta que no podamos usar la imagen nada
-        // try {
-        // Image image = Image.getInstance(Imagen_logo);
-        // Paragraph p = new Paragraph();
-        // p.add(image);
-        // float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-        // - document.rightMargin()) / image.getWidth()) * 30;
-
-        // image.scalePercent(scaler);
-        // image.setAlignment(Element.ALIGN_CENTER);
-        // p.setAlignment(Element.ALIGN_CENTER);
-        // document.add(p);
-        // } catch (MalformedURLException e) {
-        // throw new MalformedURLException();
-        // } catch (IOException e) {
-        // throw new IOException();
-        // }
     }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {
