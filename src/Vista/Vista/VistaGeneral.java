@@ -57,8 +57,7 @@ public class VistaGeneral {
 		frame.setTitle("Claudio Paniagua Joyas");
 
 		JLabel lblNewLabel = new JLabel("New label");
-		String fileSeparator = File.separator;
-		lblNewLabel.setIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("logo.jpg")));
 		lblNewLabel.setBounds(605, 135, 387, 231);
 		frame.getContentPane().add(lblNewLabel);
 

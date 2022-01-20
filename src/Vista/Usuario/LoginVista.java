@@ -42,8 +42,7 @@ public class LoginVista extends JDialog {
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel_4 = new JLabel();
-		String fileSeparator = File.separator;
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg").getImage()
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("logo.jpg")).getImage()
 				.getScaledInstance(120, 80, Image.SCALE_DEFAULT));
 		lblNewLabel_4.setIcon(imageIcon);
 		lblNewLabel_4.setBounds(204, 28, 141, 70);
