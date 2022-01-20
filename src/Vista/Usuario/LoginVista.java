@@ -4,11 +4,15 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Image;
 
 import LogicaNegocio.UsuarioControlador;
 import Vista.Vista.VistaGeneral;
@@ -25,12 +29,22 @@ public class LoginVista extends JDialog{
 
 		JTextField textField;
 		JTextField textField_1;
-
+		Color gris = new Color(223, 223, 223);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
+		getContentPane().setBackground(new Color(255, 255, 255));
+		setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 526, 382);
+		setLocationRelativeTo(null);
 		setTitle("Login");
 		getContentPane().setLayout(null);
+
+		JLabel lblNewLabel_4 = new JLabel();
+		String fileSeparator = File.separator;
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg").getImage().getScaledInstance(120, 80, Image.SCALE_DEFAULT));
+		lblNewLabel_4.setIcon(imageIcon);
+		lblNewLabel_4.setBounds(204, 28, 141, 70);
+		getContentPane().add(lblNewLabel_4);
 
 		JLabel lblNewLabel = new JLabel("        DNI");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -56,6 +70,7 @@ public class LoginVista extends JDialog{
 		
 		JButton btnNewButton = new JButton("Iniciar sesion");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnNewButton.setBackground(gris);
 		btnNewButton.setBounds(194, 245, 141, 51);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -69,25 +70,26 @@ public class CatalogoVista extends JFrame {
 	private void initialize() {
 		contentPane = new JPanel();
 
+		Color gris = new Color(223, 223, 223);
+
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				setVisible(false);
 			}
 		});
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1000, 600);
+		setLocationRelativeTo(null);
+		setTitle("Catalogo");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		JLabel lblCatalogo = new JLabel("Catalogo");
-		contentPane.add(lblCatalogo, BorderLayout.NORTH);
-
 		if (estado == TipoCatalogo.VENDER) {
 			// Create a button in the bottom of the window
 			JButton btnVenta = new JButton("Inciar venta");
-
+			btnVenta.setBackground(gris);
 			contentPane.add(btnVenta, BorderLayout.SOUTH);
 			btnVenta.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -100,6 +102,7 @@ public class CatalogoVista extends JFrame {
 		// Create a button in the bottom of the window
 		if (estado == TipoCatalogo.FILTRAR) {
 			filtrarProductos = new JButton("Filtrar Productos");
+			filtrarProductos.setBackground(gris);
 			contentPane.add(filtrarProductos, BorderLayout.SOUTH);
 			filtrarProductos.addMouseListener(new MouseAdapter() {
 				@Override

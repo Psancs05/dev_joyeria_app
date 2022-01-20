@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -37,6 +38,9 @@ public class VentaVista extends JDialog {
 	}
 
 	public void initialite() {
+
+		Color gris = new Color(223, 223, 223);
+
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,6 +80,7 @@ public class VentaVista extends JDialog {
 		buttonPane.setLayout(null);
 
 		JButton okButton = new JButton("Aceptar");
+		okButton.setBackground(gris);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorVenta.aceptarVenta();
@@ -89,6 +94,7 @@ public class VentaVista extends JDialog {
 		buttonPane.add(okButton);
 
 		JButton cancelButton = new JButton("Cancelar");
+		cancelButton.setBackground(gris);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

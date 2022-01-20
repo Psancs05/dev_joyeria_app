@@ -54,6 +54,7 @@ public class VistaGeneral {
 		frame.getContentPane().setBackground(blanco);
 		frame.setBackground(blanco);
 		frame.setBounds(100, 100, 1600, 900);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Claudio Paniagua Joyas");

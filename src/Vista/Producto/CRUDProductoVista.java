@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.awt.Color;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -53,9 +54,12 @@ public class CRUDProductoVista extends JDialog {
 
 	public void pulsarBotonAniadir() {
 
+		Color gris = new Color(223, 223, 223);
+
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 720, 559);
+		setLocationRelativeTo(null);
 		setTitle("Aniadir Producto");
 		getContentPane().setLayout(null);
 
@@ -141,6 +145,7 @@ public class CRUDProductoVista extends JDialog {
 		okButton.setActionCommand("OK");
 		getContentPane().add(okButton);
 		okButton.setBounds(506, 485, 89, 23);
+		okButton.setBackground(gris);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -155,6 +160,7 @@ public class CRUDProductoVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setBounds(605, 485, 89, 23);
+		cancelButton.setBackground(gris);
 		getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,9 +197,12 @@ public class CRUDProductoVista extends JDialog {
 	public void pulsarBotonModificar(ProductoVO producto) {
 		JDialog dialog = new JDialog();
 
+		Color gris = new Color(223, 223, 223);
+
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 		dialog.setBounds(100, 100, 720, 524);
+		dialog.setLocationRelativeTo(null);
 		dialog.setTitle("Modificar Producto");
 		dialog.getContentPane().setLayout(null);
 
@@ -295,6 +304,7 @@ public class CRUDProductoVista extends JDialog {
 		okButton.setActionCommand("OK");
 		dialog.getContentPane().add(okButton);
 		okButton.setBounds(506, 454, 89, 23);
+		okButton.setBackground(gris);
 		dialog.getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -308,6 +318,7 @@ public class CRUDProductoVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setBounds(605, 454, 89, 23);
+		cancelButton.setBackground(gris);
 		dialog.getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

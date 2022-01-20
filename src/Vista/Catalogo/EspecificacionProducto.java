@@ -36,7 +36,7 @@ public class EspecificacionProducto extends JDialog {
 		contentPanel.add(lblImg);
 
 		JLabel lblNombre = new JLabel(producto.getNombre());
-		lblNombre.setBounds(376, 30, 173, 29);
+		lblNombre.setBounds(376, 35, 173, 29);
 		contentPanel.add(lblNombre);
 
 		JLabel lblPrecio = new JLabel(producto.getPrecio() + " €");
@@ -59,6 +59,8 @@ public class EspecificacionProducto extends JDialog {
 		contentPanel.add(lblDescripcion);
 
 		setBounds(100, 100, 900, 600);
+		setLocationRelativeTo(null);
+		setTitle("Especificacion del producto");
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -70,7 +72,7 @@ public class EspecificacionProducto extends JDialog {
 		contentPanel.add(lblImagen);
 
 		JLabel lblNombreDelProducto = new JLabel("Nombre del producto");
-		lblNombreDelProducto.setBounds(376, 12, 173, 15);
+		lblNombreDelProducto.setBounds(376, 19, 225, 15);
 		lblNombreDelProducto.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPanel.add(lblNombreDelProducto);
 
@@ -90,7 +92,7 @@ public class EspecificacionProducto extends JDialog {
 		contentPanel.add(lblTipoDeMaterial);
 
 		JLabel lblDescripcionDelProducto = new JLabel("Descripcion del producto");
-		lblDescripcionDelProducto.setBounds(12, 348, 188, 15);
+		lblDescripcionDelProducto.setBounds(12, 348, 225, 15);
 		lblDescripcionDelProducto.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPanel.add(lblDescripcionDelProducto);
 

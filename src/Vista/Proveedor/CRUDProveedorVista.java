@@ -53,9 +53,12 @@ public class CRUDProveedorVista extends JDialog {
 
 	public void pulsarBotonAniadir() {
 
+		Color gris = new Color(223, 223, 223);
+
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 526, 382);
+		setLocationRelativeTo(null);
 		setTitle("Aniadir Proveedor");
 		getContentPane().setLayout(null);
 
@@ -89,6 +92,7 @@ public class CRUDProveedorVista extends JDialog {
 
 		JButton okButton = new JButton("Aniadir");
 		okButton.setActionCommand("OK");
+		okButton.setBackground(gris);
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
@@ -102,6 +106,7 @@ public class CRUDProveedorVista extends JDialog {
 
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
+		cancelButton.setBackground(gris);
 		buttonPane.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,10 +119,13 @@ public class CRUDProveedorVista extends JDialog {
 	public void pulsarBotonModificar(ProveedorVO proveedor) {
 
 		JDialog dialogModificar = new JDialog();
+
+		Color gris = new Color(223, 223, 223);
 		
 		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialogModificar.setVisible(true);
 		dialogModificar.setBounds(100, 100, 526, 382);
+		dialogModificar.setLocationRelativeTo(null);
 		dialogModificar.setTitle("Modificar proveedor");
 		dialogModificar.getContentPane().setLayout(null);
 
@@ -161,7 +169,7 @@ public class CRUDProveedorVista extends JDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		dialogModificar.getRootPane().setDefaultButton(okButton);
-		okButton.setForeground(Color.BLACK);
+		okButton.setBackground(gris);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogModificar.setVisible(false);
@@ -175,7 +183,7 @@ public class CRUDProveedorVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
-		cancelButton.setForeground(Color.BLACK);
+		cancelButton.setBackground(gris);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogModificar.setVisible(false);
@@ -207,6 +215,7 @@ public class CRUDProveedorVista extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 1042, 428);
+		setLocationRelativeTo(null);
 		setTitle("Eliminar Proveedor");
 		getContentPane().setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();

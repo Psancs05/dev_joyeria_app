@@ -51,10 +51,14 @@ public class CRUDUsuarioVista extends JDialog {
 	ArrayList<UsuarioVO> listaDeUsuarios;
 
 	public void pulsarBotonAniadir() {
+
+		Color gris = new Color(223, 223, 223);
+
 		repaint();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 526, 382);
+		setLocationRelativeTo(null);
 		setTitle("Aniadir Usuario");
 		getContentPane().setLayout(null);
 
@@ -122,7 +126,7 @@ public class CRUDUsuarioVista extends JDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-		okButton.setForeground(Color.BLACK);
+		okButton.setBackground(gris);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Aniadir boton pulsado");
@@ -135,7 +139,7 @@ public class CRUDUsuarioVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
-		cancelButton.setForeground(Color.BLACK);
+		cancelButton.setBackground(gris);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
@@ -147,10 +151,11 @@ public class CRUDUsuarioVista extends JDialog {
 	public void pulsarBotonModificar(UsuarioVO usuario) {
 
 		JDialog dialogModificar = new JDialog();
-
+		Color gris = new Color(223, 223, 223);
 		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialogModificar.setVisible(true);
 		dialogModificar.setBounds(100, 100, 526, 382);
+		dialogModificar.setLocationRelativeTo(null);
 		dialogModificar.setTitle("Modificar Usuario");
 		dialogModificar.getContentPane().setLayout(null);
 
@@ -239,6 +244,7 @@ public class CRUDUsuarioVista extends JDialog {
 		buttonPane.add(okButton);
 		dialogModificar.getRootPane().setDefaultButton(okButton);
 		okButton.setForeground(Color.BLACK);
+		okButton.setBackground(gris);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogModificar.setVisible(false);
@@ -252,7 +258,6 @@ public class CRUDUsuarioVista extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
-		cancelButton.setForeground(Color.BLACK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogModificar.setVisible(false);
@@ -278,11 +283,11 @@ public class CRUDUsuarioVista extends JDialog {
 
 		listaDeUsuarios = new ArrayList<UsuarioVO>();
 		listaDeUsuarios = controladorUsuario.getInstance().getUsuarios();
-		System.out.println(listaDeUsuarios.toString());
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 1042, 428);
+		setLocationRelativeTo(null);
 		setTitle("Listado de usuarios");
 		getContentPane().setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
