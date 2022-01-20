@@ -45,7 +45,6 @@ public class PDFHelper {
             document.close();
             return true;
         } catch (Exception e) {
-            System.out.println("Excepcion en generarPDF etiqueta");
             return false;
         }
     }
@@ -96,7 +95,6 @@ public class PDFHelper {
             document.close();
             return true;
         } catch (Exception e) {
-            System.out.println("AAAAAAAAAAAAAAAAAA ERROR");
             return false;
         }
     }

@@ -96,7 +96,6 @@ public class CatalogoVista extends JFrame {
 			contentPane.add(btnVenta, BorderLayout.SOUTH);
 			btnVenta.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					System.out.println("Iniciar venta");
 					setVisible(false);
 					controladorVenta.mostrarVenta();
 				}
@@ -129,7 +128,6 @@ public class CatalogoVista extends JFrame {
 					if (option == JFileChooser.APPROVE_OPTION) {
 						File file = fileChooser.getSelectedFile();
 						String path = file.getAbsolutePath();
-						System.out.println("Seleccionado: " + path);
 						boolean exito = PDFHelper.generarPDFEtiqueta(controladorProducto.getProductosEtiqueta(), path);
 						if (exito) {
 							JOptionPane.showMessageDialog(null, "PDF generado correctamente");
@@ -150,7 +148,6 @@ public class CatalogoVista extends JFrame {
 
 	private void getProductos() {
 		productos = controladorProducto.getProductos();
-		System.out.println("Productos: " + productos.size());
 	}
 
 	private void mostrarProductosEnLista() {
@@ -183,7 +180,6 @@ public class CatalogoVista extends JFrame {
 								controladorProducto.eliminarProducto((ProductoVO) o);
 								setVisible(false);
 								controladorCatalogo.actualizar(TipoCatalogo.ELIMINAR);
-								System.out.println("Se ha eliminado el Producto " + o.toString());
 							}
 						} else if (estado == TipoCatalogo.MODIFICAR) {
 							controladorProducto.mostrarModificar((ProductoVO) o);
@@ -199,7 +195,6 @@ public class CatalogoVista extends JFrame {
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
 
-						System.out.println("Click on: " + o.toString());
 
 						EspecificacionProducto especificacion = new EspecificacionProducto((ProductoVO) o);
 						especificacion.setVisible(true);

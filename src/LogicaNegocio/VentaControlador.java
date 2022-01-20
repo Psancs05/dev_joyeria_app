@@ -106,10 +106,8 @@ public class VentaControlador {
 	public void seleccionProducto(ProductoVO producto) {
 		if (productosVenta.contains(producto)) {
 			productosVenta.remove(producto);
-			System.out.println("Se elimino el producto de la venta");
 		} else {
 			productosVenta.add(producto);
-			System.out.println("Se agrego el producto a la venta");
 		}
 	}
 	

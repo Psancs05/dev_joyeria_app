@@ -147,10 +147,8 @@ public class ProductoControlador {
 	public void seleccionProductoEtiqueta(ProductoVO producto) {
 		if (this.productosEtiqueta.contains(producto)) {
 			this.productosEtiqueta.remove(producto);
-			System.out.println("Se elimino el producto de la lista para etiqueta");
 		} else {
 			this.productosEtiqueta.add(producto);
-			System.out.println("Se agrego el producto a la lista para etiqueta");
 		}
 	}
 

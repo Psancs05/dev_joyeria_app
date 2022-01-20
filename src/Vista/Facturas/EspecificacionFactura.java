@@ -79,7 +79,6 @@ public class EspecificacionFactura extends JDialog {
 				if (option == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
 					String path = file.getAbsolutePath();
-					System.out.println("Seleccionado: " + path);
 					boolean exito = PDFHelper.generarPDFVenta(venta, path);
 					if (exito)
 						JOptionPane.showMessageDialog(null, "PDF generado correctamente");

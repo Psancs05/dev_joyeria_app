@@ -33,7 +33,6 @@ public class VentaVista extends JDialog {
 	public VentaVista(VentaControlador controladorVenta, ArrayList<ProductoVO> productos) {
 		this.controladorVenta = controladorVenta;
 		this.productosVenta = productos;
-		System.out.println("productosVenta: " + productosVenta.size());
 		initialize();
 
 	}

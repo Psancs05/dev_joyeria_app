@@ -30,7 +30,7 @@ public class ProveedorDAO implements DAO {
         ProveedorVO proveedor = (ProveedorVO) objeto;
         String CIF = proveedor.getCIF();
         String nombre = proveedor.getNombre();
-        if (exist(proveedor)) {
+        if (exist(proveedor) || comprobarSiExisteOtroMismoNombre(proveedor)) {
             return false;
         }
 
@@ -47,11 +47,9 @@ public class ProveedorDAO implements DAO {
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // se ha intentado introducir dos veces lo mismo (misma PK)
-            System.out.println(e);
             return false;
         } catch (Exception e) {
 
-            System.out.println(e);
             return false;
         }
     }
@@ -89,7 +87,6 @@ public class ProveedorDAO implements DAO {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
@@ -174,6 +171,27 @@ public class ProveedorDAO implements DAO {
             } else {
                 return false;
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean comprobarSiExisteOtroMismoNombre(Object objeto) {
+        ProveedorVO proveedor = (ProveedorVO) objeto;
+        String nombre = proveedor.getNombre();
+        try {
+            Conexion conexionBD = Conexion.getInstance();
+            Connection con = conexionBD.getConexion();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM proveedor WHERE Nombre='" + nombre + "'");
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

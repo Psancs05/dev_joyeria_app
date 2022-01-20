@@ -87,7 +87,6 @@ public class CRUDProveedorVista extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Aniadir boton pulsado");
 				setVisible(false);
 				crearProveedor();
 				limpiarCampos();
@@ -199,7 +198,6 @@ public class CRUDProveedorVista extends JDialog {
 				JOptionPane.showMessageDialog(error, "Uno o mas productos pertenecen a este proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			listaDeProveedores.remove(proveedor);
-			System.out.println("Se ha eliminado el Proveedor " + proveedor.toString());
 		}
 		controladorProveedor.mostrarEliminar();
 		setVisible(false);
@@ -208,7 +206,6 @@ public class CRUDProveedorVista extends JDialog {
 	public void mostrarListadoDeProveedores(boolean seleccionar) {
 		listaDeProveedores = new ArrayList<ProveedorVO>();
 		listaDeProveedores = controladorProveedor.getProveedores();
-		System.out.println(listaDeProveedores.toString());
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
@@ -261,10 +258,9 @@ public class CRUDProveedorVista extends JDialog {
 			boolean response = controladorProveedor.aniadirProveedor(CIF, nombre);
 			if(!response){
 				JFrame error = new JFrame();
-				JOptionPane.showMessageDialog(error, "Ya existe un proveedor con ese CIF.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(error, "Ya existe un proveedor con ese CIF o nombre", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		System.out.println(CIF + " " + nombre);
 		limpiarCampos();
 	}
 
@@ -277,7 +273,6 @@ public class CRUDProveedorVista extends JDialog {
 		} else {
 			controladorProveedor.modificarProveedor(Proveedor, CIF, nombre);
 		}
-		System.out.println(CIF + " " + nombre + " el Proveedor antiguo era " + Proveedor.toString());
 	}
 
 	public void limpiarCampos() {

@@ -29,7 +29,6 @@ public class EspecificacionProducto extends JDialog {
 	public void initialize() {
 		setResizable(false);
 
-		System.out.println("Creando Especificacion Producto");
 		JLabel lblImg = new JLabel();
 		ImageIcon img = new ImageIcon(ImagenHelper.getProductoImagen(producto.getImagen()));
 		img = ImagenHelper.resizeImagen(img);
