@@ -34,6 +34,7 @@ public class ListadoFacturasVista extends JFrame {
 	public void initialize() {
 		this.setVisible(true);
 		ventas = controladorVenta.getListadoVentas();
+		System.out.println("LISTADO VENTAS DE FACTURA:" + ventas.toString());
 		contentPane = new JPanel();
 
 		addWindowListener(new java.awt.event.WindowAdapter() {

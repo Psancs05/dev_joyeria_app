@@ -420,6 +420,7 @@ public class ProductoDAO implements DAO {
             return null;
         }
     }
+    
 
     public ArrayList<ProductoVO> getProductosSegunIDVenta(int IDVenta) {
         try {
