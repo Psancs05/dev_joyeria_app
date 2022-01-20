@@ -86,7 +86,7 @@ public class VentaVista extends JDialog {
 				controladorVenta.aceptarVenta();
 				JOptionPane.showMessageDialog(null, "Venta creada correctamente", "Exito",
 						JOptionPane.INFORMATION_MESSAGE);
-				// TODO: abrir catalogo
+				controladorVenta.mostrarCatalogo();
 				dispose();
 			}
 		});
@@ -97,6 +97,10 @@ public class VentaVista extends JDialog {
 		cancelButton.setBackground(gris);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Borramos los productos seleccionados para que no se repitan al volver a abrir
+				// la venta
+				controladorVenta.clearProductosVenta();
+				controladorVenta.mostrarCatalogo();
 				dispose();
 			}
 		});

@@ -510,7 +510,7 @@ public class VistaGeneral {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Abrir venta seleccionado");
 				new CatalogoVista(TipoCatalogo.VENDER);
-				frame.setVisible(false);
+				// frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonVenta);

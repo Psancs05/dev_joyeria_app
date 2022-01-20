@@ -98,6 +98,7 @@ public class CatalogoVista extends JFrame {
 			btnVenta.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					System.out.println("Iniciar venta");
+					setVisible(false);
 					controladorVenta.mostrarVenta();
 				}
 			});

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import modelo.VO.ProductoVO;
 import modelo.VO.VentaVO;
 import modelo.logica.VentaLogica;
+import Vista.Catalogo.CatalogoVista;
 import Vista.Facturas.ListadoFacturasVista;
 import Vista.Venta.VentaVista;
+import globals.enums.TipoCatalogo;
 
 public class VentaControlador {
 
@@ -31,6 +33,14 @@ public class VentaControlador {
 
 	}
 
+	public void mostrarCatalogo() {
+		new CatalogoVista(TipoCatalogo.VENDER);
+	}
+
+	public void clearProductosVenta() {
+		this.productosVenta.clear();
+	}
+
 	public void registrarVenta(ArrayList<ProductoVO> productos) {
 		logicaVenta.registrarVenta(productos);
 	}
@@ -42,7 +52,6 @@ public class VentaControlador {
 	public ArrayList<VentaVO> getListadoVentas() {
 		return logicaVenta.mostrarListadoFacturas();
 	}
-
 
 	public VentaLogica getLogicaVenta() {
 		return logicaVenta;
