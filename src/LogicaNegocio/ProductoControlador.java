@@ -10,7 +10,6 @@ import globals.enums.TipoMaterial;
 import globals.enums.TipoProducto;
 import modelo.VO.ProductoVO;
 import modelo.VO.ProveedorVO;
-import modelo.VO.UsuarioVO;
 import modelo.logica.ProductoLogica;
 
 public class ProductoControlador {
@@ -19,8 +18,10 @@ public class ProductoControlador {
 	private ProductoLogica logicaProducto;
 	private CRUDProductoVista vistaCRUDProducto;
 	private ProductoVO productoActual;
+	ArrayList<ProductoVO> productosEtiqueta; // TODO? Mover a otro controlador?
 
 	private ProductoControlador() {
+		this.productosEtiqueta = new ArrayList<ProductoVO>();
 		this.logicaProducto = new ProductoLogica();
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 	}
@@ -82,6 +83,24 @@ public class ProductoControlador {
 
 	public void setLogicaProducto(ProductoLogica logicaProducto) {
 		this.logicaProducto = logicaProducto;
+	}
+
+	public void seleccionProductoEtiqueta(ProductoVO producto) {
+		if (this.productosEtiqueta.contains(producto)) {
+			this.productosEtiqueta.remove(producto);
+			System.out.println("Se elimino el producto de la lista para etiqueta");
+		} else {
+			this.productosEtiqueta.add(producto);
+			System.out.println("Se agrego el producto a la lista para etiqueta");
+		}
+	}
+
+	public ArrayList<ProductoVO> getProductosEtiqueta() {
+		return this.productosEtiqueta;
+	}
+
+	public void clearProductosEtiqueta() {
+		this.productosEtiqueta.clear();
 	}
 
 	public static ProductoControlador getInstance() {
