@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -27,8 +28,8 @@ public class LoginVista extends JDialog {
 
 	public void botonAutentificar() {
 
-		JTextField textField;
-		JTextField textField_1;
+		JTextField dniField;
+		JPasswordField passwordField;
 		Color gris = new Color(223, 223, 223);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -57,15 +58,16 @@ public class LoginVista extends JDialog {
 		lblNewLabel_1.setBounds(132, 176, 121, 33);
 		getContentPane().add(lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setBounds(263, 132, 121, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		dniField = new JTextField();
+		dniField.setBounds(263, 132, 121, 20);
+		getContentPane().add(dniField);
+		dniField.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(263, 185, 121, 20);
-		getContentPane().add(textField_1);
+		passwordField = new JPasswordField();
+		passwordField.setEchoChar('*');
+		passwordField.setColumns(10);
+		passwordField.setBounds(263, 185, 121, 20);
+		getContentPane().add(passwordField);
 
 		JButton btnNewButton = new JButton("Iniciar sesion");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -73,8 +75,8 @@ public class LoginVista extends JDialog {
 		btnNewButton.setBounds(194, 245, 141, 51);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String dni = textField.getText();
-				String password = textField_1.getText();
+				String dni = dniField.getText();
+				String password = passwordField.getText();
 				if (dni.equals("") || password.equals("")) {
 					JFrame error = new JFrame();
 					JOptionPane.showMessageDialog(error, "Introduzca DNI y contraseña.", "Error",
