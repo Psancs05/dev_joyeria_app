@@ -18,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import LogicaNegocio.CatalogoControlador;
@@ -167,11 +168,12 @@ public class CatalogoVista extends JFrame {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				@SuppressWarnings("rawtypes")
 				JList theList = (JList) mouseEvent.getSource();
-				if (mouseEvent.getClickCount() == 1) {
+				theList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+				// (event.getModifiers() & ActionEvent.CTRL_MASK) ==ActionEvent.CTRL_MASK
+				if (mouseEvent.getClickCount() == 1 && (mouseEvent.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
-						// System.out.println("Click on: " + o.toString());
 						if (estado == TipoCatalogo.ELIMINAR) {
 							int result = JOptionPane.showConfirmDialog(null,
 									"Quieres eliminar el Producto de forma definitiva ?", "Confirmar eliminar",
@@ -202,6 +204,14 @@ public class CatalogoVista extends JFrame {
 						especificacion.setVisible(true);
 
 					}
+				} else if(mouseEvent.getClickCount() == 1){
+					if (estado == TipoCatalogo.VENDER) {
+						controladorVenta.vaciarSeleccionProductos();
+					} else if (estado == TipoCatalogo.FILTRAR) {
+						controladorProducto.vaciarSeleccionEtiquetas();
+					}
+					theList.clearSelection();
+
 				}
 			}
 		};

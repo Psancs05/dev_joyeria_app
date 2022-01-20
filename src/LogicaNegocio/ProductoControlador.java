@@ -91,6 +91,12 @@ public class ProductoControlador {
 		}
 	}
 
+	public void vaciarSeleccionEtiquetas() {
+		productosEtiqueta.clear();
+	}
+
+	
+
 	public ArrayList<ProductoVO> getProductosEtiqueta() {
 		return this.productosEtiqueta;
 	}

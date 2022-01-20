@@ -74,6 +74,12 @@ public class VentaControlador {
 			System.out.println("Se agrego el producto a la venta");
 		}
 	}
+	
+	public void vaciarSeleccionProductos() {
+		productosVenta.clear();
+	}
+
+	
 
 	public double getPrecioTotal() {
 		double total = 0.0;
