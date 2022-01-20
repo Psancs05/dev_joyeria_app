@@ -3,7 +3,6 @@ package LogicaNegocio;
 import java.util.ArrayList;
 
 import Vista.Facturas.ListadoFacturasVista;
-import modelo.VO.VentaVO;
 
 public class FacturaControlador {
 	
@@ -13,26 +12,6 @@ public class FacturaControlador {
 	public FacturaControlador(ListadoFacturasVista vistaListadoFacturas, FacturaControlador controladorFacturas) {
 		this.vistaListadoFacturas = vistaListadoFacturas;
 		this.controladorFacturas = controladorFacturas;
-	}
-	
-	public void realizarBackupFacturas(ArrayList<VentaVO> ventas, String ubicacion) {
-		//TODO
-	}
-	
-	public void copiaFactura(VentaVO venta) {
-		//TODO
-	}
-	
-	public void generarFactura(VentaVO venta) {
-		//TODO
-	}
-	
-	public void mostrarFacturaEnVentana(VentaVO venta) {
-		//TODO
-	}
-	
-	public void mostrarFactura() {
-		//TODO
 	}
 
 	public ListadoFacturasVista getVistaListadoFacturas() {
