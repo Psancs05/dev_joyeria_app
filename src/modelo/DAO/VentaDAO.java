@@ -63,10 +63,8 @@ public class VentaDAO implements DAO {
             venta.setID(idVenta);
             return true;
         } catch (SQLException e) {
-            System.out.println(e);
             return false;
         } catch (Exception e) {
-            System.out.println(e);
             return false;
         }
     }
@@ -106,7 +104,6 @@ public class VentaDAO implements DAO {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
@@ -301,7 +298,6 @@ public class VentaDAO implements DAO {
             return listaVentas;
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }

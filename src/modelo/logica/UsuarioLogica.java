@@ -27,8 +27,6 @@ public class UsuarioLogica {
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
         boolean response = this.usuarioDAO.create(nuevoUsuario);
-        if (response)
-            System.out.println("Usuarios registrado: " + nuevoUsuario.toString());
         return response;
     }
 

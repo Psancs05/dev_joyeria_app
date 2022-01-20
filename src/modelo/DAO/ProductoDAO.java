@@ -80,11 +80,9 @@ public class ProductoDAO implements DAO {
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // se ha intentado introducir dos veces lo mismo (misma PK)
-            System.out.println(e);
             return false;
         } catch (Exception e) {
 
-            System.out.println(e);
             return false;
         }
     }
@@ -133,7 +131,6 @@ public class ProductoDAO implements DAO {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
@@ -185,7 +182,6 @@ public class ProductoDAO implements DAO {
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
             } catch (Exception e) {
-                System.out.println(e);
                 return false;
             }
         }
@@ -201,7 +197,6 @@ public class ProductoDAO implements DAO {
                 pst.setInt(2, IDProdMod);
                 pst.executeUpdate();
             } catch (Exception e) {
-                System.out.println(e);
                 return false;
             }
         }
@@ -401,7 +396,6 @@ public class ProductoDAO implements DAO {
                 ProveedorVO proveedor = (ProveedorVO) provDAO
                         .search(new ProveedorVO(rs.getString("Proveedor"), "nombre"));
                 Integer iDVenta = rs.getInt("IDVenta");
-                System.out.println("PEDAZO DE VACA ESTE ES ELK ID VENTA ZORRA" + iDVenta);
                 String descripcion = rs.getString("Descripcion");
 
                 // Creamos el producto con los datos obtenidos

@@ -62,17 +62,10 @@ public class Conexion {
             int resultado = runtimeProcess.waitFor();
 
             if (resultado == 0) {
-                System.out.println("Backup completado");
                 return true;
             } else {
-                System.out.println("El backup ha fallado");
-                System.out.println(
-                        "Fallo al ejecutar el comando: " + comando + " con los siguientes errores:");
                 try (final BufferedReader b = new BufferedReader(new InputStreamReader(
                         runtimeProcess.getErrorStream()))) {
-                    String line;
-                    while ((line = b.readLine()) != null)
-                        System.out.println(line);
                 } catch (final IOException e) {
                     e.printStackTrace();
                 }
@@ -93,10 +86,8 @@ public class Conexion {
             Statement stmt = conn.createStatement();
             String sqlBorrarBBDD = "DROP DATABASE " + bdNombre;
             stmt.executeUpdate(sqlBorrarBBDD);
-            // System.out.println("Database DELETED successfully...");
             String sqlCrearBBDD = "CREATE DATABASE " + bdNombre;
             stmt.executeUpdate(sqlCrearBBDD);
-            // System.out.println("Database CREATED successfully...");
 
             String[] comandoRestaurar = new String[] { "mysql", "--user=" + bdUsuario, "--password=" + bdPassword,
                     "--database=" + bdNombre, "-e",
@@ -106,18 +97,11 @@ public class Conexion {
             int resultado = runtimeProcess.waitFor();
 
             if (resultado == 0) {
-                System.out.println("BBDD restaurada correctamente");
                 return true;
             } else {
-                System.out.println("No se ha podido restaurar la BBDD");
 
-                System.out.println(
-                        "Fallo al ejecutar el comando: " + comandoRestaurar + " con los siguientes errores:");
                 try (final BufferedReader b = new BufferedReader(new InputStreamReader(
                         runtimeProcess.getErrorStream()))) {
-                    String line;
-                    while ((line = b.readLine()) != null)
-                        System.out.println(line);
                 } catch (final IOException e) {
                     e.printStackTrace();
                 }

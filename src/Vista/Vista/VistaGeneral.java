@@ -231,7 +231,6 @@ public class VistaGeneral {
 				int option = fileChooser.showOpenDialog(frame);
 				if (option == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
-					System.out.println("Seleccionado: " + file.getAbsolutePath());
 					BackupControlador.getInstance().generarBackup(file.getAbsolutePath());
 				} else {
 					JOptionPane.showMessageDialog(null, "Error al seleccionar directorio", "Error al crear backup",
@@ -252,7 +251,6 @@ public class VistaGeneral {
 				int option = fileChooser.showOpenDialog(frame);
 				if (option == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
-					System.out.println("Seleccionado: " + file.getAbsolutePath());
 					BackupControlador.getInstance().restaurarBackup(file.getAbsolutePath());
 				} else {
 					JOptionPane.showMessageDialog(null, "Error al seleccionar archivo", "Error al restaurar backup",
@@ -505,9 +503,7 @@ public class VistaGeneral {
 		botonVenta.setBackground(new Color(30, 177, 0));
 		botonVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Abrir venta seleccionado");
 				new CatalogoVista(TipoCatalogo.VENDER);
-				// frame.setVisible(false);
 			}
 		});
 		frame.getContentPane().add(botonVenta);
@@ -519,7 +515,6 @@ public class VistaGeneral {
 		botonCatalogo.setBackground(new Color(0, 148, 177));
 		botonCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Boton Abrir Catalogo seleccionado");
 				new CatalogoVista(TipoCatalogo.FILTRAR);
 				// frame.setVisible(false);
 			}

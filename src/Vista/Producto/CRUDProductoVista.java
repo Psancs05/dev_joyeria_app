@@ -32,7 +32,6 @@ public class CRUDProductoVista extends JDialog {
 	private ArrayList<ProveedorVO> proveedores;
 
 	public CRUDProductoVista(ProductoControlador controladorProducto) {
-		System.out.println("Creando CRUDProductoVista");
 		this.controladorProducto = controladorProducto;
 		this.controladorProveedor = ProveedorControlador.getInstance();
 		this.proveedores = controladorProveedor.getProveedores();
@@ -145,7 +144,6 @@ public class CRUDProductoVista extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Aniadir boton pulsado");
 				crearProducto();
 				limpiarCampos();
 				setVisible(false);
@@ -305,7 +303,6 @@ public class CRUDProductoVista extends JDialog {
 		dialog.getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Modificar pulsado");
 				// limpiarCampos();
 				modificarProducto(producto);
 				dialog.setVisible(false);
@@ -331,12 +328,10 @@ public class CRUDProductoVista extends JDialog {
 				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (result == 0) {
 			controladorProducto.eliminarProducto(producto);
-			System.out.println("Se ha eliminado el Producto " + producto.toString());
 		}
 	}
 
 	public void mostrarListaProductos(boolean seleccionar) {
-		System.out.println(seleccionar);
 		if (seleccionar == false) {
 			new CatalogoVista(TipoCatalogo.ELIMINAR);
 		} else {
@@ -379,7 +374,6 @@ public class CRUDProductoVista extends JDialog {
 			tipoMaterial = TipoMaterial.OROPLATA;
 		}
 
-		System.out.println(comboTipo.toString() + comboMaterial.toString());
 		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
 				|| descripcion.equals("") || proveedor.equals("") || comboTipo.toString().equals(" ")
 				|| comboMaterial.toString().equals(" ")) {
@@ -436,7 +430,6 @@ public class CRUDProductoVista extends JDialog {
 			tipoMaterial = TipoMaterial.OROPLATA;
 		}
 
-		System.out.println(comboTipo.toString() + comboMaterial.toString());
 		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
 				|| descripcion.equals("") || proveedor.equals("") || comboTipo.toString().equals("")
 				|| comboMaterial.toString().equals("")) {

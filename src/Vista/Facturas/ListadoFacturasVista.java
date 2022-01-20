@@ -35,7 +35,6 @@ public class ListadoFacturasVista extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 		ventas = controladorVenta.getListadoVentas();
-		System.out.println("LISTADO VENTAS DE FACTURA:" + ventas.toString());
 		contentPane = new JPanel();
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,9 +88,7 @@ public class ListadoFacturasVista extends JFrame {
 
 					if (index >= 0) {
 						Object o = theList.getModel().getElementAt(index);
-						System.out.println("Click on: " + o.toString());
 						VentaVO venta = ventas.get(index);
-						System.out.println("Venta click: " + venta.getID());
 						EspecificacionFactura especificacionFactura = new EspecificacionFactura(venta);
 						especificacionFactura.setVisible(true);
 					}

@@ -31,8 +31,6 @@ public class ProductoLogica {
         for (ProductoVO producto : productos) {
             if (producto.getIDVenta().equals(-1))
                 productosInventario.add(producto);
-            System.out.println(producto.toString());
-            System.out.println(producto.getIDVenta());
 
         }
         return productosInventario;

@@ -124,7 +124,6 @@ public class CRUDUsuarioVista extends JDialog {
 		okButton.setBackground(gris);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Aniadir boton pulsado");
 				setVisible(false);
 				crearUsuario();
 				limpiarCampos();
@@ -274,7 +273,6 @@ public class CRUDUsuarioVista extends JDialog {
 			if(!sonElMismo){
 				boolean response = controladorUsuario.eliminarUsuario(usuario);
 				listaDeUsuarios.remove(usuario);
-				System.out.println("Se ha eliminado el usuario " + usuario.toString());
 				if(!response){
 					JFrame error = new JFrame();
 					JOptionPane.showMessageDialog(error, "El DNI de este usuario esta relacionado con alguna venta.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -342,8 +340,6 @@ public class CRUDUsuarioVista extends JDialog {
 		String password = tfPassword.getText();
 		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
 
-		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb);
-		System.out.println(DNI == "");
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {
 			tipoUsuario = TipoUsuario.ADMINISTRADOR;
@@ -378,9 +374,6 @@ public class CRUDUsuarioVista extends JDialog {
 		String email = tfEmail.getText();
 		String password = tfPassword.getText();
 		Object tipoUsuariocb = cbTipoUsuario.getSelectedItem();
-
-		System.out.println(DNI + " " + nombre + " " + email + " " + password + " " + tipoUsuariocb
-				+ " el usuario antiguo era " + usuario.toString());
 
 		TipoUsuario tipoUsuario;
 		if (tipoUsuariocb.toString() == "Administrador") {

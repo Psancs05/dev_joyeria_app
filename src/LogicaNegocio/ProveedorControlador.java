@@ -48,7 +48,6 @@ public class ProveedorControlador {
 	}
 
 	public ArrayList<ProveedorVO> getProveedores() {
-		System.out.println(this.logicaProveedor);
 		return this.logicaProveedor.getProveedores();
 	}
 

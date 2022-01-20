@@ -47,11 +47,9 @@ public class ProveedorDAO implements DAO {
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // se ha intentado introducir dos veces lo mismo (misma PK)
-            System.out.println(e);
             return false;
         } catch (Exception e) {
 
-            System.out.println(e);
             return false;
         }
     }
@@ -89,7 +87,6 @@ public class ProveedorDAO implements DAO {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
