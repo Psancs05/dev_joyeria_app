@@ -32,6 +32,7 @@ public class EspecificacionFactura extends JDialog {
 
 	public void initialize() {
 		setBounds(100, 100, 758, 517);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

@@ -44,6 +44,7 @@ public class VistaGeneral {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		this.frame.setVisible(true);
 		Color blanco = new Color(255, 255, 255);
 		Color negro = new Color(0, 0, 0);

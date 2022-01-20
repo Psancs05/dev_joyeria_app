@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -40,12 +41,14 @@ public class VentaVista extends JDialog {
 	public void initialize() {
 
 		Color gris = new Color(223, 223, 223);
-
+		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		
 
 		JLabel lblProductosSeleccionados = new JLabel("Productos seleccionados");
 		lblProductosSeleccionados.setBounds(12, 12, 271, 15);

@@ -32,6 +32,7 @@ public class ListadoFacturasVista extends JFrame {
 	}
 
 	public void initialize() {
+		this.setResizable(false);
 		this.setVisible(true);
 		ventas = controladorVenta.getListadoVentas();
 		System.out.println("LISTADO VENTAS DE FACTURA:" + ventas.toString());
@@ -57,6 +58,7 @@ public class ListadoFacturasVista extends JFrame {
 	private void mostrarListadoVentas() {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		setBounds(100, 100, 1042, 428);
 		setTitle("Facturas");

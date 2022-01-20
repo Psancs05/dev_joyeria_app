@@ -43,6 +43,7 @@ public class FiltrarVista extends JDialog {
 
 	public void mostrarVistaFiltrado() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		setBounds(100, 100, 720, 559);
 		setTitle("Aniadir Producto");

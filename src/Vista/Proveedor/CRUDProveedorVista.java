@@ -45,6 +45,7 @@ public class CRUDProveedorVista extends JDialog {
 		Color gris = new Color(223, 223, 223);
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		setBounds(100, 100, 526, 382);
 		setLocationRelativeTo(null);
@@ -112,6 +113,7 @@ public class CRUDProveedorVista extends JDialog {
 		Color gris = new Color(223, 223, 223);
 
 		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialogModificar.setResizable(false);
 		dialogModificar.setVisible(true);
 		dialogModificar.setBounds(100, 100, 526, 382);
 		dialogModificar.setLocationRelativeTo(null);
@@ -209,6 +211,7 @@ public class CRUDProveedorVista extends JDialog {
 		System.out.println(listaDeProveedores.toString());
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		setBounds(100, 100, 1042, 428);
 		setLocationRelativeTo(null);
@@ -278,7 +281,6 @@ public class CRUDProveedorVista extends JDialog {
 	}
 
 	public void limpiarCampos() {
-		//tfCIF.setText("");
 		tfNombre.setText("");
 	}
 

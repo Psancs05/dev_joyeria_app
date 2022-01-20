@@ -52,6 +52,7 @@ public class CRUDProductoVista extends JDialog {
 		Color gris = new Color(223, 223, 223);
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		setBounds(100, 100, 720, 559);
 		setLocationRelativeTo(null);
@@ -195,6 +196,7 @@ public class CRUDProductoVista extends JDialog {
 		Color gris = new Color(223, 223, 223);
 
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setResizable(false);
 		dialog.setVisible(true);
 		dialog.setBounds(100, 100, 720, 524);
 		dialog.setLocationRelativeTo(null);

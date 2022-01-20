@@ -32,6 +32,7 @@ public class LoginVista extends JDialog {
 		JPasswordField passwordField;
 		Color gris = new Color(223, 223, 223);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBackground(new Color(255, 255, 255));

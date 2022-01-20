@@ -73,6 +73,7 @@ public class CatalogoVista extends JFrame {
 
 	private void initialize() {
 		contentPane = new JPanel();
+		setResizable(false);
 
 		Color gris = new Color(223, 223, 223);
 		addWindowListener(new java.awt.event.WindowAdapter() {
