@@ -18,7 +18,8 @@ public class UsuarioLogicaTest {
 
     @Test
     public void testRetirarUsuario() {
-        UsuarioVO usuario = userLogic.registrarUsuario(dni, nombre, email, password, tipoUsuario);
+        assertTrue(userLogic.registrarUsuario(dni, nombre, email, password, tipoUsuario));
+        UsuarioVO usuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
         assertTrue(userLogic.retirarUsuario(usuario));
         userLogic.retirarUsuario(usuario);
     }
