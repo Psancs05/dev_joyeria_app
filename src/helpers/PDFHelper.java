@@ -28,6 +28,13 @@ public class PDFHelper {
             Font.NORMAL);
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
+    
+    /** 
+     * Metodo que produce una etiqueta en la ubicacion especificada usando los datos del producto por parametro
+     * @param productos producto del que se coge la informacion para mostrarla en la etiqueta
+     * @param ubicacion path donde guardar la etiqueta
+     * @return boolean true si se ha podido guardar el pdf
+     */
     public static boolean generarPDFEtiqueta(ArrayList<ProductoVO> productos, String ubicacion) {
         try {
             Document document = new Document();
@@ -43,6 +50,12 @@ public class PDFHelper {
         }
     }
 
+    
+    /** 
+     * Metodo que introduce en el pdf la informacion de la etiqueta
+     * @param document pdf
+     * @param productos listado de productos
+     */
     private static void rellenarEtiquetas(Document document, ArrayList<ProductoVO> productos)
             throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
@@ -66,6 +79,13 @@ public class PDFHelper {
 
     }
 
+    
+    /** 
+     * Metodo que crea un pdf en la ubicacion con los datos de la venta por parametro
+     * @param venta venta a imprimir
+     * @param ubicacion path donde crear el pdf
+     * @return boolean true si se ha podido crear la venta
+     */
     public static boolean generarPDFVenta(VentaVO venta, String ubicacion) {
         try {
             Document document = new Document();
@@ -81,6 +101,12 @@ public class PDFHelper {
         }
     }
 
+    
+    /** 
+     * Metodo que genera metadatos en la factura
+     * @param document pdf
+     * @param venta venta donde se cogen los metadatos
+     */
     private static void addMetadatosFactura(Document document, VentaVO venta) {
         document.addTitle("Factura " + venta.getID());
         document.addSubject("Factura " + venta.getID() + " Claudio Joyas");
@@ -88,11 +114,22 @@ public class PDFHelper {
         document.addCreator("Claudio Joyas");
     }
 
+    
+    /** 
+     * Metodo que introduce metadatos en el pdf
+     * @param document pdf
+     */
     private static void addMetadatosPDF(Document document) {
         document.addAuthor("Claudio Joyas");
         document.addCreator("Claudio Joyas");
     }
 
+    
+    /** 
+     * Metodo que gestiona como los datos se muestran en el pdf
+     * @param document pdf
+     * @param venta venta donde coger los datos
+     */
     private static void rellenarInfoVenta(Document document, VentaVO venta)
             throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
@@ -178,12 +215,25 @@ public class PDFHelper {
         document.add(tablaProds);
     }
 
+    
+    /** 
+     * Metodo que añade un linea en blanco en un parrafo.
+     * @param paragraph parrafo
+     * @param number numero de lineas que se quieren meter en blanco
+     */
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
     }
 
+    
+    /** 
+     * Metodo que construye una celda de una tabla
+     * @param text texto
+     * @param alignment alineamineto
+     * @return PdfPCell celda construida
+     */
     private static PdfPCell getCell(String text, int alignment) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(2);
@@ -193,6 +243,13 @@ public class PDFHelper {
 
     }
 
+    
+    /** 
+     * Get
+     * @param text
+     * @param alignment
+     * @return PdfPCell
+     */
     private static PdfPCell getCellBold(String text, int alignment) {
         PdfPCell cell = new PdfPCell(new Phrase(text, fuenteNegrita));
         cell.setPadding(2);
@@ -202,6 +259,12 @@ public class PDFHelper {
 
     }
 
+    
+    /** 
+     * Get
+     * @param producto
+     * @return PdfPCell
+     */
     private static PdfPCell getCellProducto(ProductoVO producto) {
         PdfPCell cell = new PdfPCell();
         Phrase contenido = new Phrase();

@@ -24,6 +24,11 @@ public class ProductoLogica {
         this.productoDAO = ProductoDAO.getInstance();
     }
 
+    
+    /** 
+     * Metodo necesario para mostrar los productos en el catalogo. Primero solicita todo el listado y luego elimina los productos eliminados
+     * @return ArrayList<ProductoVO> listado con los productos menos los que han sido vendidos
+     */
     public ArrayList<ProductoVO> solicitarProductos() {
         ArrayList<ProductoVO> productos = this.productoDAO.getListaProductos();
         ArrayList<ProductoVO> productosInventario = new ArrayList<ProductoVO>();
@@ -39,6 +44,19 @@ public class ProductoLogica {
 
     }
 
+    
+    /** 
+     * Metodo que registra un producto en la base de datos recibiendo todos los datos
+     * @param nombre
+     * @param numCuaderno
+     * @param tipoDeProducto
+     * @param precio
+     * @param pathImg
+     * @param material
+     * @param proveedor
+     * @param descripcion
+     * @return boolean true si se ha registrado el producto
+     */
     public boolean registrarProducto(String nombre, int numCuaderno, TipoProducto tipoDeProducto, double precio,
             String pathImg,
             TipoMaterial material,
@@ -63,6 +81,19 @@ public class ProductoLogica {
         }
     }
 
+    
+    /** 
+     * Metodo que actuliza el producto pasado por parametro en la base de datos
+     * @param productoAntiguo
+     * @param nombre
+     * @param numCuaderno
+     * @param tipoProducto
+     * @param proveedor
+     * @param material
+     * @param precio
+     * @param imagen
+     * @param descripcion
+     */
     public void actualizarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno,
             TipoProducto tipoProducto, ProveedorVO proveedor,
             TipoMaterial material,
@@ -85,6 +116,12 @@ public class ProductoLogica {
         productoDAO.update(productoAntiguo);
     }
 
+    
+    /** 
+     * Metodo que elimina un producto por parametro de la base de datos
+     * @param producto producto a eliminar
+     * @return boolean true si se ha eliminado
+     */
     public boolean retirarProducto(ProductoVO producto) {
         return this.productoDAO.delete(producto);
     }

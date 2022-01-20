@@ -14,9 +14,9 @@ public class VentaLogica {
     }
 
     /**
-     * @param productos lista de todos los productos que componen en una venta
-     * @return el precio total de la venta, siendo la suma de los precios de todos
-     *         los productos que la componen
+     * Metodo que suma los precios de una lista de productos y devuelve el total
+     * @producto productos listado de productos
+     * @return precio total
      */
     public double obtenerPrecioVenta(ArrayList<ProductoVO> productos) {
         double precioTotal = 0.0;
@@ -27,9 +27,9 @@ public class VentaLogica {
     }
 
     /**
-     * @param productos lista de todos los productos que componen en una venta
-     *                  registra la venta en la base de datos y devuelve el id de la
-     *                  venta creada
+     * Metodo que crea una venta  con los productos por parametro
+     * @param productos listado que productos que componen una venta
+     * @return el id de la venta
      */
     public int registrarVenta(ArrayList<ProductoVO> productos) {
         double precioVenta = obtenerPrecioVenta(productos);
@@ -43,6 +43,11 @@ public class VentaLogica {
         return nuevaVenta.getID();
     }
 
+    /**
+     * @param productos lista de todos los productos que componen en una venta
+     *                  registra la venta en la base de datos y devuelve el id de la
+     *                  venta creada
+     */
     public ArrayList<VentaVO> mostrarListadoFacturas() {
         ArrayList<VentaVO> ventas = ventaDAO.getListadoVentas();
         return ventas;

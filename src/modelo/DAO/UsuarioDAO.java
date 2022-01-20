@@ -216,6 +216,10 @@ public class UsuarioDAO implements DAO {
         }
     }
 
+     /**
+     * @param objeto objeto de tipo VO que se quiere comprobar si existe
+     * @return true si existe
+     */
     @Override
     public boolean exist(Object objeto) {
         UsuarioVO usuario = (UsuarioVO) objeto;
@@ -236,6 +240,12 @@ public class UsuarioDAO implements DAO {
         }
     }
 
+     /**
+      * Metodo que comprueba si existe un usuario con dni y password por parametros
+     * @param dni dni del usuario
+     * @param password password del usuairo
+     * @return true si existe
+     */
     public boolean autenticarUsuario(String dni, String password) {
         try {
             Conexion conexionBD = Conexion.getInstance();
@@ -254,11 +264,21 @@ public class UsuarioDAO implements DAO {
         }
     }
 
+    /**
+      * Metodo que devuelve el usuario que tiene el DNI por parametro
+     * @param dni dni del usuario
+     * @return object usuario que coincide con el DNI
+     */
     public Object getUsuarioPorDNI(String dni) {
         UsuarioVO placeholder = new UsuarioVO(dni, "nombre", "email", "password", TipoUsuario.CAJERO);
         return search(placeholder);
     }
 
+     /**
+     * Metodo que devuelve el usuario que tiene el DNI por parametro
+     * @param dni dni del usuario
+     * @return ArrayList<UsuarioVO> listado de todos los usuarios
+     */
     public ArrayList<UsuarioVO> getListaUsuarios() {
         try {
             Conexion conexionBD = Conexion.getInstance();

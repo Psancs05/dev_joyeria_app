@@ -185,7 +185,9 @@ public class ProveedorDAO implements DAO {
         return search(placeholder);
     }
 
-    // ? Deberia ser un arraylist de proveedores o de objetos??
+     /**
+     * @return lista de todos los proveedores
+     */
     public ArrayList<ProveedorVO> getListaProveedores() {
         ArrayList<ProveedorVO> listaProveedores = new ArrayList<ProveedorVO>();
         try {
@@ -206,6 +208,10 @@ public class ProveedorDAO implements DAO {
         return listaProveedores;
     }
 
+     /**
+     * @param nombre nombre del proveedor
+     * @return proveedor que coincide con el nombre
+     */
     public ProveedorVO getProveedorPorNombre(String nombre) {
         ProveedorVO nuevoProv = null;
         try {

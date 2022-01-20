@@ -26,6 +26,11 @@ public class Conexion {
         }
     }
 
+    
+    /** 
+     * Singleton de conexion
+     * @return Conexion
+     */
     public static Conexion getInstance() {
         if (miConexion == null) {
             miConexion = new Conexion();
@@ -33,10 +38,18 @@ public class Conexion {
         return miConexion;
     }
 
+    
+    /** 
+     * Get
+     * @return Connection
+     */
     public Connection getConexion() {
         return conexionBD;
     }
 
+    /** 
+     * Metodo que cierra la conexion con la base de datos
+     */
     public void disconnect() {
         try {
             conexionBD.close();
@@ -45,6 +58,11 @@ public class Conexion {
         }
     }
 
+    /** 
+     * Metodo que recibe un path donde guarda un backup de la base de datos.
+     * @param ubicacion path donde crear el .sql
+     * @return boolean true si se ha creado correctament
+     */
     public boolean generarBackup(String ubicacion) {
         try {
             String fileSeparator = File.separator;
@@ -86,6 +104,12 @@ public class Conexion {
 
     }
 
+    
+    /** 
+     * Metodo que busca un .sql backup en el path por parametro y lo restaura en la base de datos.
+     * @param ubicacion
+     * @return boolean
+     */
     public boolean restaurarBackup(String ubicacion) {
         try {
 

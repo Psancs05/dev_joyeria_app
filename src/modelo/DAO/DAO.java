@@ -1,5 +1,6 @@
 package modelo.DAO;
 
+//Interface de del modelo DAO
 public interface DAO {
     public boolean create(Object objeto);
 

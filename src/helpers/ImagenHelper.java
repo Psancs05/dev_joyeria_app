@@ -11,6 +11,12 @@ import javax.swing.ImageIcon;
 
 public class ImagenHelper {
 
+    
+    /** 
+     * Metodo que recibe un Blob(un binary stream) y lo convierte a una imagen para poder ser mostrada en la interfaz
+     * @param productoImagen blob de la imagen en la base de datos
+     * @return BufferedImage imagen del blob
+     */
     public static BufferedImage getProductoImagen(Blob productoImagen) {
         
         try {
@@ -32,6 +38,12 @@ public class ImagenHelper {
         }
     }
 
+    
+    /** 
+     * Metodo que recibe un icono y le hace un resize
+     * @param imagen imagen que se quiere cambiar el tamaño
+     * @return ImageIcon imagen con el resize aplicado
+     */
     public static ImageIcon resizeImagen(ImageIcon imagen) {
         Image image = imagen.getImage();
         Image nuevaImagen = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);

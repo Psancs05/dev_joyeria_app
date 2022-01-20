@@ -25,20 +25,44 @@ public class ProductoControlador {
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 	}
 
+	/** 
+	 * Metodo que muestra la vista de añadir producto
+	 */
 	public void mostrarAniadir() {
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 		vistaCRUDProducto.pulsarBotonAniadir();
 	}
 
+	
+	/** 
+	 * Metodo que muestra la vista de modificar
+	 * @param producto producto a modificar
+	 */
 	public void mostrarModificar(ProductoVO producto) {
 		vistaCRUDProducto.pulsarBotonModificar(producto);
 	}
 
+	/** 
+	 * Metodo que muestra la vista CRUD
+	 */
 	public void mostrarEliminar() {
 		this.vistaCRUDProducto = new CRUDProductoVista(this);
 		vistaCRUDProducto.mostrarListaProductos(false);
 	}
 
+	
+	/** 
+	 * Metodo que pide a la logica que cree un producto con los datos por parametro
+	 * @param productoAntiguo producto a modificar
+	 * @param nombre nombre
+	 * @param numCuaderno numero de cuaderno
+	 * @param tipoProducto tipo de producto
+	 * @param nombreProveedor nombre del proveedor
+	 * @param material material
+	 * @param precio precio
+	 * @param imagen path de la imagen
+	 * @param descripcion descripcion
+	 */
 	public void aniadirProducto(String nombre, int numCuaderno, TipoProducto tipoProducto, String nombreProveedor,
 			TipoMaterial material,
 			double precio,
@@ -53,10 +77,29 @@ public class ProductoControlador {
 		}
 	}
 
+	
+	/** 
+	 * Metodo que devuelve el listado de todos los productos
+	 * @return ArrayList<ProductoVO> listado de productos
+	 */
 	public ArrayList<ProductoVO> getProductos() {
 		return this.logicaProducto.solicitarProductos();
 	}
 
+	
+	/** 
+	 * Metodo pide a la logica que actualice el producto pasado por parametro con los datos que recibe
+	 * @param productoAntiguo producto a modificar
+	 * @param nombre nombre
+	 * @param numCuaderno numero de cuaderno
+	 * @param tipoProducto tipo de producto
+	 * @param nombreProveedor nombre del proveedor
+	 * @param material material
+	 * @param precio precio
+	 * @param imagen path de la imagen
+	 * @param descripcion descripcion
+	 * @throws FileNotFoundException excepcion al elegir el archivo
+	 */
 	public void modificarProducto(ProductoVO productoAntiguo, String nombre, int numCuaderno, TipoProducto tipoProducto,
 			String nombreProveedor,
 			TipoMaterial material,
@@ -69,18 +112,38 @@ public class ProductoControlador {
 				descripcion);
 	}
 
+	
+	/** 
+	 * Metodo que pide a la logica que elimine el producto pasado por parametro
+	 * @param producto producto a eliminar
+	 */
 	public void eliminarProducto(ProductoVO producto) {
 		this.logicaProducto.retirarProducto(producto);
 	}
 
+	
+	/** 
+	 * Get
+	 * @return ProductoLogica
+	 */
 	public ProductoLogica getLogicaProducto() {
 		return this.logicaProducto;
 	}
 
+	
+	/** 
+	 * Set
+	 * @param logicaProducto
+	 */
 	public void setLogicaProducto(ProductoLogica logicaProducto) {
 		this.logicaProducto = logicaProducto;
 	}
 
+	
+	/** 
+	 * Metodo que comprueba si el producto por parametro se encuentra entre los productos selecionados. Si es asi lo borra en caso contrario lo añade a la seleccion
+	 * @param producto producto a comprobar
+	 */
 	public void seleccionProductoEtiqueta(ProductoVO producto) {
 		if (this.productosEtiqueta.contains(producto)) {
 			this.productosEtiqueta.remove(producto);
@@ -95,23 +158,30 @@ public class ProductoControlador {
 		productosEtiqueta.clear();
 	}
 
-	
-
+	/** 
+	 * Get
+	 * @return ArrayList<ProductoVO>
+	 */
 	public ArrayList<ProductoVO> getProductosEtiqueta() {
 		return this.productosEtiqueta;
 	}
 
+	/** 
+	 * Metodo que limpia los productos selecionados para hacer etiquetas
+	 */
 	public void clearProductosEtiqueta() {
 		this.productosEtiqueta.clear();
 	}
 
+	/** 
+	 * Metodo Singleton de producto controlador
+	 * @return ProductoControlador
+	 */
 	public static ProductoControlador getInstance() {
 
 		if (miProductoControlador == null) {
 			miProductoControlador = new ProductoControlador();
 		}
-
 		return miProductoControlador;
-
 	}
 }

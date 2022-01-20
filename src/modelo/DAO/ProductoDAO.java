@@ -421,7 +421,10 @@ public class ProductoDAO implements DAO {
         }
     }
     
-
+  /**
+     * @param IDVenta id de la venta que queremos comprobar en los productos
+     * @return ArrayList<ProductoVO> lista de todos los productos de la venta especificada
+     */
     public ArrayList<ProductoVO> getProductosSegunIDVenta(int IDVenta) {
         try {
             Conexion conexionBD = Conexion.getInstance();
@@ -465,20 +468,3 @@ public class ProductoDAO implements DAO {
     }
 }
 
-// Codigo para convertir una imagen del ordenador en un blob que se le pasa al
-// producto que se crea
-// java.awt.image.BufferedImage img = ImageIO.read(new
-// FileInputStream("pathDeLaImagen"));
-// ByteArrayOutputStream baos = new ByteArrayOutputStream();
-// ImageIO.write(img, "jpg", baos); en jpg se pone el formato no se si es
-// totalmente necesario
-// byte[] bytes = baos.toByteArray();
-// java.sql.Blob blob = new SerialBlob(bytes);
-
-// Codigo para coger un blob de un producto y guardarlo en una imagen en tu
-// ordenador
-// java.sql.Blob blob = prod.getImagen();
-// java.io.InputStream in = blob.getBinaryStream();
-// java.awt.image.BufferedImage image = ImageIO.read(in);
-// File outputfile = new File("pathDelArhivoDondeSeEscribiraLaImagen");
-// ImageIO.write(image, "jpg", outputfile);

@@ -14,6 +14,12 @@ public class CatalogoLogica {
         this.productoDAO = ProductoDAO.getInstance();
     }
 
+    
+    /** 
+     * Metodo que devuelve un listado filtrado con unos parametros
+     * @param parametros producto que contiene la informacion necesaria para realizar el filtrado
+     * @return ArrayList<ProductoVO> listado filtrado
+     */
     public ArrayList<ProductoVO> filtrarCatalogo(ProductoVO parametros) {
         ArrayList<ProductoVO> listaCompleta = productoDAO.getListaProductos();
         ArrayList<ProductoVO> listaFiltrada = new ArrayList<>();
@@ -80,6 +86,11 @@ public class CatalogoLogica {
         return listaFiltrada;
     }
 
+    
+    /** 
+     * Metodo que devuelve todos los productos
+     * @return ArrayList<ProductoVO> listado de productos
+     */
     public ArrayList<ProductoVO> obtenerTodosProductos() {
         return productoDAO.getListaProductos();
     }

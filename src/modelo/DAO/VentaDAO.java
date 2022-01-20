@@ -11,6 +11,11 @@ import modelo.conexion.Conexion;
 public class VentaDAO implements DAO {
     private static VentaDAO miVentaDAO;
 
+    
+    /** 
+     * Singleton de VentaDAO
+     * @return VentaDAO
+     */
     public static VentaDAO getInstance() {
         if (miVentaDAO == null) {
             miVentaDAO = new VentaDAO();
@@ -18,6 +23,11 @@ public class VentaDAO implements DAO {
         return miVentaDAO;
     }
 
+    
+    /** 
+     * @param objeto venta con los datos rellenados para crearlo en la base de datos
+     * @return boolean true si se ha podido crear la venta
+     */
     public boolean create(Object objeto) {
 
         VentaVO venta = (VentaVO) objeto;
@@ -71,6 +81,11 @@ public class VentaDAO implements DAO {
         }
     }
 
+    
+    /** 
+     * @param objeto venta que se quiere buscar en la base de datos
+     * @return Object el objeto venta de la base de datos
+     */
     public Object search(Object objeto) {
         VentaVO venta = (VentaVO) objeto;
         int idVenta = venta.getID();
@@ -111,6 +126,11 @@ public class VentaDAO implements DAO {
         }
     }
 
+    
+    /** 
+     * @param id id de la venta para encontrar una venta con ese ID
+     * @return Object el objeto venta de la base de datos
+     */
     public Object searchID(int id) {
         VentaVO ventaPlaceholder = new VentaVO(Calendar.getInstance().getTime(), 1, 1, null, "777",
                 "direccionFacturacion");
@@ -118,6 +138,11 @@ public class VentaDAO implements DAO {
         return search(ventaPlaceholder);
     }
 
+    
+    /** 
+     * @param objeto venta con los datos actualizados para modificar la base de datos
+     * @return boolean true si se ha podido actulizar
+     */
     public boolean update(Object objeto) {
         VentaVO venta = (VentaVO) objeto;
         if (!exist(venta)) {
@@ -218,6 +243,11 @@ public class VentaDAO implements DAO {
         return true;
     }
 
+    
+    /** 
+     * @param objeto venta a eliminar en la base de datos
+     * @return boolean true si se ha podido eliminar
+     */
     public boolean delete(Object objeto) {
         VentaVO venta = (VentaVO) objeto;
         ArrayList<ProductoVO> listaProductos = venta.getProductos();
@@ -248,6 +278,11 @@ public class VentaDAO implements DAO {
         }
     }
 
+    
+    /** 
+     * @param objeto venta que se quiere comprobar si existe en la base de datos
+     * @return boolean true si existe
+     */
     @Override
     public boolean exist(Object objeto) {
         VentaVO venta = (VentaVO) objeto;
@@ -272,6 +307,11 @@ public class VentaDAO implements DAO {
         }
     }
 
+    
+    /** 
+     * Metodo que devuelve un listado con todas la ventas
+     * @return ArrayList<VentaVO> listado de ventas
+     */
     public ArrayList<VentaVO> getListadoVentas() {
         ArrayList<VentaVO> listaVentas = new ArrayList<VentaVO>();
         try {

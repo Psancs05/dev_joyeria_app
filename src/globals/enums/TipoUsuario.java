@@ -1,5 +1,6 @@
 package globals.enums;
 
+//Enumerado que determina los permisos de un usuario
 public enum TipoUsuario {
     ADMINISTRADOR(1), // calls constructor with value 1
     CAJERO(2); // calls constructor with value 2
