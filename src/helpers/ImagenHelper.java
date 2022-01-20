@@ -11,18 +11,26 @@ import javax.swing.ImageIcon;
 
 public class ImagenHelper {
 
-    
-    /** 
-     * Metodo que recibe un Blob(un binary stream) y lo convierte a una imagen para poder ser mostrada en la interfaz
+    /**
+     * Metodo que recibe un Blob(un binary stream) y lo convierte a una imagen para
+     * poder ser mostrada en la interfaz
+     * 
      * @param productoImagen blob de la imagen en la base de datos
      * @return BufferedImage imagen del blob
      */
     public static BufferedImage getProductoImagen(Blob productoImagen) {
-        
+
         try {
             if (productoImagen == null) {
-                File img = new File("assets" + File.separator + "logo.jpg");
-                BufferedImage image = ImageIO.read(img);
+                // ImageIcon yourImage;
+                // Image image = yourImage.getImage();
+                // BufferedImage buffered = (BufferedImage) image;
+
+                // File img = new File("assets" + File.separator + "/logo.jpg");
+
+                //ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("logo.jpg")).getImage()
+				//.getScaledInstance(120, 80, Image.SCALE_DEFAULT));
+                BufferedImage image = ImageIO.read(ImagenHelper.class.getClassLoader().getResourceAsStream("logo.jpg"));
                 return image;
             }
             java.io.InputStream in = productoImagen.getBinaryStream();
@@ -38,9 +46,9 @@ public class ImagenHelper {
         }
     }
 
-    
-    /** 
+    /**
      * Metodo que recibe un icono y le hace un resize
+     * 
      * @param imagen imagen que se quiere cambiar el tamaño
      * @return ImageIcon imagen con el resize aplicado
      */
