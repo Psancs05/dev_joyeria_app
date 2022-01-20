@@ -268,13 +268,20 @@ public class CRUDUsuarioVista extends JDialog {
 		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?",
 				"Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (result == 0) {
-			boolean response = controladorUsuario.eliminarUsuario(usuario);
-			if(!response){
+			boolean sonElMismo = controladorUsuario.mismoUsuarioActual(usuario);
+			if(!sonElMismo){
+				boolean response = controladorUsuario.eliminarUsuario(usuario);
+				listaDeUsuarios.remove(usuario);
+				System.out.println("Se ha eliminado el usuario " + usuario.toString());
+				if(!response){
+					JFrame error = new JFrame();
+					JOptionPane.showMessageDialog(error, "El DNI de este usuario esta relacionado con alguna venta.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
 				JFrame error = new JFrame();
-				JOptionPane.showMessageDialog(error, "El DNI de este usuario esta relacionado con alguna venta.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(error, "No puedes eliminar el usuario de esta sesion.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			listaDeUsuarios.remove(usuario);
-			System.out.println("Se ha eliminado el usuario " + usuario.toString());
+			
 		}
 		setVisible(false);
 		controladorUsuario.mostrarEliminar();

@@ -49,8 +49,22 @@ public class UsuarioLogica {
         return response;
     }
 
+    public boolean suficientesAdmins(){
+        ArrayList<UsuarioVO> listaUsuarios = usuarioDAO.getListaUsuarios();
+        int numAdmins = 0;
+        for(UsuarioVO usuario: listaUsuarios){
+            if(usuario.getTipoUsuario() == TipoUsuario.ADMINISTRADOR){
+                numAdmins++;
+            }
+        }
+        if(numAdmins > 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public ArrayList<UsuarioVO> solicitarUsuarios() {
         return this.usuarioDAO.getListaUsuarios();
     }
-
 }

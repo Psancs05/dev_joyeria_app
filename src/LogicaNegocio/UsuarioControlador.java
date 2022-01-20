@@ -85,6 +85,14 @@ public class UsuarioControlador {
 
 	}
 
+	public boolean mismoUsuarioActual(UsuarioVO usuario){
+		return usuario.getDNI().equals(this.usuarioActual.getDNI());
+	}
+
+	public boolean suficientesAdmins(){
+		return logicaUsuario.suficientesAdmins();
+	}
+
 	public UsuarioVO getUsuarioActual(){
 		return usuarioActual;
 	}
