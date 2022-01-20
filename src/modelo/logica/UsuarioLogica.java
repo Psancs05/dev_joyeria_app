@@ -23,13 +23,13 @@ public class UsuarioLogica {
     }
 
 
-    public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
+    public boolean registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
         boolean response = this.usuarioDAO.create(nuevoUsuario);
         if (response)
             System.out.println("Usuarios registrado: " + nuevoUsuario.toString());
-        return nuevoUsuario;
+        return response;
     }
 
     public void actualizarUsuario(UsuarioVO usarioAntiguo, String nombre, String email, String password,

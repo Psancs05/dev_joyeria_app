@@ -37,6 +37,7 @@ public class CRUDUsuarioVista extends JDialog {
 	}
 
 	JTextField tfDNI;
+	JLabel lbDNI2;
 	JTextField tfNombre;
 	JTextField tfEmail;
 	JTextField tfPassword;
@@ -157,10 +158,16 @@ public class CRUDUsuarioVista extends JDialog {
 		lbDNI.setBounds(10, 34, 113, 33);
 		dialogModificar.getContentPane().add(lbDNI);
 
-		tfDNI = new JTextField();
-		tfDNI.setColumns(10);
-		dialogModificar.getContentPane().add(tfDNI);
-		tfDNI.setBounds(316, 34, 94, 38);
+		lbDNI2= new JLabel("");
+		lbDNI2.setText(usuario.getDNI());
+		lbDNI2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lbDNI2.setBounds(316, 34, 94, 38);
+		dialogModificar.getContentPane().add(lbDNI2);
+
+		// tfDNI = new JTextField();
+		// tfDNI.setColumns(10);
+		// dialogModificar.getContentPane().add(tfDNI);
+		// ;
 
 		JLabel lbNombre = new JLabel("Nombre");
 		lbNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -214,13 +221,11 @@ public class CRUDUsuarioVista extends JDialog {
 
 		// Comprobacion de que furrula hasta que tengamos el resto hecho
 
-		String DNI = usuario.getDNI();
 		String nombre = usuario.getNombre();
 		String email = usuario.getEmail();
 		String password = usuario.getPassword();
 		TipoUsuario tipoUsuario = usuario.getTipoUsuario();
 
-		tfDNI.setText(DNI);
 		tfNombre.setText(nombre);
 		tfEmail.setText(email);
 		tfPassword.setText(password);
@@ -263,7 +268,11 @@ public class CRUDUsuarioVista extends JDialog {
 		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?",
 				"Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (result == 0) {
-			controladorUsuario.eliminarUsuario(usuario);
+			boolean response = controladorUsuario.eliminarUsuario(usuario);
+			if(!response){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "El DNI de este usuario esta relacionado con alguna venta.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 			listaDeUsuarios.remove(usuario);
 			System.out.println("Se ha eliminado el usuario " + usuario.toString());
 		}
@@ -343,14 +352,18 @@ public class CRUDUsuarioVista extends JDialog {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
-			controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
+			boolean response = controladorUsuario.aniadirUsuario(DNI, nombre, email, password,
 					tipoUsuario);
+			if(!response){
+				JFrame error = new JFrame();
+				JOptionPane.showMessageDialog(error, "Ya existe un usuario con este DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		limpiarCampos();
 	}
 
 	public void modificarUsuario(UsuarioVO usuario) {
-		String DNI = tfDNI.getText();
+		String DNI = lbDNI2.getText();
 		String nombre = tfNombre.getText();
 		String email = tfEmail.getText();
 		String password = tfPassword.getText();
@@ -366,13 +379,10 @@ public class CRUDUsuarioVista extends JDialog {
 			tipoUsuario = TipoUsuario.CAJERO;
 		}
 
-		if (DNI.equals("") || nombre.equals("") || email.equals("") || password.equals("")
+		if (nombre.equals("") || email.equals("") || password.equals("")
 				|| tipoUsuariocb.toString().equals(" ")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if (DNI.length() != 9) {
-			JFrame error = new JFrame();
-			JOptionPane.showMessageDialog(error, "El DNI no tiene 9 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (!(email.contains("@"))) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "El email no contiene @.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -383,7 +393,7 @@ public class CRUDUsuarioVista extends JDialog {
 	}
 
 	public void limpiarCampos() {
-		tfDNI.setText("");
+		//tfDNI.setText("");
 		tfNombre.setText("");
 		tfEmail.setText("");
 		tfPassword.setText("");

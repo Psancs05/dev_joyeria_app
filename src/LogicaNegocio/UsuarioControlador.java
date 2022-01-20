@@ -62,8 +62,8 @@ public class UsuarioControlador {
 		vistaCRUDUsuario.mostrarListadoDeUsuarios(false);
 	}
 
-	public void aniadirUsuario(String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
-		this.logicaUsuario.registrarUsuario(DNI, nombre, correo, password, tipo);
+	public boolean aniadirUsuario(String DNI, String nombre, String correo, String password, TipoUsuario tipo) {
+		return this.logicaUsuario.registrarUsuario(DNI, nombre, correo, password, tipo);
 	}
 
 	public void modificarUsuario(UsuarioVO usuarioAntiguo, String DNI, String nombre, String correo, String password,
@@ -71,8 +71,8 @@ public class UsuarioControlador {
 		this.logicaUsuario.actualizarUsuario(usuarioAntiguo, nombre, correo, password, tipo);
 	}
 
-	public void eliminarUsuario(UsuarioVO usuario) {
-		this.logicaUsuario.retirarUsuario(usuario);
+	public boolean eliminarUsuario(UsuarioVO usuario) {
+		return this.logicaUsuario.retirarUsuario(usuario);
 	}
 
 	public static UsuarioControlador getInstance() {

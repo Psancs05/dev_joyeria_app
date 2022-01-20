@@ -352,7 +352,7 @@ public class CRUDProductoVista extends JDialog {
 		String proveedor = comboBoxProveedor.getSelectedItem().toString();
 
 		Object comboTipo = comboBoxTipoProducto.getSelectedItem();
-		Object comboMaterial = comboBoxTipoProducto.getSelectedItem();
+		Object comboMaterial = comboBoxMaterialProducto.getSelectedItem();
 
 		TipoProducto tipoProducto;
 		TipoMaterial tipoMaterial;
@@ -379,7 +379,7 @@ public class CRUDProductoVista extends JDialog {
 
 		System.out.println(comboTipo.toString() + comboMaterial.toString());
 		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
-				|| descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")
+				|| descripcion.equals("") || proveedor.equals("") || comboTipo.toString().equals(" ")
 				|| comboMaterial.toString().equals(" ")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -436,8 +436,8 @@ public class CRUDProductoVista extends JDialog {
 
 		System.out.println(comboTipo.toString() + comboMaterial.toString());
 		if (nombre.equals("") || tfNumC.getText().equals("") || tfPrecio.getText().equals("") || imagen == null
-				|| descripcion.equals("") || proveedor.equals("default") || comboTipo.toString().equals(" ")
-				|| comboMaterial.toString().equals(" ")) {
+				|| descripcion.equals("") || proveedor.equals("") || comboTipo.toString().equals("")
+				|| comboMaterial.toString().equals("")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
