@@ -121,7 +121,7 @@ public class CRUDProveedorVista extends JDialog {
 		JDialog dialogModificar = new JDialog();
 
 		Color gris = new Color(223, 223, 223);
-		
+
 		dialogModificar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialogModificar.setVisible(true);
 		dialogModificar.setBounds(100, 100, 526, 382);
@@ -193,10 +193,9 @@ public class CRUDProveedorVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar(ProveedorVO proveedor) {
-
-		JFrame adv = new JFrame();
-		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-		if(result == 0){
+		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el Proveedor de forma definitiva ?",
+				"Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (result == 0) {
 			controladorProveedor.eliminarProveedor(proveedor);
 			listaDeProveedores.remove(proveedor);
 			System.out.println("Se ha eliminado el Proveedor " + proveedor.toString());
@@ -205,12 +204,10 @@ public class CRUDProveedorVista extends JDialog {
 		setVisible(false);
 	}
 
-	public void mostrarListadoDeProveedores(boolean seleccionar){
-
+	public void mostrarListadoDeProveedores(boolean seleccionar) {
 		listaDeProveedores = new ArrayList<ProveedorVO>();
-		listaDeProveedores = controladorProveedor.getInstance().getProveedores();
+		listaDeProveedores = controladorProveedor.getProveedores();
 		System.out.println(listaDeProveedores.toString());
-
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -226,7 +223,7 @@ public class CRUDProveedorVista extends JDialog {
 		for (ProveedorVO provVo : listaDeProveedores) {
 			model.addElement(provVo.toStringListado());
 		}
-		JList list = new JList(model);
+		JList<String> list = new JList<String>(model);
 		list.setFont(new Font("Tahoma", Font.BOLD, 17));
 		scrollPane.setViewportView(list);
 		list.setFixedCellHeight(80);
@@ -239,22 +236,22 @@ public class CRUDProveedorVista extends JDialog {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					proveedorSeleccionado = listaDeProveedores.get(index);
 
-					if(seleccionar == true){
+					if (seleccionar == true) {
 						pulsarBotonEliminar(proveedorSeleccionado);
 					} else {
 						pulsarBotonModificar(proveedorSeleccionado);
 					}
 				}
-					
+
 			}
 		};
 		list.addMouseListener(mouseListener);
 	}
-		
+
 	public void crearProveedor() {
 		String CIF = tfCIF.getText();
 		String nombre = tfNombre.getText();
-		if(CIF.equals("") || nombre.equals("") ){
+		if (CIF.equals("") || nombre.equals("")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
@@ -267,7 +264,7 @@ public class CRUDProveedorVista extends JDialog {
 	public void modificarProveedor(ProveedorVO Proveedor) {
 		String CIF = tfCIF.getText();
 		String nombre = tfNombre.getText();
-		if(CIF.equals("") || nombre.equals("") ){
+		if (CIF.equals("") || nombre.equals("")) {
 			JFrame error = new JFrame();
 			JOptionPane.showMessageDialog(error, "Debe rellenar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {

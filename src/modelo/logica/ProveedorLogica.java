@@ -33,8 +33,8 @@ public class ProveedorLogica {
     public ProveedorVO registrarProveedorVO(String CIF, String nombre) {
         ProveedorVO nuevoProveedor = new ProveedorVO(CIF, nombre);
         boolean response = this.proveedorDAO.create(nuevoProveedor);
-
-        System.out.println("Proveedor registrado: " + nuevoProveedor.toString());
+        if (response)
+            System.out.println("Proveedor registrado: " + nuevoProveedor.toString());
 
         return nuevoProveedor;
     }
@@ -44,8 +44,8 @@ public class ProveedorLogica {
 
         ProveedorVO proveedorActual = new ProveedorVO(CIF, nombre);
         boolean response = this.proveedorDAO.update(proveedorActual);
-
-        System.out.println("Proveedor actualizado: " + proveedor.toString());
+        if (response)
+            System.out.println("Proveedor actualizado: " + proveedor.toString());
     }
 
     // TODO: No se que hace este metodo
@@ -54,8 +54,8 @@ public class ProveedorLogica {
 
     public void retirarProveedorVO(ProveedorVO proveedor) {
         boolean response = this.proveedorDAO.delete(proveedor);
-
-        System.out.println("Proveedor retirado: " + proveedor.toString());
+        if (response)
+            System.out.println("Proveedor retirado: " + proveedor.toString());
     }
 
     public ProveedorVO getProveedorPorNombre(String nombre) {

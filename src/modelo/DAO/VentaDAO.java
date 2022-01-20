@@ -131,17 +131,14 @@ public class VentaDAO implements DAO {
         double precio = venta.getPrecioTotal();
         String direccion = venta.getDireccionFacturacion();
         java.util.Date date = venta.getFecha();
-        ArrayList<ProductoVO> listaProductos = venta.getProductos();
 
         // Info del objeto correspondiente en la base de datos
         VentaVO ventaBD = (VentaVO) search(venta);
         String DNIBD = ventaBD.getDNIUsuario();
-        int idVentaBD = ventaBD.getID();
         int cantidadArticulosBD = ventaBD.getCantidadArticulos();
         double precioBD = ventaBD.getPrecioTotal();
         String direccionBD = ventaBD.getDireccionFacturacion();
         java.util.Date dateBD = ventaBD.getFecha();
-        ArrayList<ProductoVO> listaProductosBD = ventaBD.getProductos();
 
         if (!(cantidadArticulos == cantidadArticulosBD)) {
             try {

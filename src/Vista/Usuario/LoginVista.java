@@ -17,7 +17,7 @@ import java.awt.Image;
 import LogicaNegocio.UsuarioControlador;
 import Vista.Vista.VistaGeneral;
 
-public class LoginVista extends JDialog{
+public class LoginVista extends JDialog {
 
 	private UsuarioControlador controladorUsuario;
 
@@ -25,7 +25,7 @@ public class LoginVista extends JDialog{
 		this.controladorUsuario = usuarioControlador;
 	}
 
-	public void botonAutentificar(){
+	public void botonAutentificar() {
 
 		JTextField textField;
 		JTextField textField_1;
@@ -41,7 +41,8 @@ public class LoginVista extends JDialog{
 
 		JLabel lblNewLabel_4 = new JLabel();
 		String fileSeparator = File.separator;
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg").getImage().getScaledInstance(120, 80, Image.SCALE_DEFAULT));
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("assets" + fileSeparator + "logo.jpg").getImage()
+				.getScaledInstance(120, 80, Image.SCALE_DEFAULT));
 		lblNewLabel_4.setIcon(imageIcon);
 		lblNewLabel_4.setBounds(204, 28, 141, 70);
 		getContentPane().add(lblNewLabel_4);
@@ -50,24 +51,22 @@ public class LoginVista extends JDialog{
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel.setBounds(132, 123, 121, 33);
 		getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("     Password");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel_1.setBounds(132, 176, 121, 33);
 		getContentPane().add(lblNewLabel_1);
-		
+
 		textField = new JTextField();
 		textField.setBounds(263, 132, 121, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setBounds(263, 185, 121, 20);
 		getContentPane().add(textField_1);
 
-		
-		
 		JButton btnNewButton = new JButton("Iniciar sesion");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnNewButton.setBackground(gris);
@@ -76,21 +75,22 @@ public class LoginVista extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				String dni = textField.getText();
 				String password = textField_1.getText();
-				if(dni.equals("") || password.equals("")){
+				if (dni.equals("") || password.equals("")) {
 					JFrame error = new JFrame();
-					JOptionPane.showMessageDialog(error, "Introduzca DNI y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
-				} else if(controladorUsuario.comprobarUsuario(dni, password) == false){
+					JOptionPane.showMessageDialog(error, "Introduzca DNI y contraseña.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else if (controladorUsuario.comprobarUsuario(dni, password) == false) {
 					JFrame error = new JFrame();
-					JOptionPane.showMessageDialog(error, "Usuario o contrasenia incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(error, "Usuario o contrasenia incorrectos.", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
-					VistaGeneral window = new VistaGeneral();
+					new VistaGeneral();
 					setVisible(false);
 				}
 
 			}
 		});
 		getContentPane().add(btnNewButton);
-
 
 	}
 }

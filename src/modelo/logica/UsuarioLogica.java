@@ -18,7 +18,7 @@ public class UsuarioLogica {
         return response;
     }
 
-    public UsuarioVO getUsuarioPorDNI(String dni){
+    public UsuarioVO getUsuarioPorDNI(String dni) {
         return (UsuarioVO) usuarioDAO.getUsuarioPorDNI(dni);
     }
 
@@ -29,7 +29,9 @@ public class UsuarioLogica {
     public UsuarioVO registrarUsuario(String dni, String nombre, String email, String password,
             TipoUsuario tipoUsuario) {
         final UsuarioVO nuevoUsuario = new UsuarioVO(dni, nombre, email, password, tipoUsuario);
-        boolean response = this.usuarioDAO.create(nuevoUsuario); // no vale para nada
+        boolean response = this.usuarioDAO.create(nuevoUsuario);
+        if (response)
+            System.out.println("Usuarios registrado: " + nuevoUsuario.toString());
         return nuevoUsuario;
     }
 

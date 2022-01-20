@@ -79,7 +79,7 @@ public class ProductoLogica {
         img = ImageIO.read(new FileInputStream(imagen));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(img, "jpg", baos);
-        byte[] bytes = baos.toByteArray();
+        // byte[] bytes = baos.toByteArray();
         // java.sql.Blob blob = new SerialBlob(blob); //!ESTA LINEA DA EROR
         // productoAntiguo.setImagen(blob);
         productoAntiguo.setMaterial(material);

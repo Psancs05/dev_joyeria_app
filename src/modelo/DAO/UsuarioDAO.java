@@ -267,7 +267,6 @@ public class UsuarioDAO implements DAO {
             PreparedStatement pst = con.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             ArrayList<UsuarioVO> listaUsuarios = new ArrayList<UsuarioVO>();
-            ProveedorDAO provDAO = ProveedorDAO.getInstance();
             while (rs.next()) {
                 // Obtenemos los datos del producto de la db
                 String DNI = rs.getString("DNI");
@@ -275,7 +274,6 @@ public class UsuarioDAO implements DAO {
                 String email = rs.getString("Email");
                 String password = rs.getString("Password");
                 TipoUsuario tUsuario = TipoUsuario.valueOf(rs.getString("TipoUsuario"));
-
 
                 // Creamos el producto con los datos obtenidos
                 UsuarioVO usuario = new UsuarioVO(DNI, nombre, email, password, tUsuario);

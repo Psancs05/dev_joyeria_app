@@ -260,8 +260,6 @@ public class CRUDUsuarioVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar(UsuarioVO usuario) {
-
-		JFrame adv = new JFrame();
 		int result = JOptionPane.showConfirmDialog(null, "Quieres eliminar el usuario de forma definitiva ?",
 				"Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (result == 0) {
@@ -276,7 +274,7 @@ public class CRUDUsuarioVista extends JDialog {
 	public void mostrarListadoDeUsuarios(boolean seleccionar) {
 
 		listaDeUsuarios = new ArrayList<UsuarioVO>();
-		listaDeUsuarios = controladorUsuario.getInstance().getUsuarios();
+		listaDeUsuarios = controladorUsuario.getUsuarios();
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -292,7 +290,7 @@ public class CRUDUsuarioVista extends JDialog {
 		for (UsuarioVO userVo : listaDeUsuarios) {
 			model.addElement(userVo.toStringListado());
 		}
-		JList list = new JList(model);
+		JList<String> list = new JList<String>(model);
 		list.setFont(new Font("Tahoma", Font.BOLD, 17));
 		scrollPane.setViewportView(list);
 		list.setFixedCellHeight(80);

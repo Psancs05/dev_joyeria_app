@@ -324,7 +324,6 @@ public class CRUDProductoVista extends JDialog {
 	}
 
 	public void pulsarBotonEliminar(ProductoVO producto) {
-		JFrame adv = new JFrame();
 		int result = JOptionPane.showConfirmDialog(null,
 				"Quieres eliminar el producto de forma definitiva ?", "Confirmar eliminar",
 				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -337,9 +336,9 @@ public class CRUDProductoVista extends JDialog {
 	public void mostrarListaProductos(boolean seleccionar) {
 		System.out.println(seleccionar);
 		if (seleccionar == false) {
-			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.ELIMINAR);
+			new CatalogoVista(TipoCatalogo.ELIMINAR);
 		} else {
-			CatalogoVista catalogo = new CatalogoVista(TipoCatalogo.MODIFICAR);
+			new CatalogoVista(TipoCatalogo.MODIFICAR);
 			// JList<ProductoVO> list = catalogo.getJList();
 			// ArrayList<ProductoVO> listaDeProductos = catalogo.getListaProductos();
 

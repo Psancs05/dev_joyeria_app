@@ -41,7 +41,7 @@ public class TestsVentaDAO {
         arrayProductos = new ArrayList<>();
         arrayProductos.add(gafas);
         java.util.Date fecha = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+        // java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
         venta = new VentaVO(fecha, 1, gafas.getPrecio(), arrayProductos, user.getDNI(),
                 "camino esperanza 6");
     }
