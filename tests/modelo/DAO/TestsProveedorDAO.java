@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,6 +50,12 @@ public class TestsProveedorDAO {
     public void setUp() {
         proveedor1 = new ProveedorVO("244668", "Joyas S.L.");
         proveedor2 = new ProveedorVO("133557", "Joyas S.A.");
+    }
+
+    @After
+    public void tearDown(){
+        provDAO.delete(proveedor1);
+        provDAO.delete(proveedor2);
     }
 
     @Test
@@ -122,6 +129,16 @@ public class TestsProveedorDAO {
         provDAO.create(proveedor1);
         ProveedorVO prov = provDAO.getProveedorPorNombre("Joyas S.L.");
         assertTrue(prov.equals(proveedor1));
+    }
+
+    @Test
+    public void testComprobarUnico(){
+        ProveedorVO provTest1 = new ProveedorVO("CIF", "nombre1");
+        ProveedorVO provTest2 = new ProveedorVO("CIF2", "nombre1");
+        provDAO.create(provTest1);
+        assertTrue(provDAO.comprobarSiExisteOtroMismoNombre(provTest2));
+        provDAO.delete(provTest1);
+
     }
 
 }

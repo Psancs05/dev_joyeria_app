@@ -258,7 +258,7 @@ public class CRUDProveedorVista extends JDialog {
 			boolean response = controladorProveedor.aniadirProveedor(CIF, nombre);
 			if(!response){
 				JFrame error = new JFrame();
-				JOptionPane.showMessageDialog(error, "Ya existe un proveedor con ese CIF.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(error, "Ya existe un proveedor con ese CIF o nombre", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		limpiarCampos();
