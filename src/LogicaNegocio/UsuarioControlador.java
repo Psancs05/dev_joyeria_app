@@ -28,13 +28,13 @@ public class UsuarioControlador {
 	}
 
 	public boolean comprobarUsuario(String dni, String password) {
-		UsuarioVO usuarioActivo = logicaUsuario.comprobarUsuario(dni, password);
-		if (usuarioActivo == null) {
-			return false;
-		} else {
-			usuarioActual = usuarioActivo;
-			return true;
+		boolean response = logicaUsuario.comprobarUsuario(dni, password);
+		if (response) {
+			usuarioActual = logicaUsuario.getUsuarioPorDNI(dni);
+		}else{
+			usuarioActual = null;
 		}
+		return response;
 
 	}
 

@@ -13,10 +13,13 @@ public class UsuarioLogica {
         this.usuarioDAO = UsuarioDAO.getInstance();
     }
 
-    public UsuarioVO comprobarUsuario(String dni, String password) {
+    public boolean comprobarUsuario(String dni, String password) {
         boolean response = this.usuarioDAO.autenticarUsuario(dni, password);
-        UsuarioVO usuario = (UsuarioVO) usuarioDAO.search(new UsuarioVO(dni, ".", ".", password, TipoUsuario.CAJERO));
-        return usuario;
+        return response;
+    }
+
+    public UsuarioVO getUsuarioPorDNI(String dni){
+        return (UsuarioVO) usuarioDAO.getUsuarioPorDNI(dni);
     }
 
     public void cerrarSesion() {
